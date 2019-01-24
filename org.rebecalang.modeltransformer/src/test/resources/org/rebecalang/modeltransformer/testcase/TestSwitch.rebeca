@@ -1,0 +1,49 @@
+//Traffic Light Simple version
+//All Correct
+// The traffic light signals the other one to go Green after it becomes Red.
+
+reactiveclass TrafficLightX(5) {
+	knownrebecs {
+		TrafficLightX tOther;
+	}
+
+	statevars {
+		int Color;
+	}
+
+	TrafficLightX(int myId) {
+		Color = 0;	/* red */
+		int x = 2;
+		int y = 2;
+		switch(y){
+			case 1 : self.YellowtoRed();
+			case 2 : self.RedToGreen();
+		}
+		if (myId==1) {
+		   // self.RedtoGreen();
+		    }	
+	}
+	
+	msgsrv RedtoGreen() {
+		Color = 1;
+//		self.GreentoYellow();
+	}
+	
+	msgsrv GreentoYellow() {
+		Color = 2;
+
+	}
+	
+	msgsrv YellowtoRed() {
+		Color = 0;
+	//	tOther.RedtoGreen();
+	}
+	
+	
+}
+
+
+main {
+	TrafficLightX traffic1X(traffic2X):(1);
+	TrafficLightX traffic2X(traffic1X):(2);
+}

@@ -1,0 +1,67 @@
+reactiveclass Sensor(10){
+	knownrebecs{
+		SensorDataTopic topic;
+	}
+	
+	Sensor(){
+		
+	}
+}
+
+
+@Topic
+reactiveclass SensorDataTopic(10){
+	knownrebecs{
+		Subscriber1 sub1;
+		Subscriber2 sub2;
+		Subscriber3 sub3;
+	}
+	
+	statevars{
+
+	}
+	SensorDataTopic(){
+	}
+	
+	msgsrv publish(int x, int y, int z){
+		sub1.sensorDataTopicCallback(x, y, z);
+		sub2.sensorDataTopicCallback(x, y, z);
+		sub3.sensorDataTopicCallback(x, y, z);
+
+	}	
+}
+
+reactiveclass Subscriber1(10){
+	knownrebecs{
+	}
+	Subscriber1(){
+	}
+	
+	msgsrv sensorDataTopicCallback(int x, int y, int z){
+	}
+}
+
+reactiveclass Subscriber2(10){
+	knownrebecs{
+	}
+	Subscriber2(){
+	}
+	msgsrv sensorDataTopicCallback(int x, int y, int z){
+	}
+	
+}
+
+reactiveclass Subscriber3(10){
+	Subscriber3(){
+	}
+	msgsrv sensorDataTopicCallback(int x, int y, int z){
+	}
+}
+
+main{
+	Sensor sensor(topic):();
+	SensorDataTopic topic(subscriber1, subscriber2, subscriber3):();
+	Subscriber1 subscriber1():();
+	Subscriber2 subscriber2():();
+	Subscriber3 subscriber3():();
+}

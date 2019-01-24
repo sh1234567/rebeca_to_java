@@ -1,0 +1,26 @@
+<launch>
+<node pkg="TrainController" type="Train_node" name="train1_node">
+<param  name="sender" type="str" value="train1"/>
+<remap from="Train/YouMayPass" to="train1/YouMayPass"/>
+<remap from="Train/Passed" to="train1/Passed"/>
+<remap from="Train/ReachBridge" to="train1/ReachBridge"/>
+<remap from="controller/Arrive" to="theController/Arrive"/>
+<remap from="controller/Leave" to="theController/Leave"/>
+</node>
+<node pkg="TrainController" type="Train_node" name="train2_node">
+<param  name="sender" type="str" value="train2"/>
+<remap from="Train/YouMayPass" to="train2/YouMayPass"/>
+<remap from="Train/Passed" to="train2/Passed"/>
+<remap from="Train/ReachBridge" to="train2/ReachBridge"/>
+<remap from="controller/Arrive" to="theController/Arrive"/>
+<remap from="controller/Leave" to="theController/Leave"/>
+</node>
+<node pkg="TrainController" type="BridgeController_node" name="theController_node">
+<param  name="sender" type="str" value="theController"/>
+<remap from="BridgeController/Arrive" to="theController/Arrive"/>
+<remap from="BridgeController/Leave" to="theController/Leave"/>
+<remap from="t2/YouMayPass" to="train2/YouMayPass"/>
+<remap from="t1/YouMayPass" to="train1/YouMayPass"/>
+</node>
+
+</launch>

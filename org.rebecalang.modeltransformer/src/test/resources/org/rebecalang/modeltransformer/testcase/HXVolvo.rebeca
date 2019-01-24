@@ -1,0 +1,553 @@
+/* Scenario with 2 haulers */
+env byte numOfMachine = 2;
+
+env byte  chargeAmount = 27;
+env int chargeBatteryPerUnit = 10000; // 10 seconds
+
+/* Time needed for communicating among AutonomousMachine */
+env int comTime = 500; // 0.5 second
+
+/* Waiting time*/
+env int waitingTime = 60000; //60 seconds
+
+/* Safety distance limit */
+env byte distanceLimit = 2;
+
+/* Environment bounds */
+env byte xBound = 10;
+env byte yBound = 10;
+
+/* DECLARATION OF FINAL VARIABLES */
+/* SEQUENCE OF POSITIONS FOR REACHING A TASK */
+
+/* Task -> Task paths (actions) */
+/*
+	 CS | LP | WL | UP
+CS  n |  1 |  3 |  5
+---------------------
+LP  0 |  n |  n |  7
+---------------------
+WL  2 |  n |  n |  9
+---------------------
+UP  4 |  6 |  8 |  n
+---------------------
+*/
+env byte[4][4] taskNumber = {{-1,1,3,5},
+														 {0,-1,-1,7},
+														 {2,-1,-1,9},
+														 {4,6,8,-1}
+														};
+
+env byte[10][16][2] pathCoordinate = {
+		{{1,6},{2,6},{3,6},{4,6},{5,6},{6,5},{6,4},{6,3},{6,2},{6,1},{6,0},{5,0},{-1,-1},{-1,-1},{-1,-1},{-1,-1}}, 												// LP->CS
+		{{4,1},{4,2},{4,3},{4,4},{4,5},{3,5},{2,5},{1,5},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}},								// CS->LP
+		{{3,8},{4,8},{5,8},{5,7},{5,6},{5,5},{5,4},{5,3},{5,2},{5,1},{5,0},{4,0},{-1,-1},{-1,-1},{-1,-1},{-1,-1}},												// WL->CS
+		{{4,1},{4,2},{4,3},{4,4},{4,5},{4,6},{4,7},{3,7},{2,7},{2,8},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}},										// CS->WL
+		{{8,0},{7,0},{6,0},{5,0},{4,0},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}},					// UP->CS
+		{{4,1},{5,1},{6,1},{7,1},{8,1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}},					// CS->UP
+		{{8,2},{7,2},{6,2},{6,3},{5,3},{4,3},{4,4},{4,5},{3,5},{2,5},{1,5},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}},											// UP->LP
+		{{1,6},{2,6},{3,6},{4,6},{5,6},{5,5},{5,4},{5,3},{5,2},{5,1},{6,1},{7,1},{8,1},{-1,-1},{-1,-1},{-1,-1}},													// LP->UP
+		{{8,2},{7,2},{6,2},{6,3},{5,3},{4,3},{4,4},{4,5},{4,6},{4,7},{3,7},{2,7},{2,8},{-1,-1},{-1,-1},{-1,-1}},													// UP->WL
+		{{3,8},{4,8},{5,8},{5,7},{5,6},{5,5},{5,4},{5,3},{5,2},{5,1},{6,1},{7,1},{8,1},{-1,-1},{-1,-1},{-1,-1}} 													// WL->UP
+		 };
+
+/* TIMES */
+/*
+flat: 60000 milliseconds +/- 0..5 seconds,
+downhill: 45000 milliseconds +/- 0..5seconds,
+slope: 75000 milliseconds +/- 0..5 seconds;
+
+TASK TIMES
+CS : chargeBatteryPerUnit X chargeAmount in milliseconds
+LP : 150000ms,
+WL : 150000ms,
+UP : 100000ms;
+*/
+
+env int[10][16] pathsTimes = {
+															{61156,60151,58984,62168,63041,78305,74334,75481,73310,73054,72610,60310,200000,-1,-1,-1},		// LP->CS
+															{46084,45098,47640,43024,41640,60994,62064,58301,150000,-1,-1,-1,-1,-1,-1,-1},		// CS->LP
+															{63640,58060,58604,73030,75002,78344,79050,74305,75054,72054,76045,66054,200000,-1,-1,-1},		// WL->CS
+															{47304,45054,43045,45021,48021,55033,47015,63481,60021,44615,150000,-1,-1,-1,-1,-1},	// CS->WL
+															{79481,62084,60004,61004,62064,200000,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},		// UP->CS
+															{47651,63054,61213,58518,58084,100000,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},		// CS->UP
+															{48312,60048,61048,44984,61078,62648,44015,48548,61648,60054,62551,150000,-1,-1,-1,-1},		// UP->LP
+															{44840,62084,61989,62618,59098,73335,73989,76998,75021,75322,62048,59848,61660,100000,-1,-1},		// LP->UP
+															{44018,61616,61118,44688,62081,63118,46787,45777,45985,42452,61004,60848,48884,150000,-1,-1},		// UP->WL
+															{62335,62554,59454,63115,63665,61448,60488,60088,59988,59048,62464,62684,60887,100000,-1,-1}		// WL->UP
+															};
+
+reactiveclass Environment(4){
+
+	/* Whole Autonomous Machine */
+	knownrebecs{
+		AutonomousMachine am0;
+		AutonomousMachine am1;
+	}
+
+	statevars{
+		/* All the AutonomousMachine positions */
+		byte[2][2] amPositions;
+	}
+
+	Environment(byte am0X, byte am0Y, byte am1X, byte am1Y){
+		amPositions[0][0] = am0X;
+		amPositions[0][1] = am0Y;
+
+		amPositions[1][0] = am1X;
+		amPositions[1][1] = am1Y;
+	}
+
+	msgsrv askClosestAutonomousMachine(){
+
+		byte amID;
+
+		/* Get the sender id */
+		if (sender == am0)
+			amID = 0;
+		else if (sender == am1)
+			amID = 1;
+
+		boolean[2] cAM;
+
+		cAM[amID] = false;
+
+		for (byte i = 0; i < numOfMachine; i++)
+			if (i != amID)
+				cAM[i] = isAutonomousMachineCloseEnough(amPositions[amID][0], amPositions[amID][1], amPositions[i][0], amPositions[i][1]);
+
+
+		/* Reply saying which AutonomousMachine is too close */
+		switch (amID){
+			case 0 : am0.closestAutonomousMachine(cAM[0], cAM[1]) after(comTime); break;
+			case 1 : am1.closestAutonomousMachine(cAM[0], cAM[1]) after(comTime); break;
+		}
+	}
+
+	msgsrv selectLPorWL(){
+
+		byte queueLP = 0;
+		byte queueWL = 0;
+
+		/* Check Path from intersection 4,5 to LP congestion */
+		for (byte i = 0; i < numOfMachine; i++)
+			if ( (amPositions[i][0] == 3 && amPositions[i][1] == 5) ||
+						((amPositions[i][0] == 2 && amPositions[i][1] == 5)) )
+				queueLP++;
+
+		/* Check Path from intersection 4,5 to WL congestion */
+		for (byte i = 0; i < numOfMachine; i++)
+			if ( (amPositions[i][0] == 4 && amPositions[i][1] == 6) ||
+						((amPositions[i][0] == 4 && amPositions[i][1] == 7)) ||
+							((amPositions[i][0] == 3 && amPositions[i][1] == 7)) ||
+								((amPositions[i][0] == 2 && amPositions[i][1] == 7)) ||
+									((amPositions[i][0] == 2 && amPositions[i][1] == 8))    )
+				queueWL++;
+
+		boolean isLPBetter = queueLP <= queueWL;
+
+
+		/* Get the sender id */
+		if (sender == am0)
+			am0.reachLPDestination(isLPBetter) after(comTime);
+		else if (sender == am1)
+			am1.reachLPDestination(isLPBetter) after(comTime);
+
+	}
+
+	msgsrv act(byte currX, byte currY){
+
+		byte amID;
+
+		/* Get the sender id */
+		if (sender == am0)
+			amID = 0;
+		else if (sender == am1)
+			amID = 1;
+
+		amPositions[amID][0] = currX;
+		amPositions[amID][1] = currY;
+
+		/* Check for haulers' crashes */
+
+		if (currX < 0 || currX >= xBound || currY < 0 || currY >= yBound)
+			assertion(false, "Hauler crashed");
+	}
+
+	/* METHOD: check if two machine are too much close */
+	boolean isAutonomousMachineCloseEnough(byte x0, byte y0, byte x1, byte y1){
+		int distance = 0;
+		int xDist, yDist;
+
+		if (x0 >= x1)
+		  xDist = (x0 - x1);
+		else
+			xDist = (x1 - x0);
+
+		if (y0 >= y1)
+			yDist = (y0 - y1);
+		else
+			yDist = (y1 - y0);
+
+		distance = xDist + yDist;
+
+		if ( distance <= distanceLimit )
+			return true;
+		else
+			return false;
+	}
+
+}
+
+
+reactiveclass AutonomousMachine(4){
+
+	knownrebecs{
+		/* The Environment */
+		Environment environment;
+
+		/* Each autonomous machine knows all the others and it-self */
+		AutonomousMachine am0;
+		AutonomousMachine am1;
+	}
+
+	statevars{
+		/* The machine personal ID. It represents also priority value in case of
+		*  mutual exclusion in a position.
+		*/
+		byte id;
+
+		/* The current position x,y */
+		byte[2] currentPos;
+
+		/* Other Autonomous Machine Status
+		-1 : no information
+		 0 : not concurrency
+		 1 : concurrency
+		*/
+		byte[2] otherAuthMachines;
+
+		/* Battery Level */
+		int batteryLevel;
+
+		/* Task Plan */
+		byte originTask;
+		byte destinationTask;
+		byte pathIndex;
+
+	}
+
+
+	AutonomousMachine(byte ID, byte initX, byte initY, byte originTaskInit,
+	 										byte destinationTaskInit, byte pathIndexInit){
+
+		id = ID;
+
+		currentPos[0] = initX;
+		currentPos[1] = initY;
+
+		originTask = originTaskInit;
+		destinationTask = destinationTaskInit;
+		pathIndex = pathIndexInit;
+
+		/* init otherAuthMachines variable. -1: no information */
+		for (byte i = 0; i < numOfMachine; i++)
+			otherAuthMachines[i] = -1;
+
+		/* Initialize battery level */
+		batteryLevel = chargeAmount;
+
+		/* Memorize my next position */
+		otherAuthMachines[id] = 0;
+
+		self.initAutonomousMachine() after(1);
+
+	} // End constructor
+
+	/* Init the rebecs */
+	msgsrv initAutonomousMachine(){
+
+		int timeForMoving = getTimeForMoving(originTask, destinationTask, pathIndex) + comTime;
+
+		/* Perceive the environment */
+		environment.askClosestAutonomousMachine() after(timeForMoving);
+
+	}
+
+	msgsrv closestAutonomousMachine(boolean autMach0, boolean autMach1){
+
+		byte pathNum = getPathNum(originTask, destinationTask);
+
+		/* Check which AutonomousMachine is too close and update nextPositions var */
+
+		/* AM-0 */
+		if(autMach0 && id != 0)
+			am0.askYourPositionAtTime() after(comTime);
+		else if(id != 0)
+			otherAuthMachines[0] = 0;
+
+		/* AM-1 */
+		if(autMach1 && id != 1)
+			am1.askYourPositionAtTime() after(comTime);
+		else if(id != 1)
+			otherAuthMachines[1] = 0;
+
+		if (!autMach0 && !autMach1){ // There is not any AutonomousMachine closer enough, so move freely
+			/***********************************************************/
+
+			/* ACT: Moving to the next position */
+			/* Decrease battery level */
+			batteryLevel--;
+
+			currentPos[0] = pathCoordinate[pathNum][pathIndex][0];
+			currentPos[1] = pathCoordinate[pathNum][pathIndex][1];
+			pathIndex++;
+			environment.act(currentPos[0], currentPos[1]);
+
+			/* Check for battery level */
+			if (batteryLevel <= 0)
+				assertion(false,"Low battery");
+
+			/* Deleting all the previous information */
+			for (byte i = 0; i < numOfMachine; i++)
+				otherAuthMachines[i] = -1;
+
+			boolean isNotAtIntersection = true;
+
+			/* CHOOSE WHERE TO GO: WL or LP IN CASE THE HX IS GOING TO CHARGE MATERIAL, AT INTERSECTION 4,5*/
+			if (currentPos[0] == 4 && currentPos[1] == 5 && (destinationTask == 1 || destinationTask == 2))
+				environment.selectLPorWL() after(comTime); // Ask to Environment wich destination is better: LP or WL
+			else { /* The AutonomousMachine is not at the intersection */
+				int timeForMoving = getTimeForMoving(originTask, destinationTask, pathIndex) + comTime;
+
+				byte newX = pathCoordinate[pathNum][pathIndex][0];
+				byte newY = pathCoordinate[pathNum][pathIndex][1];
+
+				if ( newX != -1 && newY != -1){
+					/* The machine is not arrived yet to its destination task */
+					/* Compute the next position and check it again */
+
+					/* Memorize my next position */
+					otherAuthMachines[id] = 0;
+
+					/* Perceive the environment */
+					environment.askClosestAutonomousMachine() after(timeForMoving);
+				}
+				else{
+					if(destinationTask == 0) // the destination task is the charging station
+						timeForMoving = ( (chargeAmount - batteryLevel) * chargeBatteryPerUnit ) + comTime; // Time for moving depends on the units of battery to recharge
+
+				self.selectNextTask() after(timeForMoving); // The task is done and select the next one
+
+				}
+			}
+		}
+		/***********************************************************/
+
+	}
+
+	msgsrv askYourPositionAtTime(){
+
+		if ( sender == am0 )
+			am0.myNextPosition(currentPos[0], currentPos[1]) after(comTime);
+		else if (sender == am1)
+			am1.myNextPosition(currentPos[0], currentPos[1]) after(comTime);
+
+	}
+
+
+	msgsrv selectNextTask(){
+
+		originTask = destinationTask;
+
+		if (destinationTask == 0)
+			batteryLevel = chargeAmount;
+
+		pathIndex = 0;
+
+		byte taskIndex = getTaskIndex(destinationTask);
+
+		switch (taskIndex) {
+			case 0 : destinationTask = 3; break;
+			case 1 : destinationTask = 0; break;
+			case 2 : destinationTask = 1; break;
+		}
+
+		byte pathNum = getPathNum(originTask, destinationTask);
+
+		int timeForMoving = getTimeForMoving(originTask, destinationTask, pathIndex) + comTime;
+
+		/* Store all my information */
+		otherAuthMachines[id] = 0;
+
+		/* Perceive the environment */
+		environment.askClosestAutonomousMachine() after(timeForMoving);
+
+	} // End msgsrv selectNextTask();
+
+
+	msgsrv myNextPosition(byte nextX, byte nextY){
+		byte pathNum = getPathNum(originTask, destinationTask);
+
+		byte myNextX = pathCoordinate[pathNum][pathIndex][0];
+		byte myNextY = pathCoordinate[pathNum][pathIndex][1];
+
+		/* Check free collision */
+		if( (currentPos[0] == nextX) && (currentPos[1] == nextY) )
+			assertion(false, "Collision");
+
+		byte machineId;
+
+		if ( sender == am0 )
+			machineId = 0;
+		else if (sender == am1)
+			machineId = 1;
+
+		/* Store all the information */
+		otherAuthMachines[machineId] = checkGivenPosition(myNextX, myNextY, nextX, nextY);
+
+		boolean isWaiting = false;
+
+		/* Check if all haulers provided their nextPosition */
+		/*				SYNCHRONIZATION						*/
+		boolean allHaulers = false;
+		for (byte i = 0; i < numOfMachine; i++)
+			if ( otherAuthMachines[i] == -1 ){
+				allHaulers = false;
+				break;
+			}
+			else
+				allHaulers = true;
+
+		/* All the haulers provided their next positions and next times
+		 * The haulers next position's comparation takes place only among the same next time stamp
+		 */
+		if ( allHaulers )
+		{
+
+			/* Decide which hauler can move to the next position */
+			for (byte i = 0; i < numOfMachine; i++)
+				if (i != id)
+					if ( otherAuthMachines[i] == 1){
+						isWaiting = true;
+						break;
+					}
+
+			/***********************************************************/
+			/* ACT: Moving to the next position */
+
+			/* Decrease battery level */
+			batteryLevel--;
+
+			if (!isWaiting){
+				currentPos[0] = myNextX;
+				currentPos[1] = myNextY;
+				pathIndex++;
+			}
+
+			environment.act(currentPos[0], currentPos[1]);
+
+			/* Check for battery level */
+			if (batteryLevel <= 0)
+				assertion(false,"Low battery");
+
+			/* Deleting all the previous information */
+			for (byte i = 0; i < numOfMachine; i++)
+				otherAuthMachines[i] = -1;
+
+			boolean isNotAtIntersection = true;
+
+			/************************************************************************************************/
+			/* CHOOSE WHERE TO GO: WL or LP IN CASE THE HX IS GOING TO CHARGE MATERIAL, AT INTERSECTION 4,5 */
+			if (currentPos[0] == 4 && currentPos[1] == 5 && (destinationTask == 1 || destinationTask == 2))
+				environment.selectLPorWL() after(comTime);
+			else {
+				int timeForMoving = getTimeForMoving(originTask, destinationTask, pathIndex) + comTime;
+
+				byte newX = pathCoordinate[pathNum][pathIndex][0];
+				byte newY = pathCoordinate[pathNum][pathIndex][1];
+
+				if ( newX != -1 && newY != -1){
+					/* The machine is not arrived yet to its destination task */
+					/* Compute the next position and check it again */
+
+					/* Memorize my next position */
+					otherAuthMachines[id] = 0;
+
+					/* Perceive the environment */
+					environment.askClosestAutonomousMachine() after(timeForMoving);
+				}
+				else{
+					if(destinationTask == 0) // the destination task is the charging station
+						timeForMoving = ( (chargeAmount - batteryLevel) * chargeBatteryPerUnit ) + comTime; // Time for moving depends on the units of battery to recharge
+
+				self.selectNextTask() after(timeForMoving); // The task is done and select the next one
+
+				}
+			}
+			/***********************************************************/
+
+		}
+	}
+
+	msgsrv reachLPDestination(boolean isLPBetter){
+
+		destinationTask = isLPBetter ? 1 : 2;
+		byte pathNum = isLPBetter ? 1 : 3;
+		pathIndex = 5;
+
+		int timeForMoving = getTimeForMoving(originTask, destinationTask, pathIndex) + comTime;
+
+		otherAuthMachines[id] = 0;
+
+		/* Perceive the environment */
+		environment.askClosestAutonomousMachine() after(timeForMoving);
+
+	}
+
+	/*************** METHODS **********************/
+	byte checkGivenPosition(byte x1, byte y1, byte x2, byte y2){
+		if ( (x1 != x2) || (y1 != y2) )
+			return 0;
+		else
+			return 1;
+	}
+
+	int getTimeForMoving(byte originTaskPar, byte destinationTaskPar, byte pathIndexPar){
+		byte pathNum = getPathNum(originTaskPar, destinationTaskPar);
+
+		return pathsTimes[pathNum][pathIndexPar];
+	}
+
+	byte getTaskIndex(byte destinationTaskPar){
+		byte taskIndex;
+
+		switch (destinationTaskPar){
+			case 0: taskIndex = 2; break;
+			case 1: taskIndex = 0; break;
+			case 2: taskIndex = 0; break;
+			case 3: taskIndex = 1; break;
+		}
+		return taskIndex;
+	}
+
+	byte getPathNum(byte originTaskPar, byte destinationTaskPar){
+		return taskNumber[originTaskPar][destinationTaskPar];
+	}
+
+}
+
+
+
+
+main {
+	/* Initial Positions */
+	Environment envr(hx0, hx1):(4,2,8,0);
+
+	/*																0				 1		 2															...	*/
+	/* PRE-FIXED SEQUENCE OF TASKs CS -> LP|WL -> UP -> LP|WL -> UP -> CS -> LP|WL....  */
+	/* byte ID, byte initX, byte initY, byte originTask, byte destinationTask, byte pathIndex */
+	AutonomousMachine hx0(envr, hx0, hx1):(0, 4, 2, 0, 1, 2);
+	AutonomousMachine hx1(envr, hx0, hx1):(1, 8, 0, 3, 0, 1);
+
+}

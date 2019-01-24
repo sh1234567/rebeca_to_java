@@ -1,0 +1,3586 @@
+<transitionsystem>
+<state id="0" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<state id="1" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="0" destination="1"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="2" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="1" destination="2"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="3" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="2" destination="3"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="4" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="3" destination="4"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="5" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="4" destination="5"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="6" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="5" destination="6"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<state id="7" atomicpropositions="train1Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="6" destination="7"> <messageserver sender="theController" owner="train1" title="YOUMAYPASS"/></transition>
+<state id="8" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="7" destination="8"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="9" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="8" destination="9"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="10" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="9" destination="10"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="11" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">true</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="10" destination="11"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<state id="12" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="11" destination="12"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="13" atomicpropositions="train2Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="12" destination="13"> <messageserver sender="theController" owner="train2" title="YOUMAYPASS"/></transition>
+<state id="14" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="13" destination="14"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="15" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="14" destination="15"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="16" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">true</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="15" destination="16"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<state id="17" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="16" destination="17"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="18" atomicpropositions="train1Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="17" destination="18"> <messageserver sender="theController" owner="train1" title="YOUMAYPASS"/></transition>
+<state id="19" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="18" destination="19"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<transition source="19" destination="10"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="20" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">true</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="19" destination="20"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<transition source="20" destination="11"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="21" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="20" destination="21"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="21" destination="12"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="22" atomicpropositions="train2Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="21" destination="22"> <messageserver sender="theController" owner="train2" title="YOUMAYPASS"/></transition>
+<transition source="22" destination="13"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="23" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="22" destination="23"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="24" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="23" destination="24"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="25" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="24" destination="25"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="26" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="25" destination="26"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="26" destination="17"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<state id="27" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="24" destination="27"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="27" destination="26"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="28" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="27" destination="28"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<state id="29" atomicpropositions="train1Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="28" destination="29"> <messageserver sender="theController" owner="train1" title="YOUMAYPASS"/></transition>
+<state id="30" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="29" destination="30"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="31" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="30" destination="31"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="32" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="31" destination="32"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="32" destination="26"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="31" destination="27"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="33" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="30" destination="33"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="34" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="33" destination="34"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="35" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="34" destination="35"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="35" destination="12"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<state id="36" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="33" destination="36"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="36" destination="35"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="36" destination="21"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<state id="37" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="30" destination="37"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="37" destination="27"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="37" destination="36"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="29" destination="18"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="28" destination="17"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="38" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="23" destination="38"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="39" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="38" destination="39"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="39" destination="35"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="38" destination="36"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="23" destination="37"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="40" atomicpropositions="train1Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">true</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="18" destination="40"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<transition source="40" destination="20"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="41" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">true</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="17" destination="41"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<transition source="41" destination="40"> <messageserver sender="theController" owner="train1" title="YOUMAYPASS"/></transition>
+<state id="42" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">true</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="14" destination="42"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<transition source="42" destination="16"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="42" destination="28"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="43" atomicpropositions="train2Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">true</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="13" destination="43"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<transition source="43" destination="42"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="44" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">true</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="12" destination="44"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<transition source="44" destination="43"> <messageserver sender="theController" owner="train2" title="YOUMAYPASS"/></transition>
+<transition source="8" destination="19"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="7" destination="18"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="6" destination="17"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="45" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="3" destination="45"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="45" destination="5"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="46" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="45" destination="46"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<state id="47" atomicpropositions="train1Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="46" destination="47"> <messageserver sender="theController" owner="train1" title="YOUMAYPASS"/></transition>
+<state id="48" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="47" destination="48"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="49" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="48" destination="49"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="50" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="49" destination="50"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="50" destination="32"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="49" destination="31"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="51" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="48" destination="51"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="52" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="51" destination="52"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="52" destination="34"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="51" destination="33"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="48" destination="30"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="47" destination="7"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="47" destination="29"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="46" destination="6"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="46" destination="28"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="53" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="2" destination="53"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="53" destination="45"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="54" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="53" destination="54"> <messageserver sender="train1" owner="theController" title="ARRIVE"/></transition>
+<state id="55" atomicpropositions="train1Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="54" destination="55"> <messageserver sender="theController" owner="train1" title="YOUMAYPASS"/></transition>
+<state id="56" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="55" destination="56"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="57" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="56" destination="57"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="58" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="57" destination="58"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="59" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="58" destination="59"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="59" destination="5"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="58" destination="45"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="57" destination="53"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="60" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="56" destination="60"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="61" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="60" destination="61"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="62" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="61" destination="62"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="63" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="62" destination="63"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="63" destination="26"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="64" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="61" destination="64"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="64" destination="63"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="64" destination="27"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="65" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="60" destination="65"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="66" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">true</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="65" destination="66"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="67" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="66" destination="67"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="67" destination="35"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="68" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="65" destination="68"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="68" destination="67"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="68" destination="36"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="69" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="60" destination="69"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="69" destination="64"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="69" destination="68"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="69" destination="37"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="70" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="56" destination="70"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="70" destination="53"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="70" destination="69"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<transition source="55" destination="47"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<transition source="54" destination="46"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="71" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="1" destination="71"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="72" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="71" destination="72"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="73" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="72" destination="73"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="73" destination="63"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="72" destination="64"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="74" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="71" destination="74"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="75" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="74" destination="75"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="75" destination="67"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="74" destination="68"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="71" destination="69"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="1" destination="70"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="76" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="0" destination="76"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="77" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="76" destination="77"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="78" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="77" destination="78"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="79" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="78" destination="79"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="80" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="79" destination="80"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="80" destination="26"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="81" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="78" destination="81"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="81" destination="80"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="81" destination="27"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="82" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="77" destination="82"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="83" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="82" destination="83"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="84" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="83" destination="84"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="84" destination="35"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="85" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="82" destination="85"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="85" destination="84"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="85" destination="36"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="86" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="77" destination="86"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="86" destination="81"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="86" destination="85"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="86" destination="37"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="87" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="76" destination="87"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="88" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="87" destination="88"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="89" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="88" destination="89"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="90" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="89" destination="90"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="91" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="90" destination="91"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<state id="92" atomicpropositions="train2Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="91" destination="92"> <messageserver sender="theController" owner="train2" title="YOUMAYPASS"/></transition>
+<state id="93" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="92" destination="93"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="94" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="93" destination="94"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="94" destination="15"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="93" destination="14"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="92" destination="13"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="91" destination="12"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="95" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="88" destination="95"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="95" destination="90"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="96" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="95" destination="96"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<transition source="96" destination="91"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="97" atomicpropositions="train2Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="96" destination="97"> <messageserver sender="theController" owner="train2" title="YOUMAYPASS"/></transition>
+<transition source="97" destination="92"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="98" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="97" destination="98"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="99" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="98" destination="99"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="100" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="99" destination="100"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="100" destination="25"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="99" destination="24"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="101" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="98" destination="101"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="102" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="101" destination="102"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="102" destination="39"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="101" destination="38"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="98" destination="23"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="97" destination="22"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<transition source="96" destination="21"> <messageserver sender="train1" owner="theController" title="LEAVE"/></transition>
+<state id="103" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="87" destination="103"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="103" destination="95"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="104" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="theController">YouMayPass()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="103" destination="104"> <messageserver sender="train2" owner="theController" title="ARRIVE"/></transition>
+<transition source="104" destination="96"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="105" atomicpropositions="train2Stat," >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="104" destination="105"> <messageserver sender="theController" owner="train2" title="YOUMAYPASS"/></transition>
+<transition source="105" destination="97"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="106" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="105" destination="106"> <messageserver sender="train2" owner="train2" title="PASSED"/></transition>
+<state id="107" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="106" destination="107"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="108" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="107" destination="108"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<state id="109" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="108" destination="109"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="109" destination="80"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="108" destination="81"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="110" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="107" destination="110"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="111" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="110" destination="111"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="111" destination="84"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="110" destination="85"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="107" destination="86"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="112" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="106" destination="112"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<state id="113" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="112" destination="113"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<state id="114" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">true</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">Leave()</message>
+			<message sender="train2">Arrive()</message>
+			<message sender="train1">Leave()</message>
+			<message sender="train1">Arrive()</message>
+		</queue>
+	</rebec>
+</state>
+<transition source="113" destination="114"> <messageserver sender="train1" owner="train1" title="REACHBRIDGE"/></transition>
+<transition source="114" destination="90"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="113" destination="95"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="112" destination="103"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<state id="115" atomicpropositions="" >
+	<rebec name="train1">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train1">Passed()</message>
+		</queue>
+	</rebec>
+	<rebec name="train2">
+		<statevariables>
+			<variable name="onTheBridge" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+			<message sender="train2">ReachBridge()</message>
+		</queue>
+	</rebec>
+	<rebec name="theController">
+		<statevariables>
+			<variable name="isWaiting1" type="boolean">false</variable>
+			<variable name="isWaiting2" type="boolean">false</variable>
+			<variable name="signal1" type="boolean">false</variable>
+			<variable name="signal2" type="boolean">false</variable>
+		</statevariables>
+		<queue>
+		</queue>
+	</rebec>
+</state>
+<transition source="106" destination="115"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+<transition source="115" destination="86"> <messageserver sender="train1" owner="train1" title="PASSED"/></transition>
+<transition source="115" destination="103"> <messageserver sender="train2" owner="train2" title="REACHBRIDGE"/></transition>
+<transition source="76" destination="115"> <messageserver sender="train2" owner="theController" title="LEAVE"/></transition>
+</transitionsystem>

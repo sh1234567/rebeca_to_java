@@ -1,0 +1,436 @@
+env double translationalVelocity = 0.2; /* 0.2 milimeter per second
+											0.02 cenimeter per milisecond
+											20 centimeter per second
+											max = 70 mps according to kobuki spec */
+env int movementStepTime = 5; /*milisecond */
+
+
+env int leftBoundry = -10;
+env int rightBoundry = 10;
+
+env int wallClosenessThreshold = 4;
+
+env int safetyControllerPeriod = 16;
+
+env double goalLocation = 8;
+env int cliffLocation = 4;
+
+env int keyboardPeriod = 45;
+env int keyboardToControllerTime = 3;
+env int androidPeriod = 45;
+env int androidToControllerTime = 5;
+env int navigationPeriod = 20;
+env int navigationToControllerTime = 1;
+
+env int bumperSensorPeriod = 40;
+env int wheelDropperSensorPeriod = 30;
+env int cliffSensorPeriod = 20;
+env int wallDetectorPeriod = 2;
+
+env int controllerPeriod = 5;
+
+
+
+
+reactiveclass Keyboard(2){
+	knownrebecs{
+		Controller controller;
+	}
+	
+	statevars{
+		int delay;
+		int period;
+	}
+	Keyboard(int itsDelay, int itsPeriod){
+		delay = itsDelay;
+		period = itsPeriod;
+		self.sendVelocityCommands() after(period);
+	}
+	
+	msgsrv sendVelocityCommands(){
+		boolean sendOrNot = true;
+		//sendOrNot = ?(true, false);
+		int movementDirection = -1;
+	//	movementDirection = ?(-1, 1); /* -1 means backward movement, and 1 means forward movement */
+		//if(sendOrNot)
+			controller.receiveCommandFromKeyboard(movementDirection) after(keyboardToControllerTime);
+		self.sendVelocityCommands() after(keyboardPeriod);
+	}
+}
+
+reactiveclass AndroidApp(2){
+	knownrebecs{
+		Controller controller;
+	}
+	
+	statevars{
+		int delay;
+		int period;
+	}
+	
+	AndroidApp(int itsDelay, int itsPeriod){
+		delay = itsDelay;
+		period = itsPeriod;
+		self.sendVelocityCommands();
+	}
+	
+	msgsrv sendVelocityCommands(){
+		boolean sendOrNot = true;
+		//sendOrNot = ?(true, false);
+		int movementDirection = -1;
+	//	movementDirection = ?(-1, 1); 
+	/* -1 means backward movement, and 1 means forward movement
+											1 meter for each step */
+		//if(sendOrNot)
+			controller.receiveCommandFromApp(movementDirection) after(androidToControllerTime);
+		self.sendVelocityCommands() after(androidPeriod);
+	}
+
+}
+
+reactiveclass NavigationStack(2){
+	knownrebecs{
+		Controller controller;
+	}
+	statevars{
+		//int goalX;
+		//int goalY;
+		int delay;
+		int period;
+	}
+	NavigationStack(int itsDelay, int itsPeriod /*int itsGoalX, int itsGoalY */){
+		period = itsPeriod;
+		delay = itsDelay;
+		/* goalX = itsGoalX;
+			goalY = itsGoaly; */
+		self.sendVelocityCommands();
+	}
+	
+	msgsrv sendVelocityCommands(){
+		/*calculate the next movement based on goal location */
+		int movementDirection = 1;
+		//movementDirection = ?(-1, 1); /* -1 means backward movement, and 1 means forward movement */
+		controller.receiveCommandFromNavigationStack(movementDirection) after(navigationToControllerTime);
+		self.sendVelocityCommands() after(navigationPeriod);
+	}		
+}
+
+@Sensor
+reactiveclass BumperSensor(2){
+	knownrebecs{
+		SafetyController safetyController;
+	}
+	
+	statevars{
+	}
+	
+	BumperSensor(){
+		self.sense();
+	}
+	
+	msgsrv sense(){
+		int ifAnyBumper = 1;
+		//ifAnyBumper = ?(1, 2, 3);
+		if(ifAnyBumper == 1)
+			safetyController.bumperSensed() after(5);
+		self.sense() after(bumperSensorPeriod);
+	}
+
+}
+
+@Sensor
+reactiveclass WheelDropperSensor(2){
+	knownrebecs{
+		SafetyController safetyController;
+	}
+	statevars{
+	}
+	WheelDropperSensor(){
+		self.sense();
+	}
+	msgsrv sense(){
+		int ifAnyWheelDropper = 1;
+		//ifAnyWheelDropper = ?(1, 2, 3);
+		if(ifAnyWheelDropper == 1)
+			safetyController.wheelDropperSensed() after(5);
+		self.sense() after(wheelDropperSensorPeriod);
+	}
+}
+
+@Sensor
+reactiveclass CliffSensor(2){
+	knownrebecs{
+		SafetyController safetyController;
+	}
+	
+	statevars{
+		double currentLocation;
+	}
+	
+	CliffSensor(){
+		currentLocation = 0;
+		self.sense();
+	}
+	
+/*	msgsrv motorCouldMove(int direction){
+		double displacement = direction * movementStepTime * translationalVelocity;
+		if ( currentLocation + displacement + 1 == cliffLocation ||
+				currentLocation + displacement - 1 == cliffLocation)
+		safetyController.cliffSensed();
+	} */
+	
+	msgsrv sense(){
+		int ifAnyCliff = 1;
+		//ifAnyCliff = ?(1, 2, 3);
+		if(ifAnyCliff == 1)
+			safetyController.cliffSensed() after(5);
+		self.sense() after(cliffSensorPeriod);
+	}
+}
+
+@Sensor
+reactiveclass WallDetectorSensor(5){
+	knownrebecs{
+		SafetyController safetyController;
+	}
+	statevars{
+		double currentLocation;
+	}
+	WallDetectorSensor(){
+		currentLocation = 0;
+	}
+	
+	msgsrv motorCouldMove(int d){
+	double displacement = d * movementStepTime * translationalVelocity;
+	 if((currentLocation + displacement ) >= (rightBoundry - wallClosenessThreshold)|| 
+		(currentLocation + displacement) <= (leftBoundry + wallClosenessThreshold)){
+			currentLocation = 0;
+			safetyController.wallIsVeryClose();
+		} else{
+			currentLocation = currentLocation + displacement;
+		}
+
+	}
+}
+
+
+reactiveclass SafetyController(10){
+	knownrebecs{
+		Controller controller;
+		Motor motor;
+	}
+	statevars{
+		boolean bumperSensorActivated;
+		boolean wheelDropperSensorActivated;
+		boolean cliffSensorActivated;
+		boolean wallClose;
+		int delay;
+	}
+	
+	SafetyController(int itsDelay){
+		bumperSensorActivated = false;
+		wheelDropperSensorActivated = false;
+		cliffSensorActivated = false;
+		delay = itsDelay;
+		self.checkForSensors();
+	}
+	
+	msgsrv bumperSensed(){
+		bumperSensorActivated = true;
+	}
+	
+	msgsrv wheelDropperSensed(){
+		wheelDropperSensorActivated = true;
+	}
+	
+	msgsrv cliffSensed(){
+		cliffSensorActivated = true;
+	}
+	
+	msgsrv wallIsVeryClose(){
+		wallClose = true;
+	}
+	
+	msgsrv checkForSensors(){
+		if(bumperSensorActivated || wheelDropperSensorActivated || cliffSensorActivated)
+			controller.safetyContollerActivated();
+		bumperSensorActivated = false;
+		wheelDropperSensorActivated = false;
+		cliffSensorActivated = false;
+		if(wallClose){
+			motor.resetToCenter();
+			wallClose = false;
+		}
+		checkForSensors() after(safetyControllerPeriod);
+	}
+
+}
+
+reactiveclass Controller(20){
+	knownrebecs{
+		Motor motor;
+	}
+	
+	statevars{
+		boolean safetyControllerCommanded;
+		boolean keyboardCommanded;
+		boolean androidAppCommanded;
+		boolean navigationCommanded;
+		
+		boolean motorIsMoving;
+		
+		int keyboardDirection;
+		int androidAppDirection;
+		int navigationDirection;
+		/* we don't need to save the direction from safety Controller,
+		because it is 0 as default(stop) */
+
+		int direction;
+	}
+	
+	Controller(){
+		self.clear();
+		self.decide();
+	}
+	
+	msgsrv safetyContollerActivated(){
+		safetyControllerCommanded = true;
+	}
+	
+	msgsrv receiveCommandFromKeyboard(int kDirection){
+		keyboardCommanded = true;
+		keyboardDirection = kDirection;
+	}
+	
+	msgsrv receiveCommandFromApp(int aDirection){
+		androidAppCommanded = true;
+		androidAppDirection = aDirection;
+	}
+	
+	msgsrv receiveCommandFromNavigationStack(int nDirection){
+		navigationCommanded = true;
+		navigationDirection = nDirection;
+	}
+	
+	msgsrv decide(){
+		if(safetyControllerCommanded){
+			motor.changeDirection(0) ;
+			resetSafety();
+		}else if(keyboardCommanded){
+			motor.changeDirection(keyboardDirection);
+			resetKeyboard();
+		}else if(androidAppCommanded){
+			motor.changeDirection(androidAppDirection);
+			resetAndroid();
+		}else if(navigationCommanded){
+			motor.changeDirection(navigationDirection);
+			resetNavigation();
+		}
+		
+		self.decide() after(controllerPeriod);
+	}
+	
+	msgsrv motorCouldMove(){
+		motorIsMoving = false;
+	}
+	
+	msgsrv motorCouldnotMove(){
+		motorIsMoving = false;
+	}
+	
+	boolean resetSafety(){
+		safetyControllerCommanded = false;
+		return false;
+	}
+	
+	boolean resetKeyboard(){
+		keyboardCommanded = false;
+		keyboardDirection = 0;
+		return false;
+	}
+
+	boolean resetAndroid(){
+		androidAppCommanded = false;
+		androidAppDirection = 0;
+		return false;
+	}
+	
+	boolean resetNavigation(){
+		navigationCommanded = false;
+		navigationDirection = 0;
+		return false;
+	}
+	
+	boolean clear(){
+		safetyControllerCommanded = false;
+		keyboardCommanded = false;
+		androidAppCommanded = false;
+		motorIsMoving = false;
+		direction = 0;
+		return true;
+	}
+
+}
+
+@Actuator
+reactiveclass Motor(10){
+	knownrebecs{
+		WallDetectorSensor wallDetectorSensor;
+		Controller controller;
+	}
+	statevars{
+		int direction;
+		double currentLocation;
+	}
+	
+	Motor(){
+		currentLocation = 0;
+		direction = 0;
+		self.moveStepByStep();
+	}
+	
+	msgsrv changeDirection(int d){
+		direction = d;
+	}
+	
+	msgsrv resetToCenter(){
+		currentLocation = 0;
+	}
+	
+	msgsrv moveStepByStep(){
+		boolean ableToMove = true;
+		//ableToMove = ?(true, false);
+		if(ableToMove){
+			delay(movementStepTime);
+			double displacement = direction * movementStepTime * translationalVelocity;
+			currentLocation = currentLocation + displacement;
+			wallDetectorSensor.motorCouldMove(direction);
+			if( currentLocation >= rightBoundry || currentLocation <= leftBoundry){
+				assertion(false, "crashed with wall");
+			}
+			/* if(currentLocation == -9){
+				assertion(false,"goal reached");
+			} */
+			self.moveStepByStep() after(1);
+		}else{
+			self.moveStepByStep() after(1);
+		}
+	}
+
+}
+
+
+main{
+	Keyboard keyboard(controller):(5, 25);
+	AndroidApp androidApp(controller):(5, 20);
+	NavigationStack navigationStack(controller):(5, 10);
+	//BumperSensor bSensor(safetyController):();
+	WheelDropperSensor wSensor(safetyController):();
+	CliffSensor cliffSensor(safetyController):();
+	WallDetectorSensor wallDetectorSensor(safetyController):();
+	SafetyController safetyController(controller, motor):(10);
+	Controller controller(motor):();
+	Motor motor(wallDetectorSensor, controller):();
+}
+
+} 
