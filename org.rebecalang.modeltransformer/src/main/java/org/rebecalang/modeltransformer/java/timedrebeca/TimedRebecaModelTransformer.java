@@ -16,7 +16,6 @@ import org.rebecalang.modeltransformer.TransformingFeature;
 import org.rebecalang.modeltransformer.java.packageCreator.JavaPackageCreator;
 import org.rebecalang.modeltransformer.java.timedrebeca.CoreRebecaExpressionTransformer;
 import org.rebecalang.modeltransformer.java.timedrebeca.ReactiveClassTransformer;
-import org.rebecalang.modeltransformer.java.packageCreator.IncludeDirectoryCreator;
 import org.rebecalang.modeltransformer.java.packageCreator.SrcDirectoryCreator;
 
 public class TimedRebecaModelTransformer extends AbstractModelTransformer {
@@ -33,29 +32,27 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 		// TODO Auto-generated method stub
 		/* configuration files */
 		JavaPackageCreator javaPackageCreator = new JavaPackageCreator(destinationLocation, modelName, container);
-		
-		for (ReactiveClassDeclaration rc: rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
-			AbstractExpressionTransformer expressionTransformer = null;
-			expressionTransformer = new CoreRebecaExpressionTransformer(compilerFeatures, transformingFeatures, container, modelName, rc, rebecaModel);
 
-			if(rc.getAnnotations().isEmpty()){
-				ReactiveClassTransformer reactiveClassTransformer =
-						new ReactiveClassTransformer(rebecaModel, rc, modelName, expressionTransformer, compilerFeatures, transformingFeatures);
+		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
+			System.out.println("reactive class");
+			AbstractExpressionTransformer expressionTransformer = null;
+			expressionTransformer = new CoreRebecaExpressionTransformer(compilerFeatures, transformingFeatures,
+					container, modelName, rc, rebecaModel);
+
+			if (rc.getAnnotations().isEmpty()) {
+				ReactiveClassTransformer reactiveClassTransformer = new ReactiveClassTransformer(rebecaModel, rc,
+						modelName, expressionTransformer, compilerFeatures, transformingFeatures);
 				reactiveClassTransformer.transformReactiveClass();
-				
-				// header
-				String headerFileContent = reactiveClassTransformer.getHeaderFileContent();
-				IncludeDirectoryCreator includeDirCreator = new IncludeDirectoryCreator(destinationLocation, modelName, container);
-				includeDirCreator.addFile(rc.getName() + ".h", headerFileContent);
-				
-				// cpp file content
+
+				// create java file content
 				String cppFileContent = reactiveClassTransformer.getCppFileContent();
 				SrcDirectoryCreator srcDirCreator = new SrcDirectoryCreator(destinationLocation, modelName, container);
-				srcDirCreator.addFile(rc.getName() + ".cpp", cppFileContent);
-				
+				srcDirCreator.addFile(rc.getName() + ".java", cppFileContent);
+
 			}
 
 		}
+		System.out.println("finished");
 
 	}
 }

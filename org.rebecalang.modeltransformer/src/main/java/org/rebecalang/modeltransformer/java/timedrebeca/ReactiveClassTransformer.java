@@ -1,19 +1,32 @@
 package org.rebecalang.modeltransformer.java.timedrebeca;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.Annotation;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FieldDeclaration;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MsgsrvDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ReactiveClassDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.RebecaModel;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.VariableDeclarator;
 import org.rebecalang.compiler.utils.CompilerFeature;
+import org.rebecalang.compiler.utils.Pair;
 import org.rebecalang.modeltransformer.AbstractExpressionTransformer;
 import org.rebecalang.modeltransformer.TransformingFeature;
 import org.rebecalang.modeltransformer.java.timedrebeca.CoreRebecaExpressionTransformer;
 import org.rebecalang.modeltransformer.java.timedrebeca.CoreRebecaStatementTransformer;
+import org.rebecalang.modeltransformer.java.timedrebeca.MessageServerTransformer;
 
 public class ReactiveClassTransformer {
+	public final static String NEW_LINE = "\r\n";
+	public final static String TAB = "\t";
+	public final static String QUOTE_MARK = "\"";
+	public final static String SEMICOLON = ";";
+	public final static String publishersQueueSize = "30";
+	public final static String subscribersQueueSize = "30";
+
 	private ReactiveClassDeclaration rc;
 	private String modelName;
 	private RebecaModel rebecaModel;
@@ -21,8 +34,9 @@ public class ReactiveClassTransformer {
 	private CoreRebecaExpressionTransformer expressionTransformer;
 	private String nodeName;
 
-	public ReactiveClassTransformer(RebecaModel rebecaModel, ReactiveClassDeclaration rc, String modelName, AbstractExpressionTransformer expressionTransformer,
-			Set<CompilerFeature> cFeatures, Set<TransformingFeature> tFeatures ) {
+	public ReactiveClassTransformer(RebecaModel rebecaModel, ReactiveClassDeclaration rc, String modelName,
+			AbstractExpressionTransformer expressionTransformer, Set<CompilerFeature> cFeatures,
+			Set<TransformingFeature> tFeatures) {
 		this.statementTransformer = new CoreRebecaStatementTransformer(expressionTransformer, cFeatures, tFeatures);
 		this.expressionTransformer = (CoreRebecaExpressionTransformer) expressionTransformer;
 		this.rc = rc;
@@ -34,13 +48,14 @@ public class ReactiveClassTransformer {
 
 	private void prepare() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void transformReactiveClass() {
 		// TODO Auto-generated method stub
-		if(! rc.getAnnotations().isEmpty()) {
-			for(Annotation annot: rc.getAnnotations()) {
+
+		if (!rc.getAnnotations().isEmpty()) {
+			for (Annotation annot : rc.getAnnotations()) {
 				if (annot.getIdentifier() == "topic")
 					transformTopicClass();
 			}
@@ -49,17 +64,33 @@ public class ReactiveClassTransformer {
 
 	private void transformTopicClass() {
 		// TODO Auto-generated method stub
-		for(FieldDeclaration fd: rc.getKnownRebecs()) {
-			for(VariableDeclarator knowrebecDefinition : fd.getVariableDeclarators()) {
-				
+		for (FieldDeclaration fd : rc.getKnownRebecs()) {
+			for (VariableDeclarator knowrebecDefinition : fd.getVariableDeclarators()) {
+
 			}
 		}
-		
+
 	}
 
 	public String getCppFileContent() {
-		// TODO Auto-generated method stub
-		return null;
+		String retValue = "";
+		// defining imports
+		retValue += "public class " + rc.getName() + "{" + NEW_LINE;
+		// defining Queue for messages
+		for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
+			System.out.println("msgsrv");
+			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
+					msgsrv, modelName);
+			retValue += "public void " + msgsrv.getName() + " (" + ")" + NEW_LINE + "{" + NEW_LINE
+					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "}" + NEW_LINE + NEW_LINE;
+		}
+		retValue += "}" + NEW_LINE + NEW_LINE;
+
+		/*
+		 * for(SynchMethodDeclaration method : rc.getSynchMethods()) { retValue +=
+		 * transformSynchMethod(method); }
+		 */
+		return retValue;
 	}
 
 	public String getHeaderFileContent() {
