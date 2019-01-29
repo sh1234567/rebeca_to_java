@@ -16,6 +16,8 @@ import org.rebecalang.modeltransformer.TransformingFeature;
 import org.rebecalang.modeltransformer.java.packageCreator.JavaPackageCreator;
 import org.rebecalang.modeltransformer.java.timedrebeca.CoreRebecaExpressionTransformer;
 import org.rebecalang.modeltransformer.java.timedrebeca.ReactiveClassTransformer;
+import org.rebecalang.modeltransformer.java.packageCreator.IncludeDirectoryCreator;
+import org.rebecalang.modeltransformer.java.packageCreator.SrcDirectoryCreator;
 
 public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 	@Override
@@ -40,6 +42,16 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 				ReactiveClassTransformer reactiveClassTransformer =
 						new ReactiveClassTransformer(rebecaModel, rc, modelName, expressionTransformer, compilerFeatures, transformingFeatures);
 				reactiveClassTransformer.transformReactiveClass();
+				
+				// header
+				String headerFileContent = reactiveClassTransformer.getHeaderFileContent();
+				IncludeDirectoryCreator includeDirCreator = new IncludeDirectoryCreator(destinationLocation, modelName, container);
+				includeDirCreator.addFile(rc.getName() + ".h", headerFileContent);
+				
+				// cpp file content
+				String cppFileContent = reactiveClassTransformer.getCppFileContent();
+				SrcDirectoryCreator srcDirCreator = new SrcDirectoryCreator(destinationLocation, modelName, container);
+				srcDirCreator.addFile(rc.getName() + ".cpp", cppFileContent);
 				
 			}
 
