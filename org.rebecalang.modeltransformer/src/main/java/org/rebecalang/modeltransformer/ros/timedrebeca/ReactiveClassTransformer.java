@@ -308,6 +308,7 @@ public class ReactiveClassTransformer{
 		/* for(SynchMethodDeclaration method : rc.getSynchMethods()) {
 		 * retValue += transformSynchMethod(method);
 		} */
+		
 		return retValue;
 	}
 

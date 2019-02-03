@@ -53,7 +53,7 @@ public class Rebeca2JavaModelTransformer {
 		System.out.println("This point");
 		for (ReactiveClassDeclaration rc : model.getFirst().getRebecaCode().getReactiveClassDeclaration()) {
 			for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
-				System.err.println(rc.getName() + "&&&" + msgsrv.getName());
+				System.out.println(rc.getName() + "&&&" + msgsrv.getName());
 			}
 		}
 		if (compilerFeatures.contains(CompilerFeature.PROBABILISTIC_REBECA)) {

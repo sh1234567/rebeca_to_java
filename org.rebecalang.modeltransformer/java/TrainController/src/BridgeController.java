@@ -1,12 +1,58 @@
 public class BridgeController{
 public void Arrive ()
 {
-null
+if (sender == t1) {
+if (signal2 == false) {
+signal1 = true;
+;
+
+}
+else {
+isWaiting1 = true;
+
+}
+
+}
+else {
+if (signal1 == false) {
+signal2 = true;
+;
+
+}
+else {
+isWaiting2 = true;
+
+}
+
+}
+
+
 }
 
 public void Leave ()
 {
-null
+if (sender == t1) {
+signal1 = false;
+if (isWaiting2) {
+signal2 = true;
+;
+isWaiting2 = false;
+
+}
+
+}
+else {
+signal2 = false;
+if (isWaiting1) {
+signal1 = true;
+;
+isWaiting1 = false;
+
+}
+
+}
+
+
 }
 
 }

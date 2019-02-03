@@ -1,5 +1,6 @@
 package org.rebecalang.modeltransformer.java.timedrebeca;
 
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FormalParameterDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MsgsrvDeclaration;
 import org.rebecalang.modeltransformer.java.timedrebeca.CoreRebecaStatementTransformer;
 
@@ -29,7 +30,15 @@ public class MessageServerTransformer {
 
 	public String getCallbackFunctionBody() {
 		// TODO Auto-generated method stub
-		return null;
+		callbackFunctionBody = "";
+		for(FormalParameterDeclaration param : msgsrv.getFormalParameters()) {
+			System.out.println("param.getName()");
+			//callbackFunctionBody += "#define " + param.getName() + " " + "thisMsg." + param.getName() + NEW_LINE;
+		}
+		 callbackFunctionBody += statementTransformer.resolveBlockStatement(msgsrv.getBlock());
+		 
+		
+		return callbackFunctionBody;
 	}
 
 }

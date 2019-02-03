@@ -1,17 +1,26 @@
 public class Train{
 public void YouMayPass ()
 {
-null
+onTheBridge = true;
+;
+
+
 }
 
 public void Passed ()
 {
-null
+onTheBridge = false;
+;
+;
+
+
 }
 
 public void ReachBridge ()
 {
-null
+;
+
+
 }
 
 }
