@@ -8,6 +8,7 @@ import org.rebecalang.modeltransformer.TransformingFeature;
 
 public class MainFileCreator {
 	public final static String NEW_LINE = "\r\n";
+	public final static String TAB = "\t";
 	private String modelName;
 	private RebecaModel rebecaModel;
 	private CoreRebecaStatementTransformer statementTransformer;
@@ -23,8 +24,10 @@ public class MainFileCreator {
 	public String getMainFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
+		retValue += "public class Main{" + NEW_LINE;
 		retValue += "public static void main(String[] args){" + NEW_LINE;
 		retValue += "Queue<Message> messageQueue = new LinkedList<Message>();" + NEW_LINE;	
+		retValue += "}" + NEW_LINE;
 		retValue += "}";
 		return retValue;
 	}

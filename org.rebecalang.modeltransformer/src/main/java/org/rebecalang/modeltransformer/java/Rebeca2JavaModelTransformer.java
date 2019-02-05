@@ -16,6 +16,7 @@ import org.rebecalang.compiler.utils.ExceptionContainer;
 import org.rebecalang.compiler.utils.Pair;
 import org.rebecalang.modeltransformer.AbstractModelTransformer;
 import org.rebecalang.modeltransformer.TransformingFeature;
+import org.rebecalang.modeltransformer.java.timedrebeca.TimeClass;
 import org.rebecalang.modeltransformer.java.timedrebeca.TimedRebecaModelTransformer;
 
 public class Rebeca2JavaModelTransformer {
@@ -51,6 +52,8 @@ public class Rebeca2JavaModelTransformer {
 		}
 
 		System.out.println("This point");
+		System.out.println(TimeClass.getTime());
+		
 		for (ReactiveClassDeclaration rc : model.getFirst().getRebecaCode().getReactiveClassDeclaration()) {
 			for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 				System.out.println(rc.getName() + "&&&" + msgsrv.getName());
