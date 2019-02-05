@@ -40,6 +40,7 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 		srcDirCreator.addFile("main.java", mainFileContent);
 		
 		TimerFileCreator timerFileCreator = new TimerFileCreator();
+		String timerFileContent = timerFileCreator.getTimerFileContent();
 		srcDirCreator.addFile("TimeClass.java", timerFileContent);
 
 
