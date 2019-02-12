@@ -2,29 +2,21 @@ package org.rebecalang.modeltransformer.java.timedrebeca;
 
 import java.util.Set;
 
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ArrayType;
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ArrayVariableInitializer;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.BlockStatement;
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.BreakStatement;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ConditionalStatement;
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ContinueStatement;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.Expression;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FieldDeclaration;
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ForStatement;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.OrdinaryPrimitiveType;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.OrdinaryVariableInitializer;
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ReturnStatement;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.Statement;
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.SwitchStatement;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.VariableDeclarator;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.VariableInitializer;
-import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.WhileStatement;
 import org.rebecalang.compiler.utils.CompilerFeature;
 import org.rebecalang.modeltransformer.AbstractExpressionTransformer;
 import org.rebecalang.modeltransformer.AbstractStatementTransformer;
 import org.rebecalang.modeltransformer.StatementTransformingException;
 import org.rebecalang.modeltransformer.TransformingFeature;
-import org.rebecalang.modeltransformer.ros.Rebeca2ROSTypesUtilities;
+import org.rebecalang.modeltransformer.java.Rebeca2JavaTypesUtilities;
 
 public class CoreRebecaStatementTransformer extends AbstractStatementTransformer{
 	public CoreRebecaStatementTransformer(AbstractExpressionTransformer expressionTranslator,
@@ -97,6 +89,22 @@ public class CoreRebecaStatementTransformer extends AbstractStatementTransformer
 	}
 	protected String resolveExpression(Expression expression) {
 		return expressionTransformer.translate(expression, container);
+	}
+
+	public String resolveVariableDeclaration(FieldDeclaration fd, VariableDeclarator vd) {
+		// TODO Auto-generated method stub
+		String retValue = "";
+		VariableInitializer variableInitializer = vd.getVariableInitializer();
+		
+		if(fd.getType() instanceof OrdinaryPrimitiveType) {
+			retValue += Rebeca2JavaTypesUtilities.getCorrespondingJavaType(fd.getType()) +
+			" " + vd.getVariableName();
+			if(variableInitializer != null && variableInitializer instanceof OrdinaryVariableInitializer) {
+				String value = resolveExpression(((OrdinaryVariableInitializer)variableInitializer).getValue());
+				retValue += " = " + value;
+			}
+		}
+		return retValue;
 	}
 
 

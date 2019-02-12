@@ -1,4 +1,8 @@
 public class BridgeController{
+private boolean isWaiting1;
+private boolean isWaiting2;
+private boolean signal1;
+private boolean signal2;
 public void Arrive ()
 {
 if (sender == t1) {

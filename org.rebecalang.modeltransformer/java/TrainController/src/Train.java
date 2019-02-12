@@ -1,4 +1,5 @@
 public class Train{
+private boolean onTheBridge;
 public void YouMayPass ()
 {
 onTheBridge = true;

@@ -7,12 +7,14 @@ import java.util.Set;
 
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.Annotation;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FieldDeclaration;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FormalParameterDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MsgsrvDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ReactiveClassDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.RebecaModel;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.VariableDeclarator;
 import org.rebecalang.compiler.utils.CompilerFeature;
 import org.rebecalang.compiler.utils.Pair;
+import org.rebecalang.compiler.utils.TypesUtilities;
 import org.rebecalang.modeltransformer.AbstractExpressionTransformer;
 import org.rebecalang.modeltransformer.TransformingFeature;
 import org.rebecalang.modeltransformer.java.timedrebeca.CoreRebecaExpressionTransformer;
@@ -76,7 +78,7 @@ public class ReactiveClassTransformer {
 		String retValue = "";
 		// defining imports
 		retValue += "public class " + rc.getName() + "{" + NEW_LINE;
-		// defining Queue for messages
+		retValue += createVariablesDefinition();
 		for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 			System.out.println("msgsrv");
 			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
@@ -92,6 +94,18 @@ public class ReactiveClassTransformer {
 		 */
 		return retValue;
 	}
+
+	private String createVariablesDefinition() {
+		String variablesDefinition = "";
+		// TODO Auto-generated method stub
+		for(FieldDeclaration fd : rc.getStatevars()) {
+			for(VariableDeclarator var : fd.getVariableDeclarators()) {
+				variablesDefinition +=  "private " + statementTransformer.resolveVariableDeclaration(fd, var) + SEMICOLON + NEW_LINE;
+			}
+		}
+		return variablesDefinition;
+	}
+	
 
 	public String getHeaderFileContent() {
 		// TODO Auto-generated method stub

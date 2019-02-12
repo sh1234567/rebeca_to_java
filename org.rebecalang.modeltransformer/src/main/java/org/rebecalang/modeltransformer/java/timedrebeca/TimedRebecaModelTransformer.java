@@ -37,7 +37,7 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 		
 		MainFileCreator mainFileCreator = new MainFileCreator(rebecaModel, modelName, compilerFeatures, transformingFeatures);
 		String mainFileContent = mainFileCreator.getMainFileContent();
-		srcDirCreator.addFile("main.java", mainFileContent);
+		srcDirCreator.addFile("Main.java", mainFileContent);
 		
 		TimerFileCreator timerFileCreator = new TimerFileCreator();
 		String timerFileContent = timerFileCreator.getTimerFileContent();
