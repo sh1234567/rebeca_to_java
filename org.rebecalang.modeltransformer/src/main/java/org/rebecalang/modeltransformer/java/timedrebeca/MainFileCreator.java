@@ -24,11 +24,11 @@ public class MainFileCreator {
 	public String getMainFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue += "public class Main{" + NEW_LINE;
-		retValue += "public static void main(String[] args){" + NEW_LINE;
-		retValue += "Queue<Message> messageQueue = new LinkedList<Message>();" + NEW_LINE;	
-		retValue += "}" + NEW_LINE;
-		retValue += "}";
+		retValue += "public class Main{\r\n" + 
+				"public static void main(String[] args){\r\n" + 
+				"\r\n" + 
+				"}\r\n" + 
+				"}";
 		return retValue;
 	}
 

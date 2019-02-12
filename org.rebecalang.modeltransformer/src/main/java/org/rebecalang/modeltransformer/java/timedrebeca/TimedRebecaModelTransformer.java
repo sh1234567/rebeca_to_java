@@ -42,6 +42,14 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 		TimerFileCreator timerFileCreator = new TimerFileCreator();
 		String timerFileContent = timerFileCreator.getTimerFileContent();
 		srcDirCreator.addFile("TimeClass.java", timerFileContent);
+		
+		MessageClassCreator messageClassCreator = new MessageClassCreator();
+		String messageClassContent = messageClassCreator.getMessageClassContent();
+		srcDirCreator.addFile("Message.java", messageClassContent);
+		
+		MsgQueueFileCreator msgQueueFileCreator = new MsgQueueFileCreator();
+		String msgQueueFileContent = msgQueueFileCreator.getMsgQueueFileContent();
+		srcDirCreator.addFile("MessageQueue.java", msgQueueFileContent);
 
 
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
