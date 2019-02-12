@@ -2,8 +2,14 @@ package org.rebecalang.modeltransformer.java.timedrebeca;
 
 import java.util.Set;
 
+import org.apache.maven.artifact.repository.metadata.Metadata;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MainRebecDefinition;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.OrdinaryPrimitiveType;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ReactiveClassDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.RebecaModel;
+import org.rebecalang.compiler.utils.CodeCompilationException;
 import org.rebecalang.compiler.utils.CompilerFeature;
+import org.rebecalang.compiler.utils.TypesUtilities;
 import org.rebecalang.modeltransformer.TransformingFeature;
 
 public class MainFileCreator {
@@ -26,9 +32,26 @@ public class MainFileCreator {
 		String retValue = "";
 		retValue += "public class Main{\r\n" + 
 				"public static void main(String[] args){\r\n" + 
-				"\r\n" + 
+				defineRebecs() +
+				"	\r\n" + 
 				"}\r\n" + 
 				"}";
+		return retValue;
+	}
+
+	private String defineRebecs() {
+		// TODO Auto-generated method stub
+		String retValue = "";
+		for(MainRebecDefinition md: rebecaModel.getRebecaCode().getMainDeclaration().getMainRebecDefinition()) {
+			try {
+				ReactiveClassDeclaration metaData = TypesUtilities.getInstance().getMetaData(md.getType());
+				retValue +=  metaData.getName() + " " + md.getName() + " = new " + metaData.getName() + "();" + NEW_LINE;
+			} catch (CodeCompilationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		return retValue;
 	}
 
