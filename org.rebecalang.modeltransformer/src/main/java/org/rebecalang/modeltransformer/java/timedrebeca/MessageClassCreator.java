@@ -5,9 +5,7 @@ public class MessageClassCreator {
 	public String getMessageClassContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue += "package org.rebecalang.modeltransformer.java.timedrebeca;\r\n" + 
-				"\r\n" + 
-				"public class Message {\r\n" + 
+		retValue +=  "public class Message {\r\n" + 
 				"	private String msgName;\r\n" + 
 				"	private String receiver;\r\n" + 
 				"	private float after;\r\n" + 

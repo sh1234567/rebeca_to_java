@@ -5,8 +5,7 @@ public class MsgQueueFileCreator {
 	public String getMsgQueueFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue += "package org.rebecalang.modeltransformer.java.timedrebeca;\r\n" + 
-				"import java.util.LinkedList;\r\n" + 
+		retValue += "import java.util.LinkedList;\r\n" + 
 				"import java.util.Queue;\r\n" + 
 				"\r\n" + 
 				"public class MessageQueue {\r\n" + 

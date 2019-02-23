@@ -1,4 +1,3 @@
-package org.rebecalang.modeltransformer.java.timedrebeca;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -12,5 +11,4 @@ public class MessageQueue {
 	public static void setMessageQueue(Queue<Message> messageQueue) {
 		MessageQueue.messageQueue = messageQueue;
 	}	
-	
 }
