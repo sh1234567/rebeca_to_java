@@ -9,7 +9,7 @@ reactiveclass BridgeController(5) {
 		boolean isWaiting2;
 		boolean signal1;
 		boolean signal2;
-		boolean sender = true;
+		boolean var = true;
 		
 	}
 
@@ -22,7 +22,7 @@ reactiveclass BridgeController(5) {
 	}
 	
 	msgsrv Arrive() {
-		if (sender == true){
+		if (var == true){
 			if (signal2 == false) {
 				signal1 = true;	/* green */
 				t1.YouMayPass();
@@ -43,7 +43,7 @@ reactiveclass BridgeController(5) {
 	}
 	
 	msgsrv Leave() {
-		if (sender == true) {
+		if (var == true) {
 			signal1 = false;	/* red */
 			if (isWaiting2){
 				signal2 = true;

@@ -1,5 +1,6 @@
 public class Message {
 	private String msgName;
+	private String sender;
 	private String receiver;
 	private float after;
 	private float deadline;
@@ -8,6 +9,12 @@ public class Message {
 	}
 	public void setMsgName(String msgName) {
 		this.msgName = msgName;
+	}
+	public String getSender() {
+		return sender;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 	public String getReceiver() {
 		return receiver;
@@ -28,5 +35,4 @@ public class Message {
 		this.deadline = deadline;
 	}
 	
-
 }

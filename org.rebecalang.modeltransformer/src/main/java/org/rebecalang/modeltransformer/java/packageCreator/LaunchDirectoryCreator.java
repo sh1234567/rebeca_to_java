@@ -8,27 +8,26 @@ import java.io.Writer;
 
 import org.rebecalang.compiler.utils.ExceptionContainer;
 
-public class JavaPackageCreator {
-	protected String dirPath;
-	protected String javaPackagePath;
-	protected ExceptionContainer container;
+public class LaunchDirectoryCreator {
 
-	public JavaPackageCreator(File destinationLocation, String modelName, ExceptionContainer container) {
-		// TODO Auto-generated constructor stub
-		this.javaPackagePath = destinationLocation.getAbsolutePath() + File.separatorChar + modelName;
-		this.dirPath = javaPackagePath;
+	
+	protected String dirPath;
+	protected String rosPackagePath;
+	protected ExceptionContainer container;
+	public LaunchDirectoryCreator(File destinationLocation, String modelName, ExceptionContainer container) {				
+		this.rosPackagePath = destinationLocation.getAbsolutePath() + File.separatorChar + modelName;
+		this.dirPath = rosPackagePath + File.separatorChar + "launch";
 		this.container = container;
 		this.createDirectory();
 	}
 
-	private boolean createDirectory() {
-		// TODO Auto-generated method stub
+	public boolean createDirectory() {
 		boolean success = true;
 		File file = new File(dirPath);
 		file.mkdirs();
 		return success;
 	}
-
+	
 	public boolean addFile(String fileName, String fileContent) throws IOException {
 		boolean success = true;
 		
@@ -56,4 +55,9 @@ public class JavaPackageCreator {
 			}	
 		return success;
 	}
+	
+	
+	
+
+
 }

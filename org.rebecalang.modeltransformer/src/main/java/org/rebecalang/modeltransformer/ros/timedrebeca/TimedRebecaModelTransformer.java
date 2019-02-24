@@ -1,6 +1,6 @@
 package org.rebecalang.modeltransformer.ros.timedrebeca;
 
-import org.rebecalang.modeltransformer.ros.packageCreator.*;
+import org.rebecalang.modeltransformer.java.packageCreator.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,9 +37,9 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer{
 		ConfigFilesCreator configFileCreator = new ConfigFilesCreator(modelName, rebecaModel);
 		String packageXmlFileContent = configFileCreator.getPackageXmlFileContent();
 		String cmakeListFileContent = configFileCreator.getCmakeListFileContent();
-		ROSPackageCreator rosPackageCreator = new ROSPackageCreator(destinationLocation, modelName, container);
-		rosPackageCreator.addFile("CMakeLists.txt", cmakeListFileContent);
-		rosPackageCreator.addFile("package.xml", packageXmlFileContent);
+		JavaPackageCreator JavaPackageCreator = new JavaPackageCreator(destinationLocation, modelName, container);
+		JavaPackageCreator.addFile("CMakeLists.txt", cmakeListFileContent);
+		JavaPackageCreator.addFile("package.xml", packageXmlFileContent);
 		
 		/*nodes files */
 		for (ReactiveClassDeclaration rc: rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {

@@ -28,7 +28,7 @@ import org.rebecalang.compiler.utils.TypesUtilities;
 import org.rebecalang.modeltransformer.AbstractExpressionTransformer;
 import org.rebecalang.modeltransformer.StatementTransformingException;
 import org.rebecalang.modeltransformer.TransformingFeature;
-import org.rebecalang.modeltransformer.ros.Utilities;
+import org.rebecalang.modeltransformer.java.Utilities;
 
 public class CoreRebecaExpressionTransformer extends AbstractExpressionTransformer{
 	static Integer i = 0;
@@ -106,12 +106,15 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 
 	private String mapToJAVAPublishing(DotPrimary dotPrimary) {
 		// TODO Auto-generated method stub
-
 		String retValue = "";
-		/* map to ROS Publishing */
-		retValue = modelName + "::" + ((TermPrimary)dotPrimary.getRight()).getName() 
-				+ " " + "pubMsg" + i.toString() + ";" + NEW_LINE;
-		
+		retValue += "Message msg = new Message();\r\n" + 
+				"msg.setMsgName(\"" + 
+				((TermPrimary)dotPrimary.getRight()).getName() +
+				"\");\r\n" + 
+				"msg.setSender(" +
+				");\r\n" + 
+				"msg.setReceiver(" +
+				");\r\n" + NEW_LINE;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;
 		for (Expression expression : ((TermPrimary)dotPrimary.getRight()).getParentSuffixPrimary().getArguments()) {

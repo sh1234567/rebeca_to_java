@@ -7,6 +7,7 @@ public class MessageClassCreator {
 		String retValue = "";
 		retValue +=  "public class Message {\r\n" + 
 				"	private String msgName;\r\n" + 
+				"	private String sender;\r\n" + 
 				"	private String receiver;\r\n" + 
 				"	private float after;\r\n" + 
 				"	private float deadline;\r\n" + 
@@ -15,6 +16,12 @@ public class MessageClassCreator {
 				"	}\r\n" + 
 				"	public void setMsgName(String msgName) {\r\n" + 
 				"		this.msgName = msgName;\r\n" + 
+				"	}\r\n" + 
+				"	public String getSender() {\r\n" + 
+				"		return sender;\r\n" + 
+				"	}\r\n" + 
+				"	public void setSender(String sender) {\r\n" + 
+				"		this.sender = sender;\r\n" + 
 				"	}\r\n" + 
 				"	public String getReceiver() {\r\n" + 
 				"		return receiver;\r\n" + 
@@ -35,7 +42,6 @@ public class MessageClassCreator {
 				"		this.deadline = deadline;\r\n" + 
 				"	}\r\n" + 
 				"	\r\n" + 
-				"\r\n" + 
 				"}\r\n" + 
 				"";
 		return retValue;

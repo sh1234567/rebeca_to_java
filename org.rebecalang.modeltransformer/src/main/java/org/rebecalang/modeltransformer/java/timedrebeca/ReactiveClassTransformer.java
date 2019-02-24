@@ -79,6 +79,9 @@ public class ReactiveClassTransformer {
 		// defining imports
 		retValue += "public class " + rc.getName() + "{" + NEW_LINE;
 		retValue += createVariablesDefinition();
+		retValue += "public " + rc.getName() +"(String n) {\r\n" + 
+				"	this.name = n;\r\n" + 
+				"}" + NEW_LINE;
 		for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 			System.out.println("msgsrv");
 			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
@@ -97,6 +100,7 @@ public class ReactiveClassTransformer {
 
 	private String createVariablesDefinition() {
 		String variablesDefinition = "";
+		variablesDefinition += "private String name;" + NEW_LINE;
 		// TODO Auto-generated method stub
 		for(FieldDeclaration fd : rc.getStatevars()) {
 			for(VariableDeclarator var : fd.getVariableDeclarators()) {
