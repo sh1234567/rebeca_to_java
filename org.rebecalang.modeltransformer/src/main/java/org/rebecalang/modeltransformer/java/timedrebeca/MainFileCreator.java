@@ -45,7 +45,7 @@ public class MainFileCreator {
 		for(MainRebecDefinition md: rebecaModel.getRebecaCode().getMainDeclaration().getMainRebecDefinition()) {
 			try {
 				ReactiveClassDeclaration metaData = TypesUtilities.getInstance().getMetaData(md.getType());
-				retValue +=  metaData.getName() + " " + md.getName() + " = new " + metaData.getName() + "();" + NEW_LINE;
+				retValue +=  metaData.getName() + " " + md.getName() + " = new " + metaData.getName() + "(\"" + md.getName() +"\");" + NEW_LINE;
 			} catch (CodeCompilationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

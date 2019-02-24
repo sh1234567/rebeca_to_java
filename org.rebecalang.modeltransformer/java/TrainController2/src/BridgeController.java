@@ -15,8 +15,8 @@ if (signal2 == false) {
 signal1 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
-msg.setSender();
-msg.setReceiver();
+msg.setSender(this.name);
+msg.setReceiver(t1);
 
 pubMsg1.sender=sender;
 t1_YouMayPass_pub.publish(pubMsg1);
@@ -34,8 +34,8 @@ if (signal1 == false) {
 signal2 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
-msg.setSender();
-msg.setReceiver();
+msg.setSender(this.name);
+msg.setReceiver(t2);
 
 pubMsg3.sender=sender;
 t2_YouMayPass_pub.publish(pubMsg3);
@@ -60,8 +60,8 @@ if (isWaiting2) {
 signal2 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
-msg.setSender();
-msg.setReceiver();
+msg.setSender(this.name);
+msg.setReceiver(t2);
 
 pubMsg5.sender=sender;
 t2_YouMayPass_pub.publish(pubMsg5);
@@ -77,8 +77,8 @@ if (isWaiting1) {
 signal1 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
-msg.setSender();
-msg.setReceiver();
+msg.setSender(this.name);
+msg.setReceiver(t1);
 
 pubMsg7.sender=sender;
 t1_YouMayPass_pub.publish(pubMsg7);

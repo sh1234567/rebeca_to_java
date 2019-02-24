@@ -107,13 +107,18 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 	private String mapToJAVAPublishing(DotPrimary dotPrimary) {
 		// TODO Auto-generated method stub
 		String retValue = "";
+		String receiver = "";
+		if (((TermPrimary) dotPrimary.getLeft()).getName().equals("self"))
+			receiver = "this.name";
+		else
+			receiver = ((TermPrimary) dotPrimary.getLeft()).getName();
 		retValue += "Message msg = new Message();\r\n" + 
 				"msg.setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
 				"\");\r\n" + 
-				"msg.setSender(" +
-				");\r\n" + 
+				"msg.setSender(this.name);\r\n" + 
 				"msg.setReceiver(" +
+				receiver +
 				");\r\n" + NEW_LINE;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;
