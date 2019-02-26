@@ -57,7 +57,7 @@ public class CoreRebecaStatementTransformer extends AbstractStatementTransformer
 		*/
 		if (statement instanceof Expression) {
 			System.out.println(resolveExpression((Expression) statement));
-			return (resolveExpression((Expression) statement) + ";");
+			return (resolveExpression((Expression) statement));
 		}
 		
 		container.addException(new StatementTransformingException("Unknown translation rule for type " + 
@@ -82,9 +82,11 @@ public class CoreRebecaStatementTransformer extends AbstractStatementTransformer
 	public String resolveBlockStatement(BlockStatement blockStatement) {
 		String retValue = "";
 		for (Statement statement : blockStatement.getStatements()) {
-			retValue += resolveStatement(statement) + NEW_LINE;
+			retValue += resolveStatement(statement);
+			if (statement instanceof Expression)
+				retValue += ";";
+			retValue += NEW_LINE;
 		}
-		retValue += NEW_LINE;
 		return retValue;
 	}
 	protected String resolveExpression(Expression expression) {

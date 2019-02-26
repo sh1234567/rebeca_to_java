@@ -87,9 +87,9 @@ public class ReactiveClassTransformer {
 			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
 					msgsrv, modelName);
 			retValue += "public void " + msgsrv.getName() + " (" + ")" + NEW_LINE + "{" + NEW_LINE
-					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "}" + NEW_LINE + NEW_LINE;
+					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "}" + NEW_LINE ;
 		}
-		retValue += "}" + NEW_LINE + NEW_LINE;
+		retValue += "}" + NEW_LINE ;
 
 		/*
 		 * for(SynchMethodDeclaration method : rc.getSynchMethods()) { retValue +=

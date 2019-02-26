@@ -16,18 +16,12 @@ signal1 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
-msg.setReceiver(t1);
-
-pubMsg1.sender=sender;
-t1_YouMayPass_pub.publish(pubMsg1);
-;
-
+msg.setReceiver("train1");
+MessageQueue.getMessageQueue().add(msg);
 }
 else {
 isWaiting1 = true;
-
 }
-
 }
 else {
 if (signal1 == false) {
@@ -35,23 +29,15 @@ signal2 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
-msg.setReceiver(t2);
-
-pubMsg3.sender=sender;
-t2_YouMayPass_pub.publish(pubMsg3);
-;
-
+msg.setReceiver("train2");
+MessageQueue.getMessageQueue().add(msg);
 }
 else {
 isWaiting2 = true;
-
+}
 }
 
 }
-
-
-}
-
 public void Leave ()
 {
 if (var == true) {
@@ -61,15 +47,10 @@ signal2 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
-msg.setReceiver(t2);
-
-pubMsg5.sender=sender;
-t2_YouMayPass_pub.publish(pubMsg5);
-;
+msg.setReceiver("train2");
+MessageQueue.getMessageQueue().add(msg);
 isWaiting2 = false;
-
 }
-
 }
 else {
 signal2 = false;
@@ -78,19 +59,11 @@ signal1 = true;
 Message msg = new Message();
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
-msg.setReceiver(t1);
-
-pubMsg7.sender=sender;
-t1_YouMayPass_pub.publish(pubMsg7);
-;
+msg.setReceiver("train1");
+MessageQueue.getMessageQueue().add(msg);
 isWaiting1 = false;
-
+}
 }
 
 }
-
-
 }
-
-}
-

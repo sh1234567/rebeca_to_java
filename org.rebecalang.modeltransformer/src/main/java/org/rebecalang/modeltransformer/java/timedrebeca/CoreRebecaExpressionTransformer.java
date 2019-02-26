@@ -111,7 +111,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		if (((TermPrimary) dotPrimary.getLeft()).getName().equals("self"))
 			receiver = "this.name";
 		else
-			receiver = ((TermPrimary) dotPrimary.getLeft()).getName();
+			receiver = "\"" + ((TermPrimary) dotPrimary.getLeft()).getName() + "\"";
 		retValue += "Message msg = new Message();\r\n" + 
 				"msg.setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
@@ -119,7 +119,8 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 				"msg.setSender(this.name);\r\n" + 
 				"msg.setReceiver(" +
 				receiver +
-				");\r\n" + NEW_LINE;
+				");\r\n" +
+				"MessageQueue.getMessageQueue().add(msg)";
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;
 		for (Expression expression : ((TermPrimary)dotPrimary.getRight()).getParentSuffixPrimary().getArguments()) {
@@ -134,11 +135,11 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 				argumentIndex ++;
 				
 		} 
-	
+		/*
 		retValue += "pubMsg" + i.toString() + "." + "sender" + "=" + "sender" + ";" + NEW_LINE;			
 		retValue += ((TermPrimary) dotPrimary.getLeft()).getName() + "_" + ((TermPrimary)dotPrimary.getRight()).getName() + "_pub"
 				+ "." + "publish(" + "pubMsg" + i.toString() + ")" + ";" + NEW_LINE;
-		
+		*/
 		i ++; /* to prevent from repeated names */
 		/* end of publishing */
 		
