@@ -1,4 +1,5 @@
 public class BridgeController{
+Message msg = new Message();
 private String name;
 private boolean isWaiting1;
 private boolean isWaiting2;
@@ -13,7 +14,7 @@ public void Arrive ()
 if (var == true) {
 if (signal2 == false) {
 signal1 = true;
-Message msg = new Message();
+msg = null;
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
 msg.setReceiver("train1");
@@ -26,7 +27,7 @@ isWaiting1 = true;
 else {
 if (signal1 == false) {
 signal2 = true;
-Message msg = new Message();
+msg = null;
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
 msg.setReceiver("train2");
@@ -44,7 +45,7 @@ if (var == true) {
 signal1 = false;
 if (isWaiting2) {
 signal2 = true;
-Message msg = new Message();
+msg = null;
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
 msg.setReceiver("train2");
@@ -56,7 +57,7 @@ else {
 signal2 = false;
 if (isWaiting1) {
 signal1 = true;
-Message msg = new Message();
+msg = null;
 msg.setMsgName("YouMayPass");
 msg.setSender(this.name);
 msg.setReceiver("train1");

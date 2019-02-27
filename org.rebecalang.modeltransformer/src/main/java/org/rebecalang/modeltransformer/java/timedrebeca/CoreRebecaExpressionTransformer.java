@@ -112,7 +112,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 			receiver = "this.name";
 		else
 			receiver = "\"" + ((TermPrimary) dotPrimary.getLeft()).getName() + "\"";
-		retValue += "Message msg = new Message();\r\n" + 
+		retValue += "msg = null;\r\n" + 
 				"msg.setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
 				"\");\r\n" + 
