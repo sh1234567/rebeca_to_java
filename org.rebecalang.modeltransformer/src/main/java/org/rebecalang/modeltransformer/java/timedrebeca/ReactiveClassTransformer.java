@@ -100,7 +100,7 @@ public class ReactiveClassTransformer {
 
 	private String createVariablesDefinition() {
 		String variablesDefinition = "";
-		variablesDefinition += "Message msg = new Message();\r\n" + "private String name;" + NEW_LINE;
+		variablesDefinition += "private String name;" + NEW_LINE;
 		// TODO Auto-generated method stub
 		for(FieldDeclaration fd : rc.getStatevars()) {
 			for(VariableDeclarator var : fd.getVariableDeclarators()) {

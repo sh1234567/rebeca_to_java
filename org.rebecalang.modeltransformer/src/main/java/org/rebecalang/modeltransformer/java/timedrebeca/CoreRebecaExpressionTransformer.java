@@ -32,6 +32,7 @@ import org.rebecalang.modeltransformer.java.Utilities;
 
 public class CoreRebecaExpressionTransformer extends AbstractExpressionTransformer{
 	static Integer i = 0;
+	static Integer num = 1;
 	private String modelName;
 	private ReactiveClassDeclaration rc;
 	private RebecaModel rebecaModel;
@@ -112,15 +113,16 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 			receiver = "this.name";
 		else
 			receiver = "\"" + ((TermPrimary) dotPrimary.getLeft()).getName() + "\"";
-		retValue += "msg = null;\r\n" + 
-				"msg.setMsgName(\"" + 
+		retValue += "Message msg" + num.toString() + " = new Message();\r\n" + 
+				"msg" + num.toString() + ".setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
 				"\");\r\n" + 
-				"msg.setSender(this.name);\r\n" + 
-				"msg.setReceiver(" +
+				"msg" + num.toString() + ".setSender(this.name);\r\n" + 
+				"msg" + num.toString() + ".setReceiver(" +
 				receiver +
 				");\r\n" +
-				"MessageQueue.getMessageQueue().add(msg)";
+				"MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
+		num = num+1;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;
 		for (Expression expression : ((TermPrimary)dotPrimary.getRight()).getParentSuffixPrimary().getArguments()) {

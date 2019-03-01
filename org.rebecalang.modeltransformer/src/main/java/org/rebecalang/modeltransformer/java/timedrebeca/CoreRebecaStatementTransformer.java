@@ -56,7 +56,7 @@ public class CoreRebecaStatementTransformer extends AbstractStatementTransformer
 		}
 		*/
 		if (statement instanceof Expression) {
-			System.out.println(resolveExpression((Expression) statement));
+			//System.out.println(resolveExpression((Expression) statement));
 			return (resolveExpression((Expression) statement));
 		}
 		

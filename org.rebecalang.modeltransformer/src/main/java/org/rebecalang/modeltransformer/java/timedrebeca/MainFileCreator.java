@@ -32,6 +32,7 @@ public class MainFileCreator {
 		String retValue = "";
 		retValue += "public class Main{\r\n" + 
 				"public static void main(String[] args){\r\n" + 
+				"Message a = new Message();\r\n"+
 				defineRebecs() +
 				"	\r\n" + 
 				"}\r\n" + 
