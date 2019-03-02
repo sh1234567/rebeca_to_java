@@ -79,8 +79,8 @@ public class ReactiveClassTransformer {
 		// defining imports
 		retValue += "public class " + rc.getName() + "{" + NEW_LINE;
 		retValue += createVariablesDefinition();
-		retValue += "public " + rc.getName() + "(String n) {\r\n" + "	this.name = n;\r\n";
-		retValue += createConstructor();
+		retValue += "public " + rc.getName() + "(String n) {\r\n" + "this.name = n;\r\n";
+		retValue += statementTransformer.resolveBlockStatement(rc.getConstructors().get(0).getBlock());
 		retValue +=  "}" + NEW_LINE;
 		for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 			System.out.println("msgsrv");
@@ -98,12 +98,6 @@ public class ReactiveClassTransformer {
 		return retValue;
 	}
 
-	private String createConstructor() {
-		// TODO Auto-generated method stub
-		String retValue = "";
-		retValue += statementTransformer.resolveBlockStatement(rc.getConstructors().get(0).getBlock());
-		return retValue;
-	}
 
 	private String createVariablesDefinition() {
 		String variablesDefinition = "";

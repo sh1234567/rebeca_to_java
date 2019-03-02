@@ -11,6 +11,7 @@ import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FieldDeclara
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.Literal;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MsgsrvDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.NonDetExpression;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ParentSuffixPrimary;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.PlusSubExpression;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.PrimaryExpression;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ReactiveClassDeclaration;
@@ -20,6 +21,7 @@ import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.TermPrimary;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.TernaryExpression;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.UnaryExpression;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.VariableDeclarator;
+import org.rebecalang.compiler.modelcompiler.timedrebeca.objectmodel.TimedRebecaParentSuffixPrimary;
 import org.rebecalang.compiler.utils.CodeCompilationException;
 import org.rebecalang.compiler.utils.CompilerFeature;
 import org.rebecalang.compiler.utils.ExceptionContainer;
@@ -109,10 +111,17 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		// TODO Auto-generated method stub
 		String retValue = "";
 		String receiver = "";
+		
+		TimedRebecaParentSuffixPrimary parentSuffixPrimary = (TimedRebecaParentSuffixPrimary) 
+				((TermPrimary)dotPrimary.getRight()).getParentSuffixPrimary();
+		
 		if (((TermPrimary) dotPrimary.getLeft()).getName().equals("self"))
 			receiver = "this.name";
 		else
 			receiver = "\"" + ((TermPrimary) dotPrimary.getLeft()).getName() + "\"";
+		//float after = 0;
+		//float deadline = 100000;//infinite
+			
 		retValue += "Message msg" + num.toString() + " = new Message();\r\n" + 
 				"msg" + num.toString() + ".setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
@@ -121,10 +130,17 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 				"msg" + num.toString() + ".setReceiver(" +
 				receiver +
 				");\r\n" +
+				"msg" + num.toString() + ".setAfter(" +
+				parentSuffixPrimary.getAfterExpression() +
+				");\r\n" +
+				"msg" + num.toString() + ".setDeadline(" +
+				parentSuffixPrimary.getDeadlineExpression() +
+				");\r\n" +
 				"MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
-		num = num+1;
+		num = num + 1;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;
+		
 		for (Expression expression : ((TermPrimary)dotPrimary.getRight()).getParentSuffixPrimary().getArguments()) {
 				ReactiveClassDeclaration toClass = null;
 				TermPrimary toRebec = (TermPrimary)dotPrimary.getLeft();

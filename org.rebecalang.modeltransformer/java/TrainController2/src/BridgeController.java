@@ -6,7 +6,7 @@ private boolean signal1;
 private boolean signal2;
 private boolean var = true;
 public BridgeController(String n) {
-	this.name = n;
+this.name = n;
 signal1 = false;
 signal2 = false;
 isWaiting1 = false;
@@ -21,6 +21,8 @@ Message msg1 = new Message();
 msg1.setMsgName("YouMayPass");
 msg1.setSender(this.name);
 msg1.setReceiver("train1");
+msg1.setAfter(null);
+msg1.setDeadline(null);
 MessageQueue.getMessageQueue().add(msg1);
 }
 else {
@@ -34,6 +36,8 @@ Message msg2 = new Message();
 msg2.setMsgName("YouMayPass");
 msg2.setSender(this.name);
 msg2.setReceiver("train2");
+msg2.setAfter(null);
+msg2.setDeadline(null);
 MessageQueue.getMessageQueue().add(msg2);
 }
 else {
@@ -52,6 +56,8 @@ Message msg3 = new Message();
 msg3.setMsgName("YouMayPass");
 msg3.setSender(this.name);
 msg3.setReceiver("train2");
+msg3.setAfter(null);
+msg3.setDeadline(null);
 MessageQueue.getMessageQueue().add(msg3);
 isWaiting2 = false;
 }
@@ -64,6 +70,8 @@ Message msg4 = new Message();
 msg4.setMsgName("YouMayPass");
 msg4.setSender(this.name);
 msg4.setReceiver("train1");
+msg4.setAfter(null);
+msg4.setDeadline(null);
 MessageQueue.getMessageQueue().add(msg4);
 isWaiting1 = false;
 }
