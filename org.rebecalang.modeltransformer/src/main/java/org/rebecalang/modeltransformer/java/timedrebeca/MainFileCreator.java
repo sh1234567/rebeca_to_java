@@ -49,11 +49,9 @@ public class MainFileCreator {
 						metaData = TypesUtilities.getInstance().getMetaData(md.getType());
 						if (rc.getName() == metaData.getName()) {
 							retValue += "if (a.getReceiver().equals(\"" + md.getName()
-									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n\t" + md.getName()
-									+ "." + msgsrv.getName() + ";\r\n" + "}\r\n";
+									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n\t"
+									+ md.getName() + "." + msgsrv.getName() + "();\r\n" + "}\r\n";
 
-							System.out.println(rc.getName() + "&&&" + msgsrv.getName() + "&&&" + metaData.getName()
-									+ "&&&" + md.getName());
 						}
 
 					} catch (CodeCompilationException e) {
