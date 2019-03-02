@@ -79,17 +79,17 @@ public class ReactiveClassTransformer {
 		// defining imports
 		retValue += "public class " + rc.getName() + "{" + NEW_LINE;
 		retValue += createVariablesDefinition();
-		retValue += "public " + rc.getName() +"(String n) {\r\n" + 
-				"	this.name = n;\r\n" + 
-				"}" + NEW_LINE;
+		retValue += "public " + rc.getName() + "(String n) {\r\n" + "	this.name = n;\r\n";
+		retValue += createConstructor();
+		retValue +=  "}" + NEW_LINE;
 		for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 			System.out.println("msgsrv");
 			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
 					msgsrv, modelName);
 			retValue += "public void " + msgsrv.getName() + " (" + ")" + NEW_LINE + "{" + NEW_LINE
-					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "}" + NEW_LINE ;
+					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "}" + NEW_LINE;
 		}
-		retValue += "}" + NEW_LINE ;
+		retValue += "}" + NEW_LINE;
 
 		/*
 		 * for(SynchMethodDeclaration method : rc.getSynchMethods()) { retValue +=
@@ -98,18 +98,25 @@ public class ReactiveClassTransformer {
 		return retValue;
 	}
 
+	private String createConstructor() {
+		// TODO Auto-generated method stub
+		String retValue = "";
+		retValue += statementTransformer.resolveBlockStatement(rc.getConstructors().get(0).getBlock());
+		return retValue;
+	}
+
 	private String createVariablesDefinition() {
 		String variablesDefinition = "";
 		variablesDefinition += "private String name;" + NEW_LINE;
 		// TODO Auto-generated method stub
-		for(FieldDeclaration fd : rc.getStatevars()) {
-			for(VariableDeclarator var : fd.getVariableDeclarators()) {
-				variablesDefinition +=  "private " + statementTransformer.resolveVariableDeclaration(fd, var) + SEMICOLON + NEW_LINE;
+		for (FieldDeclaration fd : rc.getStatevars()) {
+			for (VariableDeclarator var : fd.getVariableDeclarators()) {
+				variablesDefinition += "private " + statementTransformer.resolveVariableDeclaration(fd, var) + SEMICOLON
+						+ NEW_LINE;
 			}
 		}
 		return variablesDefinition;
 	}
-	
 
 	public String getHeaderFileContent() {
 		// TODO Auto-generated method stub
