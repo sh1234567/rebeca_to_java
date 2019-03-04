@@ -119,9 +119,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 			receiver = "this.name";
 		else
 			receiver = "\"" + ((TermPrimary) dotPrimary.getLeft()).getName() + "\"";
-		//float after = 0;
-		//float deadline = 100000;//infinite
-			
+		
 		retValue += "Message msg" + num.toString() + " = new Message();\r\n" + 
 				"msg" + num.toString() + ".setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
@@ -130,12 +128,18 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 				"msg" + num.toString() + ".setReceiver(" +
 				receiver +
 				");\r\n" +
-				"msg" + num.toString() + ".setAfter(" +
-				parentSuffixPrimary.getAfterExpression() +
-				");\r\n" +
-				"msg" + num.toString() + ".setDeadline(" +
-				parentSuffixPrimary.getDeadlineExpression() +
-				");\r\n" +
+				"msg" + num.toString() + ".setAfter(" ; 
+		if (parentSuffixPrimary.getAfterExpression() != null)
+			retValue += parentSuffixPrimary.getAfterExpression();
+		else 
+			retValue += "0";
+		retValue += ");\r\n" +
+				"msg" + num.toString() + ".setDeadline(";
+		if (parentSuffixPrimary.getDeadlineExpression() != null)
+			retValue += parentSuffixPrimary.getDeadlineExpression();
+	else 
+		retValue += "100000";
+		retValue +=	");\r\n" +
 				"MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
 		num = num + 1;
 		/* fill the ROS message fields with the arguments to be published */
