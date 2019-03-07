@@ -77,11 +77,11 @@ public class ReactiveClassTransformer {
 	public String getCppFileContent() {
 		String retValue = "";
 		// defining imports
-		retValue += "public class " + rc.getName() + "{" + NEW_LINE;
+		retValue += "public class " + rc.getName() + " extends Actors{" + NEW_LINE;
 		retValue += createVariablesDefinition();
 		retValue += "public " + rc.getName() + "(String n) {\r\n" + "this.name = n;\r\n";
 		retValue += statementTransformer.resolveBlockStatement(rc.getConstructors().get(0).getBlock());
-		retValue +=  "}" + NEW_LINE;
+		retValue += "}" + NEW_LINE;
 		for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 			System.out.println("msgsrv");
 			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
@@ -89,6 +89,7 @@ public class ReactiveClassTransformer {
 			retValue += "public void " + msgsrv.getName() + " (" + ")" + NEW_LINE + "{" + NEW_LINE
 					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "}" + NEW_LINE;
 		}
+		retValue += createEqualsMethod();
 		retValue += "}" + NEW_LINE;
 
 		/*
@@ -98,6 +99,19 @@ public class ReactiveClassTransformer {
 		return retValue;
 	}
 
+	private String createEqualsMethod() {
+		// TODO Auto-generated method stub
+		String retValue = "public boolean equals(" + rc.getName() + " a){\r\n";
+		retValue += "if (!(this.name == a.name))\r\n" + "		return false;\r\n";
+		for (FieldDeclaration fd : rc.getStatevars()) {
+			for (VariableDeclarator var : fd.getVariableDeclarators()) {
+				retValue += "if (!(this." + var.getVariableName() + " == a." + var.getVariableName() + "))\r\n"
+						+ "		return false;" + NEW_LINE;
+			}
+		}
+		retValue += "return true;\r\n" + "}\r\n";
+		return retValue;
+	}
 
 	private String createVariablesDefinition() {
 		String variablesDefinition = "";

@@ -1,4 +1,4 @@
-public class Train{
+public class Train extends Actors{
 private String name;
 private boolean onTheBridge;
 public Train(String n) {
@@ -53,5 +53,12 @@ msg9.setAfter(0);
 msg9.setDeadline(100000);
 MessageQueue.getMessageQueue().add(msg9);
 
+}
+public boolean equals(Train a){
+if (!(this.name == a.name))
+		return false;
+if (!(this.onTheBridge == a.onTheBridge))
+		return false;
+return true;
 }
 }

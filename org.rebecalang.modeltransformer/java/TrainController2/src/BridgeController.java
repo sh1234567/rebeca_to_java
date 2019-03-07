@@ -1,4 +1,4 @@
-public class BridgeController{
+public class BridgeController extends Actors{
 private String name;
 private boolean isWaiting1;
 private boolean isWaiting2;
@@ -77,5 +77,20 @@ isWaiting1 = false;
 }
 }
 
+}
+public boolean equals(BridgeController a){
+if (!(this.name == a.name))
+		return false;
+if (!(this.isWaiting1 == a.isWaiting1))
+		return false;
+if (!(this.isWaiting2 == a.isWaiting2))
+		return false;
+if (!(this.signal1 == a.signal1))
+		return false;
+if (!(this.signal2 == a.signal2))
+		return false;
+if (!(this.var == a.var))
+		return false;
+return true;
 }
 }
