@@ -58,6 +58,10 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 		AbstractActorsFileCreator abstractActorsFileCreator = new AbstractActorsFileCreator();
 		String abstractActorsFileContent = abstractActorsFileCreator.getAbstractActorsFileContent();
 		srcDirCreator.addFile("Actors.java", abstractActorsFileContent);
+		
+		StateFileCreator stateFileCreator = new StateFileCreator();
+		String stateFileContent = stateFileCreator.getStateFileContent();
+		srcDirCreator.addFile("State.java", stateFileContent);
 
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
 			System.out.println("reactive class");
