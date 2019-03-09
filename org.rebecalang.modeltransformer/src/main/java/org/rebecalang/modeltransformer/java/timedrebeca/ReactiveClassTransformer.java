@@ -77,17 +77,17 @@ public class ReactiveClassTransformer {
 	public String getCppFileContent() {
 		String retValue = "";
 		// defining imports
-		retValue += "public class " + rc.getName() + " extends Actors{" + NEW_LINE;
+		retValue += "public class " + rc.getName() + " extends Actors {" + NEW_LINE;
 		retValue += createVariablesDefinition();
-		retValue += "public " + rc.getName() + "(String n) {\r\n" + "this.name = n;\r\n";
+		retValue += "\r\n\t" + "public " + rc.getName() + "(String n) {\r\n" + "\t\tfloat t = 0;\r\n" + "\t\tthis.name = n;\r\n";
 		retValue += statementTransformer.resolveBlockStatement(rc.getConstructors().get(0).getBlock());
-		retValue += "}" + NEW_LINE;
+		retValue += "\t}\r\n" + NEW_LINE;
 		for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 			System.out.println("msgsrv");
 			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
 					msgsrv, modelName);
-			retValue += "public void " + msgsrv.getName() + " (" + ")" + NEW_LINE + "{" + NEW_LINE
-					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "}" + NEW_LINE;
+			retValue += "\t" + "public void " + msgsrv.getName() + "(float t)" + " {" + NEW_LINE
+					+ messageServerTransformer.getCallbackFunctionBody() + NEW_LINE + "\t}\r\n" + NEW_LINE;
 		}
 		retValue += createEqualsMethod();
 		retValue += "}" + NEW_LINE;
@@ -101,25 +101,25 @@ public class ReactiveClassTransformer {
 
 	private String createEqualsMethod() {
 		// TODO Auto-generated method stub
-		String retValue = "public boolean equals(" + rc.getName() + " a){\r\n";
-		retValue += "if (!(this.name == a.name))\r\n" + "		return false;\r\n";
+		String retValue = "\t" + "public boolean equals(" + rc.getName() + " a) {\r\n";
+		retValue += "\t\t" + "if (!(this.name == a.name))\r\n" + "\t\t\t" + "return false;\r\n";
 		for (FieldDeclaration fd : rc.getStatevars()) {
 			for (VariableDeclarator var : fd.getVariableDeclarators()) {
-				retValue += "if (!(this." + var.getVariableName() + " == a." + var.getVariableName() + "))\r\n"
-						+ "		return false;" + NEW_LINE;
+				retValue += "\t\t" + "if (!(this." + var.getVariableName() + " == a." + var.getVariableName() + "))\r\n"
+						+ "\t\t\t" + "return false;" + NEW_LINE;
 			}
 		}
-		retValue += "return true;\r\n" + "}\r\n";
+		retValue += "\t\t" + "return true;\r\n" + "\t}\r\n";
 		return retValue;
 	}
 
 	private String createVariablesDefinition() {
 		String variablesDefinition = "";
-		variablesDefinition += "private String name;" + NEW_LINE;
+		variablesDefinition += "\tprivate String name;" + NEW_LINE;
 		// TODO Auto-generated method stub
 		for (FieldDeclaration fd : rc.getStatevars()) {
 			for (VariableDeclarator var : fd.getVariableDeclarators()) {
-				variablesDefinition += "private " + statementTransformer.resolveVariableDeclaration(fd, var) + SEMICOLON
+				variablesDefinition += "\t" + "private " + statementTransformer.resolveVariableDeclaration(fd, var) + SEMICOLON
 						+ NEW_LINE;
 			}
 		}

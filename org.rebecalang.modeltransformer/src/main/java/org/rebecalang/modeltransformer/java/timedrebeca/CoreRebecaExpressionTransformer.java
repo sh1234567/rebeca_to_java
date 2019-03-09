@@ -55,7 +55,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		if (expression instanceof BinaryExpression) {
 			BinaryExpression bExpression = (BinaryExpression) expression;
 			String op = bExpression.getOperator();
-			retValue =  translate(bExpression.getLeft(), container) +
+			retValue =  "\t\t" + translate(bExpression.getLeft(), container) +
 					 " " + op + " " + translate(bExpression.getRight(), container);
 		} else if (expression instanceof UnaryExpression) {
 			UnaryExpression uExpression = (UnaryExpression) expression;
@@ -120,27 +120,27 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		else
 			receiver = "\"" + ((TermPrimary) dotPrimary.getLeft()).getName() + "\"";
 		
-		retValue += "Message msg" + num.toString() + " = new Message();\r\n" + 
-				"msg" + num.toString() + ".setMsgName(\"" + 
+		retValue += "\t\t" + "Message msg" + num.toString() + " = new Message();\r\n" + 
+				"\t\t" + "msg" + num.toString() + ".setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
 				"\");\r\n" + 
-				"msg" + num.toString() + ".setSender(this.name);\r\n" + 
-				"msg" + num.toString() + ".setReceiver(" +
+				"\t\t" + "msg" + num.toString() + ".setSender(this.name);\r\n" + 
+				"\t\t" + "msg" + num.toString() + ".setReceiver(" +
 				receiver +
 				");\r\n" +
-				"msg" + num.toString() + ".setAfter(" ; 
+				"\t\t" + "msg" + num.toString() + ".setAfter(" ; 
 		if (parentSuffixPrimary.getAfterExpression() != null)
-			retValue += parentSuffixPrimary.getAfterExpression();
+			retValue += "t + " + parentSuffixPrimary.getAfterExpression();
 		else 
-			retValue += "0";
+			retValue += "t";
 		retValue += ");\r\n" +
-				"msg" + num.toString() + ".setDeadline(";
+				"\t\t" + "msg" + num.toString() + ".setDeadline(";
 		if (parentSuffixPrimary.getDeadlineExpression() != null)
-			retValue += parentSuffixPrimary.getDeadlineExpression();
+			retValue += "t + " + parentSuffixPrimary.getDeadlineExpression();
 	else 
-		retValue += "100000";
+		retValue += "t + 100000";
 		retValue +=	");\r\n" +
-				"MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
+				"\t\t" + "MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
 		num = num + 1;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;

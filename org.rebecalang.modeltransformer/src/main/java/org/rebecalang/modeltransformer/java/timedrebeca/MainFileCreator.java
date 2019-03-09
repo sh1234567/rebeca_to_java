@@ -31,15 +31,17 @@ public class MainFileCreator {
 	public String getMainFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue += "public class Main{\r\n" + "public static void main(String[] args){\r\n"
-				+ "Message a = new Message();\r\n" + "a = MessageQueue.getMessageQueue().poll();\r\n" + defineRebecs()
-				+ queueManagement() + "	\r\n" + "}\r\n" + "}";
+		retValue += "public class Main {\r\n" + "\tpublic static void main(String[] args) {\r\n"
+				+ "\t\tfloat t = 0;\r\n"
+				+ "\t\tMessage a = new Message();\r\n" + defineRebecs()
+				+ queueManagement() + "	\r\n" + "\t}\r\n" + "}";
 		return retValue;
 	}
 
 	public String queueManagement() {
 		// TODO Auto-generated method stub
-		String retValue = "";
+		String retValue = "\t\twhile (!MessageQueue.getMessageQueue().isEmpty()) {\r\n" + 
+				"\t\t\ta = MessageQueue.getMessageQueue().poll();\r\n";
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
 			for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 				for (MainRebecDefinition md : rebecaModel.getRebecaCode().getMainDeclaration()
@@ -48,9 +50,9 @@ public class MainFileCreator {
 					try {
 						metaData = TypesUtilities.getInstance().getMetaData(md.getType());
 						if (rc.getName() == metaData.getName()) {
-							retValue += "if (a.getReceiver().equals(\"" + md.getName()
-									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n\t"
-									+ md.getName() + "." + msgsrv.getName() + "();\r\n" + "}\r\n";
+							retValue += "\t\t\tif (a.getReceiver().equals(\"" + md.getName()
+									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n\t\t\t\t"
+									+ md.getName() + "." + msgsrv.getName() + "(t);\r\n" + "\t\t\t}\r\n";
 
 						}
 
@@ -62,6 +64,7 @@ public class MainFileCreator {
 				}
 			}
 		}
+		retValue += "\t\t}";
 		return retValue;
 	}
 
@@ -71,7 +74,7 @@ public class MainFileCreator {
 		for (MainRebecDefinition md : rebecaModel.getRebecaCode().getMainDeclaration().getMainRebecDefinition()) {
 			try {
 				ReactiveClassDeclaration metaData = TypesUtilities.getInstance().getMetaData(md.getType());
-				retValue += metaData.getName() + " " + md.getName() + " = new " + metaData.getName() + "(\""
+				retValue += "\t\t" + metaData.getName() + " " + md.getName() + " = new " + metaData.getName() + "(\""
 						+ md.getName() + "\"" + ");" + NEW_LINE;
 			} catch (CodeCompilationException e) {
 				// TODO Auto-generated catch block

@@ -66,7 +66,7 @@ public class CoreRebecaStatementTransformer extends AbstractStatementTransformer
 	}
 	
 	protected String resolveIfStatement(ConditionalStatement statement) {
-		String retValue = "if (";
+		String retValue = "\t\t" + "if (";
 		retValue += resolveExpression(statement.getCondition()) + ") {" + NEW_LINE;
 		if (statement.getStatement() != null)
 			retValue += resolveStatement(statement.getStatement());
