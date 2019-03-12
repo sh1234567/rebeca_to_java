@@ -31,8 +31,9 @@ public class MainFileCreator {
 	public String getMainFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue += "public class Main {\r\n" + "\tpublic static void main(String[] args) {\r\n"
+		retValue += "public class Main {\r\n" + "\tpublic static void main(String[] args) throws CloneNotSupportedException {\r\n"
 				+ "\t\tfloat t = 0;\r\n"
+				+ "\t\tState s_1 = new State();\r\n"
 				+ "\t\tMessage a = new Message();\r\n" + defineRebecs()
 				+ queueManagement() + "	\r\n" + "\t}\r\n" + "}";
 		return retValue;
@@ -52,7 +53,7 @@ public class MainFileCreator {
 						if (rc.getName() == metaData.getName()) {
 							retValue += "\t\t\tif (a.getReceiver().equals(\"" + md.getName()
 									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n\t\t\t\t"
-									+ md.getName() + "." + msgsrv.getName() + "(t);\r\n" + "\t\t\t}\r\n";
+									+ md.getName() + "." + msgsrv.getName() + "(t, s_1);\r\n" + "\t\t\t}\r\n";
 
 						}
 

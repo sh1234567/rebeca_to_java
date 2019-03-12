@@ -55,7 +55,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		if (expression instanceof BinaryExpression) {
 			BinaryExpression bExpression = (BinaryExpression) expression;
 			String op = bExpression.getOperator();
-			retValue =  "\t\t" + translate(bExpression.getLeft(), container) +
+			retValue = translate(bExpression.getLeft(), container) +
 					 " " + op + " " + translate(bExpression.getRight(), container);
 		} else if (expression instanceof UnaryExpression) {
 			UnaryExpression uExpression = (UnaryExpression) expression;
@@ -120,27 +120,27 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		else
 			receiver = "\"" + ((TermPrimary) dotPrimary.getLeft()).getName() + "\"";
 		
-		retValue += "\t\t" + "Message msg" + num.toString() + " = new Message();\r\n" + 
-				"\t\t" + "msg" + num.toString() + ".setMsgName(\"" + 
+		retValue += "Message msg" + num.toString() + " = new Message();\r\n" + 
+				 "msg" + num.toString() + ".setMsgName(\"" + 
 				((TermPrimary)dotPrimary.getRight()).getName() +
 				"\");\r\n" + 
-				"\t\t" + "msg" + num.toString() + ".setSender(this.name);\r\n" + 
-				"\t\t" + "msg" + num.toString() + ".setReceiver(" +
+				"msg" + num.toString() + ".setSender(this.name);\r\n" + 
+				"msg" + num.toString() + ".setReceiver(" +
 				receiver +
 				");\r\n" +
-				"\t\t" + "msg" + num.toString() + ".setAfter(" ; 
+				"msg" + num.toString() + ".setAfter(" ; 
 		if (parentSuffixPrimary.getAfterExpression() != null)
 			retValue += "t + " + parentSuffixPrimary.getAfterExpression();
 		else 
 			retValue += "t";
 		retValue += ");\r\n" +
-				"\t\t" + "msg" + num.toString() + ".setDeadline(";
+				"msg" + num.toString() + ".setDeadline(";
 		if (parentSuffixPrimary.getDeadlineExpression() != null)
 			retValue += "t + " + parentSuffixPrimary.getDeadlineExpression();
 	else 
 		retValue += "t + 100000";
 		retValue +=	");\r\n" +
-				"\t\t" + "MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
+				"MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
 		num = num + 1;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;

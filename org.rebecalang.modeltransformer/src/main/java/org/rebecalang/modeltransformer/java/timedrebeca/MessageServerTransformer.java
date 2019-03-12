@@ -30,14 +30,14 @@ public class MessageServerTransformer {
 
 	public String getCallbackFunctionBody() {
 		// TODO Auto-generated method stub
-		callbackFunctionBody = "";
+		callbackFunctionBody = "State s_2 = (State) s_1.clone();\r\n";
 		for(FormalParameterDeclaration param : msgsrv.getFormalParameters()) {
 			System.out.println("param.getName()");
 			//callbackFunctionBody += "#define " + param.getName() + " " + "thisMsg." + param.getName() + NEW_LINE;
 		}
 		 callbackFunctionBody += statementTransformer.resolveBlockStatement(msgsrv.getBlock());
 		 
-		
+		 callbackFunctionBody += "return s_2;\r\n";
 		return callbackFunctionBody;
 	}
 
