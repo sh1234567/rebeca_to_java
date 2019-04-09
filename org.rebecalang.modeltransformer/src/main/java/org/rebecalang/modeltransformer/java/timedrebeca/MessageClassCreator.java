@@ -5,7 +5,7 @@ public class MessageClassCreator {
 	public String getMessageClassContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue +=  "public class Message {\r\n" + 
+		retValue +=  "public class Message implements Comparable<Message>, Cloneable {\r\n" + 
 				"	private String msgName;\r\n" + 
 				"	private String sender;\r\n" + 
 				"	private String receiver;\r\n" + 
@@ -64,6 +64,19 @@ public class MessageClassCreator {
 				"		if (!(this.deadline == a.deadline))\r\n" + 
 				"			return false;\r\n" + 
 				"		return true;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public int compareTo(Message m) {\r\n" + 
+				"		// TODO Auto-generated method stub\r\n" + 
+				"		if (this.after > m.getAfter())\r\n" + 
+				"			return +1;\r\n" + 
+				"		if (this.after < m.getAfter())\r\n" + 
+				"			return -1;\r\n" + 
+				"		return 0;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public Object clone() throws CloneNotSupportedException {\r\n" + 
+				"		return super.clone();\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 
 				"}\r\n" + 

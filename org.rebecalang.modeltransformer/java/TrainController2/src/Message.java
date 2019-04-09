@@ -1,4 +1,4 @@
-public class Message {
+public class Message implements Comparable<Message>, Cloneable {
 	private String msgName;
 	private String sender;
 	private String receiver;
@@ -57,6 +57,19 @@ public class Message {
 		if (!(this.deadline == a.deadline))
 			return false;
 		return true;
+	}
+
+	public int compareTo(Message m) {
+		// TODO Auto-generated method stub
+		if (this.after > m.getAfter())
+			return +1;
+		if (this.after < m.getAfter())
+			return -1;
+		return 0;
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 }

@@ -10,7 +10,7 @@ import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.RebecaModel;
 import org.rebecalang.compiler.utils.CodeCompilationException;
 import org.rebecalang.compiler.utils.CompilerFeature;
 import org.rebecalang.compiler.utils.ExceptionContainer;
-import org.rebecalang.modeltransformer.AbstractExpressionTransformer;
+import org.rebecalang.modeltransformer.AbstractExpressionTransformer_2;
 import org.rebecalang.modeltransformer.AbstractModelTransformer;
 import org.rebecalang.modeltransformer.TransformingFeature;
 import org.rebecalang.modeltransformer.java.packageCreator.JavaPackageCreator;
@@ -65,7 +65,7 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
 			System.out.println("reactive class");
-			AbstractExpressionTransformer expressionTransformer = null;
+			AbstractExpressionTransformer_2 expressionTransformer = null;
 			expressionTransformer = new CoreRebecaExpressionTransformer(compilerFeatures, transformingFeatures,
 					container, modelName, rc, rebecaModel);
 

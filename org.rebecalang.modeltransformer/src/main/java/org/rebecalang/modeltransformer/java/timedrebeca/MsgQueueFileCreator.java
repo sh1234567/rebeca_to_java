@@ -9,15 +9,11 @@ public class MsgQueueFileCreator {
 		String retValue = "";
 		retValue += "import java.util.*;\r\n" + 
 				"\r\n" + 
-				"public class MessageQueue {\r\n" + 
-				"	private static PriorityQueue<Message> messageQueue = new PriorityQueue<Message>(10, new MessageComparator());\r\n" + 
-				"\r\n" + 
-				"	public static PriorityQueue<Message> getMessageQueue() {\r\n" + 
-				"		return messageQueue;\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	public static void setMessageQueue(PriorityQueue<Message> messageQueue) {\r\n" + 
-				"		MessageQueue.messageQueue = messageQueue;\r\n" + 
+				"public class MessageQueue<Message> extends PriorityQueue<Message> implements Cloneable {\r\n" + 
+				"	public MessageQueue<Message> clone() throws CloneNotSupportedException {\r\n" + 
+				"		MessageQueue<Message> pq = new MessageQueue<Message>();\r\n" + 
+				"		pq = (MessageQueue<Message>) super.clone();\r\n" + 
+				"		return pq;\r\n" + 
 				"	}\r\n" + 
 				"}\r\n" + 
 				"";

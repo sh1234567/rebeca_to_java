@@ -27,12 +27,12 @@ import org.rebecalang.compiler.utils.CompilerFeature;
 import org.rebecalang.compiler.utils.ExceptionContainer;
 import org.rebecalang.compiler.utils.Pair;
 import org.rebecalang.compiler.utils.TypesUtilities;
-import org.rebecalang.modeltransformer.AbstractExpressionTransformer;
+import org.rebecalang.modeltransformer.AbstractExpressionTransformer_2;
 import org.rebecalang.modeltransformer.StatementTransformingException;
 import org.rebecalang.modeltransformer.TransformingFeature;
 import org.rebecalang.modeltransformer.java.Utilities;
 
-public class CoreRebecaExpressionTransformer extends AbstractExpressionTransformer{
+public class CoreRebecaExpressionTransformer extends AbstractExpressionTransformer_2{
 	static Integer i = 0;
 	static Integer num = 1;
 	private String modelName;
@@ -50,27 +50,30 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 	}
 
 	@Override
-	public String translate(Expression expression, ExceptionContainer container) {
+	public String translate(Expression expression, ExceptionContainer container, int fType) {
 		String retValue = "";
 		if (expression instanceof BinaryExpression) {
 			BinaryExpression bExpression = (BinaryExpression) expression;
 			String op = bExpression.getOperator();
-			retValue = translate(bExpression.getLeft(), container) +
-					 " " + op + " " + translate(bExpression.getRight(), container);
+			retValue = translate(bExpression.getLeft(), container, fType) +
+					 " " + op + " " + translate(bExpression.getRight(), container, fType);
+			if (op.equals("=") && fType == 1) {
+				retValue +=  ";\r\na.set" + translate(bExpression.getLeft(), container, fType) + "(" + translate(bExpression.getLeft(), container, fType) +")";
+			}
 		} else if (expression instanceof UnaryExpression) {
 			UnaryExpression uExpression = (UnaryExpression) expression;
-			retValue = uExpression.getOperator() + " " + translate(uExpression.getExpression(), container);
+			retValue = uExpression.getOperator() + " " + translate(uExpression.getExpression(), container, fType);
 		} else if (expression instanceof Literal) {
 			Literal lExpression = (Literal) expression;
 			retValue = lExpression.getLiteralValue();
 			if (retValue.equals("null"))
 				retValue = "\"dummy\"";
 		} else if (expression instanceof PlusSubExpression) {
-				retValue = translate(((PlusSubExpression)expression).getValue(), container) + 
+				retValue = translate(((PlusSubExpression)expression).getValue(), container, fType) + 
 						((PlusSubExpression)expression).getOperator();
 		} else if (expression instanceof PrimaryExpression) {
 			PrimaryExpression pExpression = (PrimaryExpression) expression;
-			retValue = translatePrimaryExpression(pExpression);
+			retValue = translatePrimaryExpression(pExpression, fType);
 		} 
 			else {
 			container.addException(new StatementTransformingException("Unknown translation rule for expression type " 
@@ -78,11 +81,11 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		}
 		return retValue;
 	}
-	protected String translatePrimaryExpression(PrimaryExpression pExpression) {
+	protected String translatePrimaryExpression(PrimaryExpression pExpression, int fType) {
 		String retValue = "";
 		if (pExpression instanceof DotPrimary) {
 			DotPrimary dotPrimary = (DotPrimary) pExpression;
-			retValue = translateDotPrimary(dotPrimary);
+			retValue = translateDotPrimary(dotPrimary, fType);
 		} else if (pExpression instanceof TermPrimary) {
 			retValue = translatePrimaryTermExpression((TermPrimary) pExpression);
 		} else {
@@ -92,7 +95,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		return retValue;
 	}
 
-	private String translateDotPrimary(DotPrimary dotPrimary) {
+	private String translateDotPrimary(DotPrimary dotPrimary, int fType) {
 		// TODO Auto-generated method stub
 		String retValue = "";
 		if (!(dotPrimary.getLeft() instanceof TermPrimary) || !(dotPrimary.getRight() instanceof TermPrimary)) {
@@ -101,13 +104,13 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 					dotPrimary.getLineNumber(), dotPrimary.getCharacter()));
 		} else {
 			if(TypesUtilities.getInstance().getSuperType(dotPrimary.getRight().getType()) == TypesUtilities.MSGSRV_TYPE) {
-				retValue = mapToJAVAPublishing(dotPrimary);
+				retValue = mapToJAVAPublishing(dotPrimary, fType);
 			} 
 		}
 		return retValue;
 	}
 
-	private String mapToJAVAPublishing(DotPrimary dotPrimary) {
+	private String mapToJAVAPublishing(DotPrimary dotPrimary, int fType) {
 		// TODO Auto-generated method stub
 		String retValue = "";
 		String receiver = "";
@@ -140,7 +143,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 	else 
 		retValue += "t + 100000";
 		retValue +=	");\r\n" +
-				"MessageQueue.getMessageQueue().add(msg" + num.toString() + ")";
+				"mq.add(msg" + num.toString() + ")";
 		num = num + 1;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;
@@ -153,7 +156,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 				MsgsrvDeclaration toMsgsrv = Utilities.findTheMsgsrv(toClass, toMsgsrvName);
 				System.err.println(toMsgsrv.getName());
 				String argumentName = toMsgsrv.getFormalParameters().get(argumentIndex).getName();
-				retValue += "pubMsg" + i.toString() + "." + argumentName + " = " + translate(expression, container) + ";" + NEW_LINE;
+				retValue += "pubMsg" + i.toString() + "." + argumentName + " = " + translate(expression, container, fType) + ";" + NEW_LINE;
 				argumentIndex ++;
 				
 		} 
@@ -185,7 +188,7 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 
 		/* to support arrays */
 		for(Expression ex: pExpression.getIndices()) {
-			retValue += "[" + translate(ex, container) + "]";
+			retValue += "[" + translate(ex, container, 0) + "]";
 		}
 		
 		/* to be handled later */

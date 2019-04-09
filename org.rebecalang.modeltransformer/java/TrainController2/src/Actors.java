@@ -1,2 +1,6 @@
-public abstract class Actors {
+public abstract class Actors implements Cloneable {
+	public abstract boolean equals (Actors a);
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }

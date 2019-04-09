@@ -1,5 +1,8 @@
 package org.rebecalang.modeltransformer.java.timedrebeca;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 import org.apache.maven.artifact.repository.metadata.Metadata;
@@ -30,19 +33,45 @@ public class MainFileCreator {
 
 	public String getMainFileContent() {
 		// TODO Auto-generated method stub
-		String retValue = "";
-		retValue += "public class Main {\r\n" + "\tpublic static void main(String[] args) throws CloneNotSupportedException {\r\n"
-				+ "\t\tfloat t = 0;\r\n"
-				+ "\t\tState s_1 = new State();\r\n"
-				+ "\t\tMessage a = new Message();\r\n" + defineRebecs()
-				+ queueManagement() + "	\r\n" + "\t}\r\n" + "}";
+		String retValue = "import java.util.*;\r\n";
+		retValue += "public class Main {\r\n" + "public static void main(String[] args) throws CloneNotSupportedException {\r\n"
+				+ "Queue<State> queue = new LinkedList<State>();\r\n"
+				+ "MessageQueue<Message> mq = new MessageQueue<Message>();\r\n"
+				+ "float t = 0;\r\n"
+				+ "Message a = new Message();\r\n" + "Actors[] actors = new Actors[10];\r\n" + 
+						"int actorId = 0;\r\n" + defineRebecs() + "State s_0 = new State();\r\n" + 
+								"s_0.setActors(actors);\r\n" + 
+								"s_0.setMessageQueue(mq);\r\n" + 
+								"queue.add(s_0);\r\n"
+				+ queueManagement() + "	\r\n" + "}\r\n" + containsFunction() + "}";
+		return retValue;
+	}
+
+	private String containsFunction() {
+		// TODO Auto-generated method stub
+		String retValue = "private static boolean contains(Queue<State> queue, State s_1) {\r\n" + 
+				"// TODO Auto-generated method stub\r\n" + 
+				"Iterator i = queue.iterator();\r\n" + 
+				"while (i.hasNext()) {\r\n" + 
+				"State s = (State) i.next();\r\n" + 
+				"if (s_1.equals(s))\r\n" + 
+				"return true;\r\n" + 
+				"}\r\n" + 
+				"return false;\r\n" + 
+				"}\r\n";
 		return retValue;
 	}
 
 	public String queueManagement() {
 		// TODO Auto-generated method stub
-		String retValue = "\t\twhile (!MessageQueue.getMessageQueue().isEmpty()) {\r\n" + 
-				"\t\t\ta = MessageQueue.getMessageQueue().poll();\r\n";
+		String retValue = "Iterator i = queue.iterator();\r\n" + "while (i.hasNext()) {\r\n" + 
+				"State s_1 = new State();\r\n" + 
+				"State s_2 = new State();\r\n" + 
+				"s_1 = (State) i.next();\r\n" + 
+				"if (!s_1.getMessageQueue().isEmpty()) {\r\n" + 
+				"float after = s_1.getMessageQueue().peek().getAfter();\r\n" + 
+				"while (s_1.getMessageQueue().peek().getAfter() == after) {\r\n" + 
+				"a = s_1.getMessageQueue().poll();\r\n";
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
 			for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 				for (MainRebecDefinition md : rebecaModel.getRebecaCode().getMainDeclaration()
@@ -51,9 +80,11 @@ public class MainFileCreator {
 					try {
 						metaData = TypesUtilities.getInstance().getMetaData(md.getType());
 						if (rc.getName() == metaData.getName()) {
-							retValue += "\t\t\tif (a.getReceiver().equals(\"" + md.getName()
-									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n\t\t\t\t"
-									+ md.getName() + "." + msgsrv.getName() + "(t, s_1);\r\n" + "\t\t\t}\r\n";
+							retValue += "if (a.getReceiver().equals(\"" + md.getName()
+									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n"
+									+ "s_2 = " + md.getName() + "." + msgsrv.getName() + "(t, s_1);\r\n" + "if (!contains(queue, s_2)) {\r\n" + 
+											"queue.add(s_2);\r\n" + 
+											"}" + "}\r\n";
 
 						}
 
@@ -65,7 +96,7 @@ public class MainFileCreator {
 				}
 			}
 		}
-		retValue += "\t\t}";
+		retValue += "}\r\n" + "}\r\n" + "}";
 		return retValue;
 	}
 
@@ -75,8 +106,9 @@ public class MainFileCreator {
 		for (MainRebecDefinition md : rebecaModel.getRebecaCode().getMainDeclaration().getMainRebecDefinition()) {
 			try {
 				ReactiveClassDeclaration metaData = TypesUtilities.getInstance().getMetaData(md.getType());
-				retValue += "\t\t" + metaData.getName() + " " + md.getName() + " = new " + metaData.getName() + "(\""
-						+ md.getName() + "\"" + ");" + NEW_LINE;
+				retValue += metaData.getName() + " " + md.getName() + " = new " + metaData.getName() + "(\""
+						+ md.getName() + "\", actorId, mq);" + NEW_LINE + "actors[actorId] = " + md.getName() +";\r\n" + 
+								"actorId += 1;\r\n";
 			} catch (CodeCompilationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
