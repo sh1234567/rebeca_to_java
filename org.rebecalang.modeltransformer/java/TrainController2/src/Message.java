@@ -61,6 +61,8 @@ public class Message implements Comparable<Message>, Cloneable {
 
 	public int compareTo(Message m) {
 		// TODO Auto-generated method stub
+		if (m == null)
+			return -1;
 		if (this.after > m.getAfter())
 			return +1;
 		if (this.after < m.getAfter())

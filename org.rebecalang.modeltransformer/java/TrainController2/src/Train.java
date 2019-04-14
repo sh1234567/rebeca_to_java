@@ -1,4 +1,5 @@
 import java.util.*;
+import com.rits.cloning.Cloner;
 public class Train extends Actors {
 private String name;
 private int id;
@@ -19,7 +20,8 @@ mq.add(msg5);
 }
 
 public State YouMayPass(float t, State s_1) throws CloneNotSupportedException {
-State s_2 = (State) s_1.clone();
+Cloner cloner = new Cloner();
+State s_2 = cloner.deepClone(s_1);
 MessageQueue<Message> mq = new MessageQueue<Message>();
 mq = s_1.getMessageQueue().clone();
 Actors[] actors = s_1.getActors().clone();
@@ -40,7 +42,8 @@ return s_2;
 }
 
 public State Passed(float t, State s_1) throws CloneNotSupportedException {
-State s_2 = (State) s_1.clone();
+Cloner cloner = new Cloner();
+State s_2 = cloner.deepClone(s_1);
 MessageQueue<Message> mq = new MessageQueue<Message>();
 mq = s_1.getMessageQueue().clone();
 Actors[] actors = s_1.getActors().clone();
@@ -68,7 +71,8 @@ return s_2;
 }
 
 public State ReachBridge(float t, State s_1) throws CloneNotSupportedException {
-State s_2 = (State) s_1.clone();
+Cloner cloner = new Cloner();
+State s_2 = cloner.deepClone(s_1);
 MessageQueue<Message> mq = new MessageQueue<Message>();
 mq = s_1.getMessageQueue().clone();
 Actors[] actors = s_1.getActors().clone();

@@ -1,16 +1,19 @@
 package org.rebecalang.modeltransformer.java.timedrebeca;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
 import org.apache.maven.artifact.repository.metadata.Metadata;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FieldDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MainRebecDefinition;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MsgsrvDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.OrdinaryPrimitiveType;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ReactiveClassDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.RebecaModel;
+import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.VariableDeclarator;
 import org.rebecalang.compiler.utils.CodeCompilationException;
 import org.rebecalang.compiler.utils.CompilerFeature;
 import org.rebecalang.compiler.utils.TypesUtilities;
@@ -33,17 +36,90 @@ public class MainFileCreator {
 
 	public String getMainFileContent() {
 		// TODO Auto-generated method stub
-		String retValue = "import java.util.*;\r\n";
+		String retValue = "import java.io.IOException;\r\n" + 
+				"import java.util.*;\r\n" + 
+				"import com.rits.cloning.Cloner;\r\n";
 		retValue += "public class Main {\r\n" + "public static void main(String[] args) throws CloneNotSupportedException {\r\n"
 				+ "Queue<State> queue = new LinkedList<State>();\r\n"
+				+ "Queue<State> queue_2 = new LinkedList<State>();\r\n"
 				+ "MessageQueue<Message> mq = new MessageQueue<Message>();\r\n"
+				+ "Cloner cloner = new Cloner();\r\n"
 				+ "float t = 0;\r\n"
 				+ "Message a = new Message();\r\n" + "Actors[] actors = new Actors[10];\r\n" + 
 						"int actorId = 0;\r\n" + defineRebecs() + "State s_0 = new State();\r\n" + 
 								"s_0.setActors(actors);\r\n" + 
 								"s_0.setMessageQueue(mq);\r\n" + 
 								"queue.add(s_0);\r\n"
-				+ queueManagement() + "	\r\n" + "}\r\n" + containsFunction() + "}";
+				+ queueManagement() + "	\r\n" + "}\r\n" + containsFunction() + printStateFunction() + printStatesQueueFunction() + "}";
+		return retValue;
+	}
+
+	private String printStatesQueueFunction() {
+		// TODO Auto-generated method stub
+		String retValue = "";
+		retValue += "private static String printStatesQueue(Queue<State> q) {\r\n" + 
+				"		String retValue = \"\";\r\n" + 
+				"		Iterator<State> itr = q.iterator();\r\n" + 
+				"		while (itr.hasNext()) {\r\n" + 
+				"			retValue += printState(itr.next());\r\n" + 
+				"		}\r\n" + 
+				"		DirectoryCreator directoryCreator = new DirectoryCreator();\r\n" + 
+				"		try {\r\n" + 
+				"			directoryCreator.addFile(\"a.txt\", retValue);\r\n" + 
+				"		} catch (IOException e) {\r\n" + 
+				"			// TODO Auto-generated catch block\r\n" + 
+				"			e.printStackTrace();\r\n" + 
+				"		}\r\n" + 
+				"		return retValue;\r\n" + 
+				"	}\r\n";
+		return retValue;
+	}
+
+	private String printStateFunction() {
+		// TODO Auto-generated method stub
+		String retValue = "";
+		retValue += "private static String printState(State s) {\r\n" + 
+				"String retValue = \"\";\r\n" + 
+				"MessageQueue<Message> mq = s.getMessageQueue();\r\n" + 
+				"Actors[] actors = s.getActors();\r\n" + 
+				"Iterator<Message> itr = mq.iterator();\r\n" + 
+				"retValue += \"messageQueue contents: \\r\\n\";\r\n" + 
+				"while (itr.hasNext()) {\r\n" + 
+				"Message msg = itr.next();\r\n" + 
+				"if (msg != null) {\r\n" + 
+				"retValue += \"MsgName:\" + msg.getMsgName() + \", \" + \"MsgSender:\" + msg.getSender() + \", \"\r\n" + 
+				"+ \"MsgReceiver:\" + msg.getReceiver() + \", \" + \"MsgAfter:\" + msg.getAfter() + \"\\r\\n\";\r\n" + 
+				"}\r\n" + 
+				"}\r\n" + 
+				"retValue += \"actors variables: \\r\\n\";\r\n" + 
+				"\r\n" + 
+				"for (int i = 0; i < actors.length; i++) {\r\n" + 
+				"if (actors[i] != null) {\r\n";
+		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
+			retValue += "if (actors[i].getClass().getName().equals(\"" + rc.getName() + "\")) {\r\n" + 
+					rc.getName() + " a = (" + rc.getName() + ") actors[i];\r\n" + 
+					"retValue += \"Actor's Id:\" + a.getId() + \", class:\" + a.getClass().getName() + \", name:\" + a.getName() + \", \";\r\n";
+			for (FieldDeclaration fd : rc.getStatevars()) {
+				for (VariableDeclarator var : fd.getVariableDeclarators()) {
+					retValue += "retValue += \"" + var.getVariableName() +  ":\" + a.get" + var.getVariableName() + "() + \", \";" + "\r\n";
+				}
+			}
+			retValue += "retValue += \"\\r\\n\";\r\n" +
+					"}\r\n";
+		}
+				 retValue += "}\r\n" + 
+				 		"}\r\n" + 
+				 		"retValue += \"-------------------------------------------------------------------------\\r\\n\";\r\n" + 
+				 		"DirectoryCreator directoryCreator = new DirectoryCreator();\r\n" + 
+				 		"try {\r\n" + 
+				 		"directoryCreator.addFile(\"a.txt\", retValue);\r\n" + 
+				 		"} catch (IOException e) {\r\n" + 
+				 		"// TODO Auto-generated catch block\r\n" + 
+				 		"e.printStackTrace();\r\n" + 
+				 		"}\r\n" + 
+				 		"return retValue;\r\n" + 
+				 		"}\r\n"; 
+				
 		return retValue;
 	}
 
@@ -64,14 +140,16 @@ public class MainFileCreator {
 
 	public String queueManagement() {
 		// TODO Auto-generated method stub
-		String retValue = "Iterator i = queue.iterator();\r\n" + "while (i.hasNext()) {\r\n" + 
+		String retValue = "while (!queue.isEmpty()) {\r\n" + 
 				"State s_1 = new State();\r\n" + 
 				"State s_2 = new State();\r\n" + 
-				"s_1 = (State) i.next();\r\n" + 
-				"if (!s_1.getMessageQueue().isEmpty()) {\r\n" + 
-				"float after = s_1.getMessageQueue().peek().getAfter();\r\n" + 
-				"while (s_1.getMessageQueue().peek().getAfter() == after) {\r\n" + 
-				"a = s_1.getMessageQueue().poll();\r\n";
+				"s_1 = queue.poll();\r\n" + 
+				"queue_2.add(s_1);\r\n" + 
+				"State s = cloner.deepClone(s_1);\r\n" +
+				"if (!s.getMessageQueue().isEmpty() && s.getMessageQueue().peek() != null) {\r\n" + 
+				"float after = s.getMessageQueue().peek().getAfter();\r\n" + 
+				"while (!s.getMessageQueue().isEmpty() && s.getMessageQueue().peek().getAfter() == after) {\r\n" + 
+				"a = s.getMessageQueue().remove();\r\n";
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
 			for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 				for (MainRebecDefinition md : rebecaModel.getRebecaCode().getMainDeclaration()
@@ -82,7 +160,7 @@ public class MainFileCreator {
 						if (rc.getName() == metaData.getName()) {
 							retValue += "if (a.getReceiver().equals(\"" + md.getName()
 									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")) {\r\n"
-									+ "s_2 = " + md.getName() + "." + msgsrv.getName() + "(t, s_1);\r\n" + "if (!contains(queue, s_2)) {\r\n" + 
+									+ "s_2 = " + md.getName() + "." + msgsrv.getName() + "(t, s_1);\r\n" + "if (!contains(queue, s_2) && !contains(queue_2, s_2)) {\r\n" + 
 											"queue.add(s_2);\r\n" + 
 											"}" + "}\r\n";
 
@@ -96,7 +174,9 @@ public class MainFileCreator {
 				}
 			}
 		}
-		retValue += "}\r\n" + "}\r\n" + "}";
+		retValue += "}\r\n" + "}\r\n" + "else {\r\n" + 
+				"queue.poll();\r\n" + 
+				"}\r\n" + "}";
 		return retValue;
 	}
 

@@ -1,4 +1,5 @@
 import java.util.*;
+import com.rits.cloning.Cloner;
 public class BridgeController extends Actors {
 private String name;
 private int id;
@@ -19,7 +20,8 @@ isWaiting2 = false;
 }
 
 public State Arrive(float t, State s_1) throws CloneNotSupportedException {
-State s_2 = (State) s_1.clone();
+Cloner cloner = new Cloner();
+State s_2 = cloner.deepClone(s_1);
 MessageQueue<Message> mq = new MessageQueue<Message>();
 mq = s_1.getMessageQueue().clone();
 Actors[] actors = s_1.getActors().clone();
@@ -65,7 +67,8 @@ return s_2;
 }
 
 public State Leave(float t, State s_1) throws CloneNotSupportedException {
-State s_2 = (State) s_1.clone();
+Cloner cloner = new Cloner();
+State s_2 = cloner.deepClone(s_1);
 MessageQueue<Message> mq = new MessageQueue<Message>();
 mq = s_1.getMessageQueue().clone();
 Actors[] actors = s_1.getActors().clone();

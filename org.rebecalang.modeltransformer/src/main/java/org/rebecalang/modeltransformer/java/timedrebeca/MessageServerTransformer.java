@@ -5,6 +5,7 @@ import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MsgsrvDeclar
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.ReactiveClassDeclaration;
 import org.rebecalang.modeltransformer.java.timedrebeca.CoreRebecaStatementTransformer;
 
+
 public class MessageServerTransformer {
 	public final static String NEW_LINE = "\r\n";
 	private MsgsrvDeclaration msgsrv;
@@ -30,7 +31,8 @@ public class MessageServerTransformer {
 
 	public String getCallbackFunctionBody() {
 		// TODO Auto-generated method stub
-		callbackFunctionBody = "State s_2 = (State) s_1.clone();\r\n"
+		callbackFunctionBody = "Cloner cloner = new Cloner();\r\n" + 
+				"State s_2 = cloner.deepClone(s_1);\r\n"
 				+ "MessageQueue<Message> mq = new MessageQueue<Message>();\r\n" + "mq = s_1.getMessageQueue().clone();\r\n" + 
 						"Actors[] actors = s_1.getActors().clone();\r\n" + rc.getName() + " a = (" + rc.getName() + ") actors[id].clone();\r\n";
 		for (FormalParameterDeclaration param : msgsrv.getFormalParameters()) {

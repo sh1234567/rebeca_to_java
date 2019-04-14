@@ -68,6 +68,8 @@ public class MessageClassCreator {
 				"\r\n" + 
 				"	public int compareTo(Message m) {\r\n" + 
 				"		// TODO Auto-generated method stub\r\n" + 
+				"		if (m == null)\r\n" + 
+				"			return -1;\r\n" +
 				"		if (this.after > m.getAfter())\r\n" + 
 				"			return +1;\r\n" + 
 				"		if (this.after < m.getAfter())\r\n" + 

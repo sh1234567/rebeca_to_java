@@ -81,6 +81,7 @@ public class ReactiveClassTransformer {
 		String retValue = "";
 		// defining imports
 		retValue += "import java.util.*;\r\n";
+		retValue += "import com.rits.cloning.Cloner;\r\n";
 		retValue += "public class " + rc.getName() + " extends Actors {" + NEW_LINE;
 		retValue += createVariablesDefinition(0);
 		retValue += "\r\n" + "public " + rc.getName() + "(String n, int actorId, MessageQueue<Message> mq) {\r\n" + "float t = 0;\r\n" + "this.name = n;\r\n" + "this.id = actorId;\r\n";
