@@ -1,3 +1,4 @@
+package TrainController2;
 import java.util.*;
 import com.rits.cloning.Cloner;
 public class Train extends Actors {
@@ -22,71 +23,51 @@ mq.add(msg5);
 public State YouMayPass(float t, State s_1) throws CloneNotSupportedException {
 Cloner cloner = new Cloner();
 State s_2 = cloner.deepClone(s_1);
-MessageQueue<Message> mq = new MessageQueue<Message>();
-mq = s_1.getMessageQueue().clone();
-Actors[] actors = s_1.getActors().clone();
-Train a = (Train) actors[id].clone();
-onTheBridge = true;
-a.setonTheBridge(onTheBridge);
+Train a = (Train) s_2.getActors()[id];
+a.setonTheBridge(true);
 Message msg6 = new Message();
 msg6.setMsgName("Passed");
 msg6.setSender(this.name);
 msg6.setReceiver(this.name);
 msg6.setAfter(t);
 msg6.setDeadline(t + 100000);
-mq.add(msg6);
-s_2.setMessageQueue(mq);
-actors[id] = a;
-s_2.setActors(actors);
+s_2.getMessageQueue().add(msg6);
 return s_2;
 }
 
 public State Passed(float t, State s_1) throws CloneNotSupportedException {
 Cloner cloner = new Cloner();
 State s_2 = cloner.deepClone(s_1);
-MessageQueue<Message> mq = new MessageQueue<Message>();
-mq = s_1.getMessageQueue().clone();
-Actors[] actors = s_1.getActors().clone();
-Train a = (Train) actors[id].clone();
-onTheBridge = false;
-a.setonTheBridge(onTheBridge);
+Train a = (Train) s_2.getActors()[id];
+a.setonTheBridge(false);
 Message msg7 = new Message();
 msg7.setMsgName("Leave");
 msg7.setSender(this.name);
 msg7.setReceiver("theController");
 msg7.setAfter(t);
 msg7.setDeadline(t + 100000);
-mq.add(msg7);
+s_2.getMessageQueue().add(msg7);
 Message msg8 = new Message();
 msg8.setMsgName("ReachBridge");
 msg8.setSender(this.name);
 msg8.setReceiver(this.name);
 msg8.setAfter(t);
 msg8.setDeadline(t + 100000);
-mq.add(msg8);
-s_2.setMessageQueue(mq);
-actors[id] = a;
-s_2.setActors(actors);
+s_2.getMessageQueue().add(msg8);
 return s_2;
 }
 
 public State ReachBridge(float t, State s_1) throws CloneNotSupportedException {
 Cloner cloner = new Cloner();
 State s_2 = cloner.deepClone(s_1);
-MessageQueue<Message> mq = new MessageQueue<Message>();
-mq = s_1.getMessageQueue().clone();
-Actors[] actors = s_1.getActors().clone();
-Train a = (Train) actors[id].clone();
+Train a = (Train) s_2.getActors()[id];
 Message msg9 = new Message();
 msg9.setMsgName("Arrive");
 msg9.setSender(this.name);
 msg9.setReceiver("theController");
 msg9.setAfter(t);
 msg9.setDeadline(t + 100000);
-mq.add(msg9);
-s_2.setMessageQueue(mq);
-actors[id] = a;
-s_2.setActors(actors);
+s_2.getMessageQueue().add(msg9);
 return s_2;
 }
 

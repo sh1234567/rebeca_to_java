@@ -77,9 +77,10 @@ public class ReactiveClassTransformer {
 
 	}
 
-	public String getCppFileContent() {
+	public String getCppFileContent(String modelName) {
 		String retValue = "";
 		// defining imports
+		retValue += "package " + modelName + ";\r\n";
 		retValue += "import java.util.*;\r\n";
 		retValue += "import com.rits.cloning.Cloner;\r\n";
 		retValue += "public class " + rc.getName() + " extends Actors {" + NEW_LINE;

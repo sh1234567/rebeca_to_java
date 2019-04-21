@@ -1,10 +1,17 @@
 package org.rebecalang.modeltransformer.java.timedrebeca;
 
 public class DirCreator {
+	private String modelName;
+
+	public DirCreator(String modelName) {
+		// TODO Auto-generated constructor stub
+		this.modelName = modelName;
+	}
 
 	public String getDirCreatorContent() {
 		// TODO Auto-generated method stub
-		String retValue = "import java.io.BufferedWriter;\r\n" + 
+		String retValue = "package " + modelName + ";\r\n" + 
+				"import java.io.BufferedWriter;\r\n" + 
 				"import java.io.File;\r\n" + 
 				"import java.io.FileWriter;\r\n" + 
 				"import java.io.IOException;\r\n" + 

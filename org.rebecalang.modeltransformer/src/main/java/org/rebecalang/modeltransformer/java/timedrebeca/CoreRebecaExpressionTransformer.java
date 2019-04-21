@@ -55,10 +55,12 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 		if (expression instanceof BinaryExpression) {
 			BinaryExpression bExpression = (BinaryExpression) expression;
 			String op = bExpression.getOperator();
+			if (!(op.equals("=") && fType == 1)) {
 			retValue = translate(bExpression.getLeft(), container, fType) +
 					 " " + op + " " + translate(bExpression.getRight(), container, fType);
+			}
 			if (op.equals("=") && fType == 1) {
-				retValue +=  ";\r\na.set" + translate(bExpression.getLeft(), container, fType) + "(" + translate(bExpression.getLeft(), container, fType) +")";
+				retValue +=  "a.set" + translate(bExpression.getLeft(), container, fType) + "(" + translate(bExpression.getRight(), container, fType) +")";
 			}
 		} else if (expression instanceof UnaryExpression) {
 			UnaryExpression uExpression = (UnaryExpression) expression;
@@ -133,17 +135,21 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 				");\r\n" +
 				"msg" + num.toString() + ".setAfter(" ; 
 		if (parentSuffixPrimary.getAfterExpression() != null)
-			retValue += "t + " + parentSuffixPrimary.getAfterExpression();
+			retValue += "t + " + translate(parentSuffixPrimary.getAfterExpression(), container, fType);
 		else 
 			retValue += "t";
 		retValue += ");\r\n" +
 				"msg" + num.toString() + ".setDeadline(";
 		if (parentSuffixPrimary.getDeadlineExpression() != null)
-			retValue += "t + " + parentSuffixPrimary.getDeadlineExpression();
+			retValue += "t + " + translate(parentSuffixPrimary.getDeadlineExpression(), container, fType);
 	else 
 		retValue += "t + 100000";
-		retValue +=	");\r\n" +
-				"mq.add(msg" + num.toString() + ")";
+		retValue +=	");\r\n" ;
+		if (fType == 1) {
+				retValue += "s_2.getMessageQueue().add(msg" + num.toString() + ")";
+		}
+		else
+			retValue += "mq.add(msg" + num.toString() + ")";
 		num = num + 1;
 		/* fill the ROS message fields with the arguments to be published */
 		int argumentIndex = 0;

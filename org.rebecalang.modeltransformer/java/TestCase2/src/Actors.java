@@ -1,4 +1,4 @@
-package TrainController2;
+package TestCase2;
 public abstract class Actors implements Cloneable {
 	public abstract boolean equals (Actors a);
 	public Object clone() throws CloneNotSupportedException {

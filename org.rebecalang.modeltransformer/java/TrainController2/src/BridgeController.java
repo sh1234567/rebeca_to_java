@@ -1,3 +1,4 @@
+package TrainController2;
 import java.util.*;
 import com.rits.cloning.Cloner;
 public class BridgeController extends Actors {
@@ -22,94 +23,72 @@ isWaiting2 = false;
 public State Arrive(float t, State s_1) throws CloneNotSupportedException {
 Cloner cloner = new Cloner();
 State s_2 = cloner.deepClone(s_1);
-MessageQueue<Message> mq = new MessageQueue<Message>();
-mq = s_1.getMessageQueue().clone();
-Actors[] actors = s_1.getActors().clone();
-BridgeController a = (BridgeController) actors[id].clone();
+BridgeController a = (BridgeController) s_2.getActors()[id];
 if (var == true) {
 if (signal2 == false) {
-signal1 = true;
-a.setsignal1(signal1);
+a.setsignal1(true);
 Message msg1 = new Message();
 msg1.setMsgName("YouMayPass");
 msg1.setSender(this.name);
 msg1.setReceiver("train1");
 msg1.setAfter(t);
 msg1.setDeadline(t + 100000);
-mq.add(msg1);
+s_2.getMessageQueue().add(msg1);
 }
 else {
-isWaiting1 = true;
-a.setisWaiting1(isWaiting1);
+a.setisWaiting1(true);
 }
 }
 else {
 if (signal1 == false) {
-signal2 = true;
-a.setsignal2(signal2);
+a.setsignal2(true);
 Message msg2 = new Message();
 msg2.setMsgName("YouMayPass");
 msg2.setSender(this.name);
 msg2.setReceiver("train2");
 msg2.setAfter(t);
 msg2.setDeadline(t + 100000);
-mq.add(msg2);
+s_2.getMessageQueue().add(msg2);
 }
 else {
-isWaiting2 = true;
-a.setisWaiting2(isWaiting2);
+a.setisWaiting2(true);
 }
 }
-s_2.setMessageQueue(mq);
-actors[id] = a;
-s_2.setActors(actors);
 return s_2;
 }
 
 public State Leave(float t, State s_1) throws CloneNotSupportedException {
 Cloner cloner = new Cloner();
 State s_2 = cloner.deepClone(s_1);
-MessageQueue<Message> mq = new MessageQueue<Message>();
-mq = s_1.getMessageQueue().clone();
-Actors[] actors = s_1.getActors().clone();
-BridgeController a = (BridgeController) actors[id].clone();
+BridgeController a = (BridgeController) s_2.getActors()[id];
 if (var == true) {
-signal1 = false;
-a.setsignal1(signal1);
+a.setsignal1(false);
 if (isWaiting2) {
-signal2 = true;
-a.setsignal2(signal2);
+a.setsignal2(true);
 Message msg3 = new Message();
 msg3.setMsgName("YouMayPass");
 msg3.setSender(this.name);
 msg3.setReceiver("train2");
 msg3.setAfter(t);
 msg3.setDeadline(t + 100000);
-mq.add(msg3);
-isWaiting2 = false;
-a.setisWaiting2(isWaiting2);
+s_2.getMessageQueue().add(msg3);
+a.setisWaiting2(false);
 }
 }
 else {
-signal2 = false;
-a.setsignal2(signal2);
+a.setsignal2(false);
 if (isWaiting1) {
-signal1 = true;
-a.setsignal1(signal1);
+a.setsignal1(true);
 Message msg4 = new Message();
 msg4.setMsgName("YouMayPass");
 msg4.setSender(this.name);
 msg4.setReceiver("train1");
 msg4.setAfter(t);
 msg4.setDeadline(t + 100000);
-mq.add(msg4);
-isWaiting1 = false;
-a.setisWaiting1(isWaiting1);
+s_2.getMessageQueue().add(msg4);
+a.setisWaiting1(false);
 }
 }
-s_2.setMessageQueue(mq);
-actors[id] = a;
-s_2.setActors(actors);
 return s_2;
 }
 

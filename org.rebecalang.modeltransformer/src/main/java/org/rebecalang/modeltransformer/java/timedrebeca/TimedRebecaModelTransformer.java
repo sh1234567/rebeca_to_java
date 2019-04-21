@@ -39,31 +39,31 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 		String mainFileContent = mainFileCreator.getMainFileContent();
 		srcDirCreator.addFile("Main.java", mainFileContent);
 		
-		DirCreator dirCreator = new DirCreator();
+		DirCreator dirCreator = new DirCreator(modelName);
 		String dirCreatorContent = dirCreator.getDirCreatorContent();
 		srcDirCreator.addFile("DirectoryCreator.java", dirCreatorContent);
 		
-		TimerFileCreator timerFileCreator = new TimerFileCreator();
+		TimerFileCreator timerFileCreator = new TimerFileCreator(modelName);
 		String timerFileContent = timerFileCreator.getTimerFileContent();
 		srcDirCreator.addFile("TimeClass.java", timerFileContent);
 		
-		MessageClassCreator messageClassCreator = new MessageClassCreator();
+		MessageClassCreator messageClassCreator = new MessageClassCreator(modelName);
 		String messageClassContent = messageClassCreator.getMessageClassContent();
 		srcDirCreator.addFile("Message.java", messageClassContent);
 		
-		MsgQueueFileCreator msgQueueFileCreator = new MsgQueueFileCreator();
+		MsgQueueFileCreator msgQueueFileCreator = new MsgQueueFileCreator(modelName);
 		String msgQueueFileContent = msgQueueFileCreator.getMsgQueueFileContent();
 		srcDirCreator.addFile("MessageQueue.java", msgQueueFileContent);
 		
-		MsgComparatorFileCreator msgComparatorFileCreator = new MsgComparatorFileCreator();
+		MsgComparatorFileCreator msgComparatorFileCreator = new MsgComparatorFileCreator(modelName);
 		String msgComparatorFileContent = msgComparatorFileCreator.getMsgComparatorFileContent();
 		srcDirCreator.addFile("MessageComparator.java", msgComparatorFileContent);
 
-		AbstractActorsFileCreator abstractActorsFileCreator = new AbstractActorsFileCreator();
+		AbstractActorsFileCreator abstractActorsFileCreator = new AbstractActorsFileCreator(modelName);
 		String abstractActorsFileContent = abstractActorsFileCreator.getAbstractActorsFileContent();
 		srcDirCreator.addFile("Actors.java", abstractActorsFileContent);
 		
-		StateFileCreator stateFileCreator = new StateFileCreator();
+		StateFileCreator stateFileCreator = new StateFileCreator(modelName);
 		String stateFileContent = stateFileCreator.getStateFileContent();
 		srcDirCreator.addFile("State.java", stateFileContent);
 
@@ -79,7 +79,7 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 				reactiveClassTransformer.transformReactiveClass();
 
 				// create java file content
-				String cppFileContent = reactiveClassTransformer.getCppFileContent();
+				String cppFileContent = reactiveClassTransformer.getCppFileContent(modelName);
 				srcDirCreator.addFile(rc.getName() + ".java", cppFileContent);
 
 			}

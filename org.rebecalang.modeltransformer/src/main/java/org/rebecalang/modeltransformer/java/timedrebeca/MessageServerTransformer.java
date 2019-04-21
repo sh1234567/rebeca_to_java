@@ -32,9 +32,8 @@ public class MessageServerTransformer {
 	public String getCallbackFunctionBody() {
 		// TODO Auto-generated method stub
 		callbackFunctionBody = "Cloner cloner = new Cloner();\r\n" + 
-				"State s_2 = cloner.deepClone(s_1);\r\n"
-				+ "MessageQueue<Message> mq = new MessageQueue<Message>();\r\n" + "mq = s_1.getMessageQueue().clone();\r\n" + 
-						"Actors[] actors = s_1.getActors().clone();\r\n" + rc.getName() + " a = (" + rc.getName() + ") actors[id].clone();\r\n";
+				"State s_2 = cloner.deepClone(s_1);\r\n" +
+				rc.getName() + " a = (" + rc.getName() +") s_2.getActors()[id];\r\n";
 		for (FormalParameterDeclaration param : msgsrv.getFormalParameters()) {
 			System.out.println("param.getName()");
 			// callbackFunctionBody += "#define " + param.getName() + " " + "thisMsg." +
@@ -42,7 +41,7 @@ public class MessageServerTransformer {
 		}
 		callbackFunctionBody += statementTransformer.resolveBlockStatement(msgsrv.getBlock(), 1);
 
-		callbackFunctionBody += "s_2.setMessageQueue(mq);\r\n" + "actors[id] = a;\r\n" + "s_2.setActors(actors);\r\n" + "return s_2;\r\n";
+		callbackFunctionBody += "return s_2;\r\n";
 		return callbackFunctionBody;
 	}
 

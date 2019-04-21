@@ -1,4 +1,4 @@
-package TrainController2;
+package TestCase2;
 import java.io.IOException;
 import java.util.*;
 import com.rits.cloning.Cloner;
@@ -9,26 +9,25 @@ Queue<State> queue_2 = new LinkedList<State>();
 MessageQueue<Message> mq = new MessageQueue<Message>();
 Cloner cloner = new Cloner();
 float t = 0;
+int states_num = 0;
 Message a = new Message();
 Actors[] actors = new Actors[10];
 String[] actorsNames = new String[10];
 int actorId = 0;
-Train train1 = new Train("train1", actorId, mq);
-actors[actorId] = train1;
-actorsNames[actorId] = "train1";
+Ping ping_1 = new Ping("ping_1", actorId, mq);
+actors[actorId] = ping_1;
+actorsNames[actorId] = "ping_1";
 actorId += 1;
-Train train2 = new Train("train2", actorId, mq);
-actors[actorId] = train2;
-actorsNames[actorId] = "train2";
-actorId += 1;
-BridgeController theController = new BridgeController("theController", actorId, mq);
-actors[actorId] = theController;
-actorsNames[actorId] = "theController";
+Pong pong_1 = new Pong("pong_1", actorId, mq);
+actors[actorId] = pong_1;
+actorsNames[actorId] = "pong_1";
 actorId += 1;
 State s_0 = new State();
 s_0.setActors(actors);
 s_0.setMessageQueue(mq);
 queue.add(s_0);
+states_num += 1;
+System.out.println(printState(s_0));
 int n = 0;
 while (!queue.isEmpty()) {
 State s_1 = new State();
@@ -67,59 +66,19 @@ if (actorsNames[j] != null && actorsNames[j].equals("a1")) {
 id = j;
 break;
 }
-}if (a.getReceiver().equals("theController") && a.getMsgName().equals("Arrive") && actors[id].getClass().getSimpleName().equals("BridgeController")) {
-s_2 = ((BridgeController) new_s.getActors()[id]).Arrive(t, new_s);
+}if (a.getReceiver().equals("ping_1") && a.getMsgName().equals("ping") && actors[id].getClass().getSimpleName().equals("Ping")) {
+s_2 = ((Ping) new_s.getActors()[id]).ping(t, new_s);
 if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
 queue.add(s_2);
+states_num += 1;
 System.out.println(printState(s_2));
 }else System.out.println("equal");
 }
-if (a.getReceiver().equals("theController") && a.getMsgName().equals("Leave") && actors[id].getClass().getSimpleName().equals("BridgeController")) {
-s_2 = ((BridgeController) new_s.getActors()[id]).Leave(t, new_s);
+if (a.getReceiver().equals("pong_1") && a.getMsgName().equals("pong") && actors[id].getClass().getSimpleName().equals("Pong")) {
+s_2 = ((Pong) new_s.getActors()[id]).pong(t, new_s);
 if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
 queue.add(s_2);
-System.out.println(printState(s_2));
-}else System.out.println("equal");
-}
-if (a.getReceiver().equals("train1") && a.getMsgName().equals("YouMayPass") && actors[id].getClass().getSimpleName().equals("Train")) {
-s_2 = ((Train) new_s.getActors()[id]).YouMayPass(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
-queue.add(s_2);
-System.out.println(printState(s_2));
-}else System.out.println("equal");
-}
-if (a.getReceiver().equals("train2") && a.getMsgName().equals("YouMayPass") && actors[id].getClass().getSimpleName().equals("Train")) {
-s_2 = ((Train) new_s.getActors()[id]).YouMayPass(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
-queue.add(s_2);
-System.out.println(printState(s_2));
-}else System.out.println("equal");
-}
-if (a.getReceiver().equals("train1") && a.getMsgName().equals("Passed") && actors[id].getClass().getSimpleName().equals("Train")) {
-s_2 = ((Train) new_s.getActors()[id]).Passed(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
-queue.add(s_2);
-System.out.println(printState(s_2));
-}else System.out.println("equal");
-}
-if (a.getReceiver().equals("train2") && a.getMsgName().equals("Passed") && actors[id].getClass().getSimpleName().equals("Train")) {
-s_2 = ((Train) new_s.getActors()[id]).Passed(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
-queue.add(s_2);
-System.out.println(printState(s_2));
-}else System.out.println("equal");
-}
-if (a.getReceiver().equals("train1") && a.getMsgName().equals("ReachBridge") && actors[id].getClass().getSimpleName().equals("Train")) {
-s_2 = ((Train) new_s.getActors()[id]).ReachBridge(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
-queue.add(s_2);
-System.out.println(printState(s_2));
-}else System.out.println("equal");
-}
-if (a.getReceiver().equals("train2") && a.getMsgName().equals("ReachBridge") && actors[id].getClass().getSimpleName().equals("Train")) {
-s_2 = ((Train) new_s.getActors()[id]).ReachBridge(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
-queue.add(s_2);
+states_num += 1;
 System.out.println(printState(s_2));
 }else System.out.println("equal");
 }
@@ -158,20 +117,14 @@ retValue += "actors variables: \r\n";
 
 for (int i = 0; i < actors.length; i++) {
 if (actors[i] != null) {
-if (actors[i].getClass().getSimpleName().equals("BridgeController")) {
-BridgeController a = (BridgeController) actors[i];
+if (actors[i].getClass().getSimpleName().equals("Ping")) {
+Ping a = (Ping) actors[i];
 retValue += "Actor's Id:" + a.getId() + ", class:" + a.getClass().getSimpleName() + ", name:" + a.getName() + ", ";
-retValue += "isWaiting1:" + a.getisWaiting1() + ", ";
-retValue += "isWaiting2:" + a.getisWaiting2() + ", ";
-retValue += "signal1:" + a.getsignal1() + ", ";
-retValue += "signal2:" + a.getsignal2() + ", ";
-retValue += "var:" + a.getvar() + ", ";
 retValue += "\r\n";
 }
-if (actors[i].getClass().getSimpleName().equals("Train")) {
-Train a = (Train) actors[i];
+if (actors[i].getClass().getSimpleName().equals("Pong")) {
+Pong a = (Pong) actors[i];
 retValue += "Actor's Id:" + a.getId() + ", class:" + a.getClass().getSimpleName() + ", name:" + a.getName() + ", ";
-retValue += "onTheBridge:" + a.getonTheBridge() + ", ";
 retValue += "\r\n";
 }
 }

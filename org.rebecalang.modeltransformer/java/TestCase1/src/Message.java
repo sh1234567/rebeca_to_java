@@ -1,4 +1,4 @@
-package TrainController2;
+package TestCase1;
 public class Message implements Comparable<Message>, Cloneable {
 	private String msgName;
 	private String sender;

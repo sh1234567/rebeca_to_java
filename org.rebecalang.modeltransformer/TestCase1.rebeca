@@ -1,0 +1,27 @@
+reactiveclass A(5) {
+	knownrebecs {
+		A a1;
+	}
+
+	statevars {
+		int i;
+		
+	}
+
+
+	A() {
+		self.B();
+		i = 0;
+	}
+	
+	msgsrv B() {
+		if (i < 3) {
+		i = i +1;
+		}
+		self.B() after(1);
+	}
+}
+
+main {
+	A a1(a1):();
+}

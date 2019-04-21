@@ -3,10 +3,17 @@ package org.rebecalang.modeltransformer.java.timedrebeca;
 import java.util.LinkedList;
 
 public class StateFileCreator {
+	private String modelName;
+
+	public StateFileCreator(String modelName) {
+		// TODO Auto-generated constructor stub
+		this.modelName = modelName;
+	}
 
 	public String getStateFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
+		retValue += retValue += "package " + modelName + ";\r\n";
 		retValue += "import java.util.*;\r\n" + 
 				"\r\n" + 
 				"public class State implements Cloneable {\r\n" + 
@@ -22,8 +29,8 @@ public class StateFileCreator {
 				"	}\r\n" + 
 				"\r\n" + 
 				"	public boolean equalMessageQueue(MessageQueue m2) {\r\n" + 
-				"		Message[] messages_1 = new Message[20];\r\n" + 
-				"		Message[] messages_2 = new Message[20];\r\n" + 
+				"		Message[] messages_1 = new Message[50];\r\n" + 
+				"		Message[] messages_2 = new Message[50];\r\n" + 
 				"		Object[] array = messageQueue.toArray();\r\n" + 
 				"		for (int i = 0; i < array.length; i++) {\r\n" + 
 				"			if (array[i] != null)\r\n" + 
@@ -39,31 +46,32 @@ public class StateFileCreator {
 				"		for (int i = 0; i < messages_1.length; i++)\r\n" + 
 				"			if (messages_1[i] != null) {\r\n" + 
 				"				n++;\r\n" + 
-				"				System.out.println(i + \" avali\" + messages_1[i].getMsgName());\r\n" + 
 				"			}\r\n" + 
 				"		for (int i = 0; i < messages_2.length; i++)\r\n" + 
 				"			if (messages_2[i] != null) {\r\n" + 
 				"				m++;\r\n" + 
-				"				System.out.println(i + \" dovomi\");\r\n" + 
 				"			}\r\n" + 
-				"		System.out.println(\"111 \" + n);\r\n" + 
-				"		System.out.println(m);\r\n" + 
 				"		if (n != m) {\r\n" + 
 				"			return false;\r\n" + 
 				"		}\r\n" + 
+				"		float d = messages_1[0].getAfter() - messages_2[0].getAfter();\r\n" + 
+				"		System.out.println(d);\r\n" + 
 				"		int a[] = new int[n];\r\n" + 
 				"		int b[] = new int[n];\r\n" + 
 				"		for (int i = 0; i < n; i++) {\r\n" + 
 				"			for (int j = 0; j < n; j++) {\r\n" + 
-				"				if (messages_1[i].equals(messages_2[j]) && a[i] != 1 && b[j] != 1) {\r\n" + 
+				"				System.out.println(messages_1[i].equals_2(messages_2[j]));\r\n" + 
+				"				if (messages_1[i].equals_2(messages_2[j]) && (messages_1[i].getAfter() - messages_2[j].getAfter() == d)\r\n" + 
+				"						&& a[i] != 1 && b[j] != 1) {\r\n" + 
+				"					System.out.println(\"a\\r\\n\");\r\n" + 
 				"					a[i] = 1;\r\n" + 
 				"					b[j] = 1;\r\n" + 
-				"					System.out.println(i + \" aaa \");\r\n" + 
 				"				}\r\n" + 
 				"			}\r\n" + 
 				"		}\r\n" + 
 				"		for (int i = 0; i < n; i++) {\r\n" + 
 				"			if (a[i] == 0) {\r\n" + 
+				"				System.out.println(\"b\\r\\n\");\r\n" + 
 				"				return false;\r\n" + 
 				"			}\r\n" + 
 				"		}\r\n" + 

@@ -1,4 +1,4 @@
-package TrainController2;
+package TestCase2;
 import java.util.Comparator;
 
 public class MessageComparator implements Comparator<Message> {

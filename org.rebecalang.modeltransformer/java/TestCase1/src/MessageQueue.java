@@ -1,4 +1,4 @@
-package TrainController2;
+package TestCase1;
 import java.util.*;
 
 public class MessageQueue<Message> extends PriorityQueue<Message> implements Cloneable {

@@ -1,4 +1,4 @@
-package TrainController2;
+package TestCase2;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
