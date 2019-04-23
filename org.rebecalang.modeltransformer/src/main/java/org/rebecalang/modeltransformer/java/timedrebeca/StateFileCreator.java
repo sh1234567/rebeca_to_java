@@ -55,15 +55,12 @@ public class StateFileCreator {
 				"			return false;\r\n" + 
 				"		}\r\n" + 
 				"		float d = messages_1[0].getAfter() - messages_2[0].getAfter();\r\n" + 
-				"		System.out.println(d);\r\n" + 
 				"		int a[] = new int[n];\r\n" + 
 				"		int b[] = new int[n];\r\n" + 
 				"		for (int i = 0; i < n; i++) {\r\n" + 
 				"			for (int j = 0; j < n; j++) {\r\n" + 
-				"				System.out.println(messages_1[i].equals_2(messages_2[j]));\r\n" + 
 				"				if (messages_1[i].equals_2(messages_2[j]) && (messages_1[i].getAfter() - messages_2[j].getAfter() == d)\r\n" + 
 				"						&& a[i] != 1 && b[j] != 1) {\r\n" + 
-				"					System.out.println(\"a\\r\\n\");\r\n" + 
 				"					a[i] = 1;\r\n" + 
 				"					b[j] = 1;\r\n" + 
 				"				}\r\n" + 
@@ -71,7 +68,6 @@ public class StateFileCreator {
 				"		}\r\n" + 
 				"		for (int i = 0; i < n; i++) {\r\n" + 
 				"			if (a[i] == 0) {\r\n" + 
-				"				System.out.println(\"b\\r\\n\");\r\n" + 
 				"				return false;\r\n" + 
 				"			}\r\n" + 
 				"		}\r\n" + 

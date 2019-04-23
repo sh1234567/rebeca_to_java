@@ -40,15 +40,12 @@ public class State implements Cloneable {
 			return false;
 		}
 		float d = messages_1[0].getAfter() - messages_2[0].getAfter();
-		System.out.println(d);
 		int a[] = new int[n];
 		int b[] = new int[n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				System.out.println(messages_1[i].equals_2(messages_2[j]));
 				if (messages_1[i].equals_2(messages_2[j]) && (messages_1[i].getAfter() - messages_2[j].getAfter() == d)
 						&& a[i] != 1 && b[j] != 1) {
-					System.out.println("a\r\n");
 					a[i] = 1;
 					b[j] = 1;
 				}
@@ -56,7 +53,6 @@ public class State implements Cloneable {
 		}
 		for (int i = 0; i < n; i++) {
 			if (a[i] == 0) {
-				System.out.println("b\r\n");
 				return false;
 			}
 		}

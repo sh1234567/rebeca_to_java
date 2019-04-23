@@ -9,6 +9,7 @@ Queue<State> queue_2 = new LinkedList<State>();
 MessageQueue<Message> mq = new MessageQueue<Message>();
 Cloner cloner = new Cloner();
 float t = 0;
+int id = 0;
 int states_num = 0;
 Message a = new Message();
 Actors[] actors = new Actors[10];
@@ -23,6 +24,7 @@ s_0.setActors(actors);
 s_0.setMessageQueue(mq);
 queue.add(s_0);
 states_num += 1;
+System.out.println(printState(s_0));
 int n = 0;
 while (!queue.isEmpty()) {
 State s_1 = new State();
@@ -55,13 +57,14 @@ a = equalPriorityMsgs[j];
 }
 }
 System.out.println(n + " " + a.getSender());
-int id = 0;
+id = 0;
 for (int j = 0; j < actorsNames.length; j++) {
 if (actorsNames[j] != null && actorsNames[j].equals("a1")) {
 id = j;
 break;
 }
-}if (a.getReceiver().equals("a1") && a.getMsgName().equals("B") && actors[id].getClass().getSimpleName().equals("A")) {
+}
+if (a.getReceiver().equals("a1") && a.getMsgName().equals("B") && actors[id].getClass().getSimpleName().equals("A")) {
 s_2 = ((A) new_s.getActors()[id]).B(t, new_s);
 if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
 queue.add(s_2);

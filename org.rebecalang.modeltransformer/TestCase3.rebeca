@@ -1,3 +1,4 @@
+//Write your code here !
 reactiveclass Ping(3){
 	knownrebecs {Pong po;}
 	Ping(){
@@ -5,11 +6,15 @@ reactiveclass Ping(3){
 	}
 	msgsrv ping(){
 	po.pong() after(1);
+	po.pong2() after(1);
 	}
 }
 reactiveclass Pong(3){
 	knownrebecs {Ping pi;}
 	msgsrv pong(){
+	pi.ping() after(1);
+	}
+	msgsrv pong2(){
 	pi.ping() after(1);
 	}
 }

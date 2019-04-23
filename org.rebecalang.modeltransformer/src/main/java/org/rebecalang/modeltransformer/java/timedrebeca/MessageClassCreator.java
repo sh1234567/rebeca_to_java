@@ -80,8 +80,6 @@ public class MessageClassCreator {
 				"			return false;\r\n" + 
 				"		if (!(this.receiver == a.receiver))\r\n" + 
 				"			return false;\r\n" + 
-				"		if (!(this.deadline == a.deadline))\r\n" + 
-				"			return false;\r\n" + 
 				"		return true;\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 

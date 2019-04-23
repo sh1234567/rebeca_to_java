@@ -1,4 +1,4 @@
-package TestCase2;
+package TestCase3;
 import java.io.IOException;
 import java.util.*;
 import com.rits.cloning.Cloner;
@@ -85,6 +85,21 @@ break;
 }
 if (a.getReceiver().equals("po") && a.getMsgName().equals("pong") && actors[id].getClass().getSimpleName().equals("Pong")) {
 s_2 = ((Pong) new_s.getActors()[id]).pong(t, new_s);
+if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
+queue.add(s_2);
+states_num += 1;
+System.out.println(printState(s_2));
+}else System.out.println("equal");
+}
+id = 0;
+for (int j = 0; j < actorsNames.length; j++) {
+if (actorsNames[j] != null && actorsNames[j].equals("po")) {
+id = j;
+break;
+}
+}
+if (a.getReceiver().equals("po") && a.getMsgName().equals("pong2") && actors[id].getClass().getSimpleName().equals("Pong")) {
+s_2 = ((Pong) new_s.getActors()[id]).pong2(t, new_s);
 if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
 queue.add(s_2);
 states_num += 1;

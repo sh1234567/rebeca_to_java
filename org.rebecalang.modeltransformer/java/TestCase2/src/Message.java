@@ -67,8 +67,6 @@ public class Message implements Comparable<Message>, Cloneable {
 			return false;
 		if (!(this.receiver == a.receiver))
 			return false;
-		if (!(this.deadline == a.deadline))
-			return false;
 		return true;
 	}
 

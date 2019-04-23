@@ -46,6 +46,7 @@ public class MainFileCreator {
 				+ "MessageQueue<Message> mq = new MessageQueue<Message>();\r\n"
 				+ "Cloner cloner = new Cloner();\r\n"
 				+ "float t = 0;\r\n"
+				+ "int id = 0;\r\n"
 				+ "int states_num = 0;\r\n"
 				+ "Message a = new Message();\r\n" + "Actors[] actors = new Actors[10];\r\n" + "String[] actorsNames = new String[10];\r\n" +
 						"int actorId = 0;\r\n" + defineRebecs() + "State s_0 = new State();\r\n" + 
@@ -173,14 +174,7 @@ public class MainFileCreator {
 				"a = equalPriorityMsgs[j];\r\n" + 
 				"}\r\n" + 
 				"}\r\n" + 
-				"System.out.println(n + \" \" + a.getSender());\r\n"+
-				"int id = 0;\r\n" + 
-				"for (int j = 0; j < actorsNames.length; j++) {\r\n" + 
-				"if (actorsNames[j] != null && actorsNames[j].equals(\"a1\")) {\r\n" + 
-				"id = j;\r\n" + 
-				"break;\r\n" + 
-				"}\r\n" + 
-				"}";
+				"System.out.println(n + \" \" + a.getSender());\r\n";
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
 			for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 				for (MainRebecDefinition md : rebecaModel.getRebecaCode().getMainDeclaration()
@@ -189,6 +183,13 @@ public class MainFileCreator {
 					try {
 						metaData = TypesUtilities.getInstance().getMetaData(md.getType());
 						if (rc.getName() == metaData.getName()) {
+							retValue += "id = 0;\r\n" + 
+									"for (int j = 0; j < actorsNames.length; j++) {\r\n" + 
+									"if (actorsNames[j] != null && actorsNames[j].equals(\"" + md.getName() + "\")) {\r\n" + 
+									"id = j;\r\n" + 
+									"break;\r\n" + 
+									"}\r\n" + 
+									"}\r\n";
 							retValue += "if (a.getReceiver().equals(\"" + md.getName()
 									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")" + " && actors[id].getClass().getSimpleName().equals(\"" + metaData.getName() +"\")" + ") {\r\n"
 									+ "s_2 = " + "(("+ metaData.getName() +") new_s.getActors()[id])" + "." + msgsrv.getName() + "(t, new_s);\r\n" + "if (!contains(queue, s_2) && !contains(queue_2, s_2)) {\r\n" + 

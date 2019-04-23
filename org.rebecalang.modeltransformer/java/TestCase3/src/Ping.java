@@ -1,4 +1,4 @@
-package TestCase2;
+package TestCase3;
 import java.util.*;
 import com.rits.cloning.Cloner;
 public class Ping extends Actors {
@@ -29,6 +29,13 @@ msg2.setReceiver("po");
 msg2.setAfter(t + 1);
 msg2.setDeadline(t + 100000);
 s_2.getMessageQueue().add(msg2);
+Message msg3 = new Message();
+msg3.setMsgName("pong2");
+msg3.setSender(this.name);
+msg3.setReceiver("po");
+msg3.setAfter(t + 1);
+msg3.setDeadline(t + 100000);
+s_2.getMessageQueue().add(msg3);
 return s_2;
 }
 
