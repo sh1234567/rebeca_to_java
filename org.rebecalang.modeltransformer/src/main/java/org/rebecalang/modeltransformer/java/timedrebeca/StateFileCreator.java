@@ -2,6 +2,7 @@ package org.rebecalang.modeltransformer.java.timedrebeca;
 
 import java.util.LinkedList;
 
+
 public class StateFileCreator {
 	private String modelName;
 
@@ -19,6 +20,24 @@ public class StateFileCreator {
 				"public class State implements Cloneable {\r\n" + 
 				"	private MessageQueue<Message> messageQueue = new MessageQueue<Message>();\r\n" + 
 				"	private Actors[] actors;\r\n" + 
+				"	private float state_time_1;\r\n" + 
+				"	private float state_time_2;\r\n" + 
+				"\r\n" + 
+				"	public float getState_time_1() {\r\n" + 
+				"		return state_time_1;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public void setState_time_1(float state_time_1) {\r\n" + 
+				"		this.state_time_1 = state_time_1;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public float getState_time_2() {\r\n" + 
+				"		return state_time_2;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public void setState_time_2(float state_time_2) {\r\n" + 
+				"		this.state_time_2 = state_time_2;\r\n" + 
+				"	}\r\n" + 
 				"\r\n" + 
 				"	public Object clone() throws CloneNotSupportedException {\r\n" + 
 				"		return super.clone();\r\n" + 
@@ -28,7 +47,7 @@ public class StateFileCreator {
 				"\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 
-				"	public boolean equalMessageQueue(MessageQueue m2) {\r\n" + 
+				"	public boolean equalMessageQueue(MessageQueue m2, String mode) {\r\n" + 
 				"		Message[] messages_1 = new Message[50];\r\n" + 
 				"		Message[] messages_2 = new Message[50];\r\n" + 
 				"		Object[] array = messageQueue.toArray();\r\n" + 
@@ -54,12 +73,12 @@ public class StateFileCreator {
 				"		if (n != m) {\r\n" + 
 				"			return false;\r\n" + 
 				"		}\r\n" + 
-				"		float d = messages_1[0].getAfter() - messages_2[0].getAfter();\r\n" + 
+				"		float d = messages_1[0].getAfter_1() - messages_2[0].getAfter_1();\r\n" + 
 				"		int a[] = new int[n];\r\n" + 
 				"		int b[] = new int[n];\r\n" + 
 				"		for (int i = 0; i < n; i++) {\r\n" + 
 				"			for (int j = 0; j < n; j++) {\r\n" + 
-				"				if (messages_1[i].equals_2(messages_2[j]) && (messages_1[i].getAfter() - messages_2[j].getAfter() == d)\r\n" + 
+				"				if (messages_1[i].equals_2(messages_2[j]) && (messages_1[i].getAfter_1() - messages_2[j].getAfter_1() == d)\r\n" + 
 				"						&& a[i] != 1 && b[j] != 1) {\r\n" + 
 				"					a[i] = 1;\r\n" + 
 				"					b[j] = 1;\r\n" + 
@@ -74,7 +93,7 @@ public class StateFileCreator {
 				"		return true;\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 
-				"	public boolean equalActorsArray(Actors[] a2) {\r\n" + 
+				"	public boolean equalActorsArray(Actors[] a2, String mode) {\r\n" + 
 				"\r\n" + 
 				"		for (int i = 0; i < actors.length; i++) {\r\n" + 
 				"			if (actors[i] != null && !actors[i].equals(a2[i])) {\r\n" + 
@@ -84,10 +103,10 @@ public class StateFileCreator {
 				"		return true;\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 
-				"	public boolean equals(State a) {\r\n" + 
-				"		if (!(this.equalMessageQueue(a.getMessageQueue())))\r\n" + 
+				"	public boolean equals(State a, String mode) {\r\n" + 
+				"		if (!(this.equalMessageQueue(a.getMessageQueue(), mode)))\r\n" + 
 				"			return false;\r\n" + 
-				"		if (!(this.equalActorsArray(a.getActors())))\r\n" + 
+				"		if (!(this.equalActorsArray(a.getActors(), mode)))\r\n" + 
 				"			return false;\r\n" + 
 				"		return true;\r\n" + 
 				"	}\r\n" + 

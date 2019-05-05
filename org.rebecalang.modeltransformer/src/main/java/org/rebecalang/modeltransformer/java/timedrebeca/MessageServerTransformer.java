@@ -40,7 +40,6 @@ public class MessageServerTransformer {
 			// param.getName() + NEW_LINE;
 		}
 		callbackFunctionBody += statementTransformer.resolveBlockStatement(msgsrv.getBlock(), 1);
-
 		callbackFunctionBody += "return s_2;\r\n";
 		return callbackFunctionBody;
 	}

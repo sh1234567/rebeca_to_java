@@ -85,7 +85,7 @@ public class ReactiveClassTransformer {
 		retValue += "import com.rits.cloning.Cloner;\r\n";
 		retValue += "public class " + rc.getName() + " extends Actors {" + NEW_LINE;
 		retValue += createVariablesDefinition(0);
-		retValue += "\r\n" + "public " + rc.getName() + "(String n, int actorId, MessageQueue<Message> mq) {\r\n" + "float t = 0;\r\n" + "this.name = n;\r\n" + "this.id = actorId;\r\n";
+		retValue += "\r\n" + "public " + rc.getName() + "(String n, int actorId, MessageQueue<Message> mq) {\r\n" + "float t_1 = 0;\r\n" + "float t_2 = 0;\r\n" + "this.name = n;\r\n" + "this.id = actorId;\r\n";
 		// fType is 0 for the constructor and is 1 for other methods.
 		retValue += statementTransformer.resolveBlockStatement(rc.getConstructors().get(0).getBlock(), 0);
 		retValue += "}\r\n" + NEW_LINE;
@@ -93,7 +93,7 @@ public class ReactiveClassTransformer {
 			System.out.println("msgsrv");
 			MessageServerTransformer messageServerTransformer = new MessageServerTransformer(statementTransformer,
 					msgsrv, modelName, rc);
-			retValue += "public State " + msgsrv.getName() + "(float t, State s_1)" + " throws CloneNotSupportedException {" + NEW_LINE
+			retValue += "public State " + msgsrv.getName() + "(float t_1, float t_2, State s_1, String mode)" + " throws CloneNotSupportedException {" + NEW_LINE
 					+ messageServerTransformer.getCallbackFunctionBody() + "}\r\n" + NEW_LINE;
 		}
 		retValue += createEqualsMethod();

@@ -1,4 +1,4 @@
-package TestCase4;
+package TestCase5;
 
 public class Message implements Comparable<Message>, Cloneable {
 	private String msgName;

@@ -133,17 +133,23 @@ public class CoreRebecaExpressionTransformer extends AbstractExpressionTransform
 				"msg" + num.toString() + ".setReceiver(" +
 				receiver +
 				");\r\n" +
-				"msg" + num.toString() + ".setAfter(" ; 
+				"msg" + num.toString() + ".setAfter_1(" ; 
 		if (parentSuffixPrimary.getAfterExpression() != null)
-			retValue += "t + " + translate(parentSuffixPrimary.getAfterExpression(), container, fType);
+			retValue += "t_1 + " + translate(parentSuffixPrimary.getAfterExpression(), container, fType);
 		else 
-			retValue += "t";
-		retValue += ");\r\n" +
-				"msg" + num.toString() + ".setDeadline(";
+			retValue += "t_1";
+		retValue += ");\r\n";
+		retValue += "msg" + num.toString() + ".setAfter_2(" ; 
+		if (parentSuffixPrimary.getAfterExpression() != null)
+			retValue += "t_2 + " + translate(parentSuffixPrimary.getAfterExpression(), container, fType);
+		else 
+			retValue += "t_2";
+		retValue += ");\r\n";
+		retValue += "msg" + num.toString() + ".setDeadline(";
 		if (parentSuffixPrimary.getDeadlineExpression() != null)
-			retValue += "t + " + translate(parentSuffixPrimary.getDeadlineExpression(), container, fType);
+			retValue += "t_1 + " + translate(parentSuffixPrimary.getDeadlineExpression(), container, fType);
 	else 
-		retValue += "t + 100000";
+		retValue += "t_1 + 100000";
 		retValue +=	");\r\n" ;
 		if (fType == 1) {
 				retValue += "s_2.getMessageQueue().add(msg" + num.toString() + ")";

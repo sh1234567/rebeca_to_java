@@ -28,7 +28,7 @@ s_0.setActors(actors);
 s_0.setMessageQueue(mq);
 queue.add(s_0);
 states_num += 1;
-System.out.println(printState(s_0));
+System.out.println(printState(s_0, states_num));
 int n = 0;
 while (!queue.isEmpty()) {
 State s_1 = new State();
@@ -60,7 +60,6 @@ new_s.getMessageQueue().add(equalPriorityMsgs[j]);
 a = equalPriorityMsgs[j];
 }
 }
-System.out.println(n + " " + a.getSender());
 id = 0;
 for (int j = 0; j < actorsNames.length; j++) {
 if (actorsNames[j] != null && actorsNames[j].equals("pi")) {
@@ -73,7 +72,7 @@ s_2 = ((Ping) new_s.getActors()[id]).ping(t, new_s);
 if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
 queue.add(s_2);
 states_num += 1;
-System.out.println(printState(s_2));
+System.out.println(printState(s_2, states_num));
 }else System.out.println("equal");
 }
 id = 0;
@@ -88,7 +87,7 @@ s_2 = ((Pong) new_s.getActors()[id]).pong(t, new_s);
 if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
 queue.add(s_2);
 states_num += 1;
-System.out.println(printState(s_2));
+System.out.println(printState(s_2, states_num));
 }else System.out.println("equal");
 }
 }
@@ -109,8 +108,10 @@ return true;
 }
 return false;
 }
-private static String printState(State s) {
+private static String printState(State s, int state_number) {
 String retValue = "";
+retValue += "-------------------------------------------------------------------------\r\n";
+retValue += "State number: " + state_number +"\r\n";
 MessageQueue<Message> mq = s.getMessageQueue();
 Actors[] actors = s.getActors();
 Iterator<Message> itr = mq.iterator();
@@ -138,7 +139,7 @@ retValue += "\r\n";
 }
 }
 }
-retValue += "-------------------------------------------------------------------------\r\n";
+retValue += "-------------------------------------------------------------------------";
 DirectoryCreator directoryCreator = new DirectoryCreator();
 try {
 directoryCreator.addFile("a.txt", retValue);
@@ -151,8 +152,10 @@ return retValue;
 private static String printStatesQueue(Queue<State> q) {
 String retValue = "";
 Iterator<State> itr = q.iterator();
+int i = 1;
 while (itr.hasNext()) {
-retValue += printState(itr.next());
+retValue += printState(itr.next(), i);
+i++;
 }
 DirectoryCreator directoryCreator = new DirectoryCreator();
 try {

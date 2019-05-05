@@ -1,4 +1,4 @@
-//Write your code here !
+//Write your code here !!
 reactiveclass Ping(3){
 	knownrebecs {Pong po;}
 	Ping(){
@@ -6,27 +6,14 @@ reactiveclass Ping(3){
 	}
 	msgsrv ping(){
 	po.pong() after(1);
-	po.pong2() after(1);
 	}
 }
 reactiveclass Pong(3){
 	knownrebecs {Ping pi;}
-	statevars {
-		int i;
-	}
 	Pong(){
-		i = 0;
+		self.pong();
 	}
 	msgsrv pong(){
-	if (i < 3) {
-		i = i +1;
-		}
-	else{
-		i = 0;
-		}
-	pi.ping() after(1);
-	}
-	msgsrv pong2(){
 	pi.ping() after(1);
 	}
 }

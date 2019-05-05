@@ -11,13 +11,31 @@ public class MessageClassCreator {
 	public String getMessageClassContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue +=  "package " + modelName + ";\r\n" + 
+		retValue +=  "package " + modelName + ";\r\n" +  
+				"\r\n" + 
 				"public class Message implements Comparable<Message>, Cloneable {\r\n" + 
 				"	private String msgName;\r\n" + 
 				"	private String sender;\r\n" + 
 				"	private String receiver;\r\n" + 
-				"	private float after;\r\n" + 
+				"	private float after_1;\r\n" + 
+				"	private float after_2;\r\n" + 
 				"	private float deadline;\r\n" + 
+				"\r\n" + 
+				"	public float getAfter_1() {\r\n" + 
+				"		return after_1;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public void setAfter_1(float after_1) {\r\n" + 
+				"		this.after_1 = after_1;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public float getAfter_2() {\r\n" + 
+				"		return after_2;\r\n" + 
+				"	}\r\n" + 
+				"\r\n" + 
+				"	public void setAfter_2(float after_2) {\r\n" + 
+				"		this.after_2 = after_2;\r\n" + 
+				"	}\r\n" + 
 				"\r\n" + 
 				"	public String getMsgName() {\r\n" + 
 				"		return msgName;\r\n" + 
@@ -43,14 +61,6 @@ public class MessageClassCreator {
 				"		this.receiver = receiver;\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 
-				"	public float getAfter() {\r\n" + 
-				"		return after;\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
-				"	public void setAfter(float after) {\r\n" + 
-				"		this.after = after;\r\n" + 
-				"	}\r\n" + 
-				"\r\n" + 
 				"	public float getDeadline() {\r\n" + 
 				"		return deadline;\r\n" + 
 				"	}\r\n" + 
@@ -66,7 +76,9 @@ public class MessageClassCreator {
 				"			return false;\r\n" + 
 				"		if (!(this.receiver == a.receiver))\r\n" + 
 				"			return false;\r\n" + 
-				"		if (!(this.after == a.after))\r\n" + 
+				"		if (!(this.after_1 == a.after_1))\r\n" + 
+				"			return false;\r\n" + 
+				"		if (!(this.after_2 == a.after_2))\r\n" + 
 				"			return false;\r\n" + 
 				"		if (!(this.deadline == a.deadline))\r\n" + 
 				"			return false;\r\n" + 
@@ -87,9 +99,9 @@ public class MessageClassCreator {
 				"		// TODO Auto-generated method stub\r\n" + 
 				"		if (m == null)\r\n" + 
 				"			return -1;\r\n" + 
-				"		if (this.after > m.getAfter())\r\n" + 
+				"		if (this.after_1 > m.getAfter_1())\r\n" + 
 				"			return +1;\r\n" + 
-				"		if (this.after < m.getAfter())\r\n" + 
+				"		if (this.after_1 < m.getAfter_1())\r\n" + 
 				"			return -1;\r\n" + 
 				"		return 0;\r\n" + 
 				"	}\r\n" + 

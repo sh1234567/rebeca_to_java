@@ -1,14 +1,16 @@
-package TestCase3;
+package TestCase5;
 import java.io.IOException;
 import java.util.*;
 import com.rits.cloning.Cloner;
 public class Main {
 public static void main(String[] args) throws CloneNotSupportedException {
+String mode = "d";
 Queue<State> queue = new LinkedList<State>();
 Queue<State> queue_2 = new LinkedList<State>();
 MessageQueue<Message> mq = new MessageQueue<Message>();
 Cloner cloner = new Cloner();
-float t = 0;
+float t_1 = 0;
+float t_2 = 0;
 int id = 0;
 int states_num = 0;
 Message a = new Message();
@@ -30,6 +32,7 @@ queue.add(s_0);
 states_num += 1;
 System.out.println(printState(s_0, states_num));
 int n = 0;
+if (mode.equals("d")) {
 while (!queue.isEmpty()) {
 State s_1 = new State();
 State s_2 = new State();
@@ -37,11 +40,12 @@ s_1 = queue.poll();
 queue_2.add(s_1);
 State s = cloner.deepClone(s_1);
 if (!s.getMessageQueue().isEmpty() && s.getMessageQueue().peek() != null) {
-float after = s.getMessageQueue().peek().getAfter();
-t = after;
+float after = s.getMessageQueue().peek().getAfter_1();
+t_1 = after;
+t_2 = t_1;
 int highPriority_num = 0;
 MessageQueue<Message> mq_2 = new MessageQueue<Message>();
-while (!s.getMessageQueue().isEmpty() && s.getMessageQueue().peek().getAfter() == after) {
+while (!s.getMessageQueue().isEmpty() && s.getMessageQueue().peek().getAfter_1() == after) {
 mq_2.add(s.getMessageQueue().remove());
 highPriority_num += 1;
 }
@@ -68,8 +72,8 @@ break;
 }
 }
 if (a.getReceiver().equals("pi") && a.getMsgName().equals("ping") && actors[id].getClass().getSimpleName().equals("Ping")) {
-s_2 = ((Ping) new_s.getActors()[id]).ping(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
+s_2 = ((Ping) new_s.getActors()[id]).ping(t_1, t_2, new_s, mode);
+if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
@@ -83,8 +87,120 @@ break;
 }
 }
 if (a.getReceiver().equals("po") && a.getMsgName().equals("pong") && actors[id].getClass().getSimpleName().equals("Pong")) {
-s_2 = ((Pong) new_s.getActors()[id]).pong(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
+s_2 = ((Pong) new_s.getActors()[id]).pong(t_1, t_2, new_s, mode);
+if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
+queue.add(s_2);
+states_num += 1;
+System.out.println(printState(s_2, states_num));
+}else System.out.println("equal");
+}
+}
+}
+else {
+queue.poll();
+}
+n += 1;
+}
+}
+else if (mode.equals("i")) {
+while (!queue.isEmpty()) {
+State s_1 = new State();
+State s_2 = new State();
+s_1 = queue.poll();
+queue_2.add(s_1);
+State s = cloner.deepClone(s_1);
+// ArrayList<Message> messages = new ArrayList<Message>();
+Message m = new Message();
+ArrayList<TimePoint> timePoints = new ArrayList<TimePoint>();
+ArrayList<TimePoint> timePoints_2 = new ArrayList<TimePoint>();
+while (!s.getMessageQueue().isEmpty()) {
+TimePoint tp_1 = new TimePoint();
+TimePoint tp_2 = new TimePoint();
+m = s.getMessageQueue().remove();
+tp_1.setTime(m.getAfter_1());
+tp_1.setType("b");
+timePoints.add(tp_1);
+tp_2.setTime(m.getAfter_2());
+tp_2.setType("e");
+timePoints.add(tp_2);
+}
+timePoints_2 = cloner.deepClone(timePoints);
+if (!timePoints_2.isEmpty()) {
+float min_1 = timePoints_2.remove(0).getTime();
+float min_2 = timePoints_2.remove(0).getTime();
+while (min_2 == min_1 && !timePoints_2.isEmpty()) {
+min_2 = timePoints_2.remove(0).getTime();
+}
+float r = 0;
+if (min_2 < min_1) {
+r = min_1;
+min_1 = min_2;
+min_2 = r;
+}
+System.out.println(min_1);
+System.out.println(min_2);
+int l = timePoints_2.toArray().length;
+for (int i = 0; i < l; i++) {
+float new_t = timePoints_2.remove(0).getTime();
+System.out.println("aaa" + new_t);
+if (new_t < min_1) {
+min_2 = min_1;
+min_1 = new_t;
+} else if (new_t < min_2 && new_t != min_1) {
+min_2 = new_t;
+}
+}
+System.out.println("min_1: " + min_1);
+System.out.println("min_2: " + min_2);
+s = cloner.deepClone(s_1);
+ArrayList<Message> m_1 = new ArrayList<Message>();
+ArrayList<Message> m_2 = new ArrayList<Message>();
+while (!s.getMessageQueue().isEmpty()) {
+Message msg = s.getMessageQueue().remove();
+if (msg.getAfter_1() == min_1) {
+m_1.add(cloner.deepClone(msg));
+}
+if (msg.getAfter_2() == min_2) {
+m_2.add(cloner.deepClone(msg));
+}
+}
+for (int i = 0; i < m_1.toArray().length; i++) {
+System.out.println("m_1: " + m_1.get(i).getAfter_1());
+}
+for (int i = 0; i < m_2.toArray().length; i++) {
+System.out.println("m_2: " + m_2.get(i).getAfter_2());
+}
+System.out.println(m_1.toArray().length);
+s = cloner.deepClone(s_1);
+if (!m_1.isEmpty()) {
+for (int i = 0; i < m_1.toArray().length; i++) {
+s = cloner.deepClone(s_1);
+State new_s = cloner.deepClone(s_1);
+Message new_m = new Message();
+MessageQueue<Message> mq_3 = new MessageQueue<Message>();
+while (!s.getMessageQueue().isEmpty()) {
+new_m = s.getMessageQueue().remove();
+if (!(new_m.equals(m_1.get(i)))) {
+mq_3.add(new_m);
+} else {
+a = new_m;
+}
+}
+System.out.println(a.getMsgName());
+new_s.setMessageQueue(mq_3);
+new_s.setState_time_1(min_1);
+new_s.setState_time_2(min_2);
+System.out.println(printState(new_s, 0));
+id = 0;
+for (int j = 0; j < actorsNames.length; j++) {
+if (actorsNames[j] != null && actorsNames[j].equals("pi")) {
+id = j;
+break;
+}
+}
+if (a.getReceiver().equals("pi") && a.getMsgName().equals("ping") && actors[id].getClass().getSimpleName().equals("Ping")) {
+s_2 = ((Ping) new_s.getActors()[id]).ping(t_1, t_2, new_s, mode);
+if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
@@ -97,36 +213,45 @@ id = j;
 break;
 }
 }
-if (a.getReceiver().equals("po") && a.getMsgName().equals("pong2") && actors[id].getClass().getSimpleName().equals("Pong")) {
-s_2 = ((Pong) new_s.getActors()[id]).pong2(t, new_s);
-if (!contains(queue, s_2) && !contains(queue_2, s_2)) {
+if (a.getReceiver().equals("po") && a.getMsgName().equals("pong") && actors[id].getClass().getSimpleName().equals("Pong")) {
+s_2 = ((Pong) new_s.getActors()[id]).pong(t_1, t_2, new_s, mode);
+if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
 }else System.out.println("equal");
 }
+
+}
+if (!m_2.isEmpty()) {
+
+}}
 }
 }
-else {
-queue.poll();
 }
-n += 1;
-}	
+
 }
-private static boolean contains(Queue<State> queue, State s_1) {
+private static boolean contains(Queue<State> queue, State s_1, String mode) {
 // TODO Auto-generated method stub
 Iterator i = queue.iterator();
 while (i.hasNext()) {
 State s = (State) i.next();
-if (s_1.equals(s))
+if (s_1.equals(s, mode))
 return true;
 }
 return false;
 }
+private static String printMessage(Message msg) {
+String retValue = "";
+retValue += retValue += "MsgName:" + msg.getMsgName() + ", " + "MsgSender:" + msg.getSender() + ", "
++ "MsgReceiver:" + msg.getReceiver() + ", " + "MsgAfterIntervalBegin:" + msg.getAfter_1() + ", "
++ "MsgAfterIntervalEnd:" + msg.getAfter_2() + "\r\n";
+return retValue;
+}
 private static String printState(State s, int state_number) {
 String retValue = "";
 retValue += "-------------------------------------------------------------------------\r\n";
-retValue += "State number: " + state_number +"\r\n";
+retValue += "State number: " + state_number + "\r\n";
 MessageQueue<Message> mq = s.getMessageQueue();
 Actors[] actors = s.getActors();
 Iterator<Message> itr = mq.iterator();
@@ -135,7 +260,8 @@ while (itr.hasNext()) {
 Message msg = itr.next();
 if (msg != null) {
 retValue += "MsgName:" + msg.getMsgName() + ", " + "MsgSender:" + msg.getSender() + ", "
-+ "MsgReceiver:" + msg.getReceiver() + ", " + "MsgAfter:" + msg.getAfter() + "\r\n";
++ "MsgReceiver:" + msg.getReceiver() + ", " + "MsgAfterIntervalBegin:" + msg.getAfter_1() + ", "
++ "MsgAfterIntervalEnd:" + msg.getAfter_2() + "\r\n";
 }
 }
 retValue += "actors variables: \r\n";

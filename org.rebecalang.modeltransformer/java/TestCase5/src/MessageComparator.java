@@ -1,4 +1,4 @@
-package TestCase4;
+package TestCase5;
 import java.util.Comparator;
 
 public class MessageComparator implements Comparator<Message> {

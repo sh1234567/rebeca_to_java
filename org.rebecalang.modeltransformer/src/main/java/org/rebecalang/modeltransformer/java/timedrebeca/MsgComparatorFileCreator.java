@@ -18,9 +18,9 @@ public class MsgComparatorFileCreator {
 				"\r\n" + 
 				"public class MessageComparator implements Comparator<Message> {\r\n" + 
 				"	public int compare(Message m1, Message m2) {\r\n" + 
-				"		if (m1.getAfter() > m2.getAfter())\r\n" + 
+				"		if (m1.getAfter_1() > m2.getAfter_1())\r\n" + 
 				"			return 1;\r\n" + 
-				"		else if (m1.getAfter() < m2.getAfter()) \r\n" + 
+				"		else if (m1.getAfter_1() < m2.getAfter_1()) \r\n" + 
 				"			return -1;\r\n" + 
 				"		return 0;\r\n" + 
 				"		\r\n" + 
