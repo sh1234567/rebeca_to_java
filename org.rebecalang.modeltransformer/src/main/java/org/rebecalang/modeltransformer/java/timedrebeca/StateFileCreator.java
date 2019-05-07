@@ -1,8 +1,5 @@
 package org.rebecalang.modeltransformer.java.timedrebeca;
 
-import java.util.LinkedList;
-
-
 public class StateFileCreator {
 	private String modelName;
 
@@ -14,7 +11,7 @@ public class StateFileCreator {
 	public String getStateFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue += retValue += "package " + modelName + ";\r\n";
+		retValue += "package " + modelName + ";\r\n";
 		retValue += "import java.util.*;\r\n" + 
 				"\r\n" + 
 				"public class State implements Cloneable {\r\n" + 

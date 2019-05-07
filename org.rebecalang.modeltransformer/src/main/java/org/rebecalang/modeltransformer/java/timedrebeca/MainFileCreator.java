@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
-
 import org.apache.maven.artifact.repository.metadata.Metadata;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.FieldDeclaration;
 import org.rebecalang.compiler.modelcompiler.corerebeca.objectmodel.MainRebecDefinition;
@@ -19,7 +18,6 @@ import org.rebecalang.compiler.utils.CodeCompilationException;
 import org.rebecalang.compiler.utils.CompilerFeature;
 import org.rebecalang.compiler.utils.TypesUtilities;
 import org.rebecalang.modeltransformer.TransformingFeature;
-
 
 public class MainFileCreator {
 	public final static String NEW_LINE = "\r\n";
@@ -42,7 +40,7 @@ public class MainFileCreator {
 				"import java.util.*;\r\n" + 
 				"import com.rits.cloning.Cloner;\r\n";
 		retValue += "public class Main {\r\n" + "public static void main(String[] args) throws CloneNotSupportedException {\r\n"
-				+ "String mode = \"d\";\r\n"
+				+ "String mode = \"i\";\r\n"
 				+ "Queue<State> queue = new LinkedList<State>();\r\n"
 				+ "Queue<State> queue_2 = new LinkedList<State>();\r\n"
 				+ "MessageQueue<Message> mq = new MessageQueue<Message>();\r\n"
@@ -99,12 +97,9 @@ public class MainFileCreator {
 				"min_1 = min_2;\r\n" + 
 				"min_2 = r;\r\n" + 
 				"}\r\n" + 
-				"System.out.println(min_1);\r\n" + 
-				"System.out.println(min_2);\r\n" + 
 				"int l = timePoints_2.toArray().length;\r\n" + 
 				"for (int i = 0; i < l; i++) {\r\n" + 
 				"float new_t = timePoints_2.remove(0).getTime();\r\n" + 
-				"System.out.println(\"aaa\" + new_t);\r\n" + 
 				"if (new_t < min_1) {\r\n" + 
 				"min_2 = min_1;\r\n" + 
 				"min_1 = new_t;\r\n" + 
@@ -112,8 +107,18 @@ public class MainFileCreator {
 				"min_2 = new_t;\r\n" + 
 				"}\r\n" + 
 				"}\r\n" + 
+				"s = cloner.deepClone(s_1);\r\n" + 
+				"while (!s.getMessageQueue().isEmpty()) {\r\n" + 
+				"Message msg = s.getMessageQueue().remove();\r\n" + 
+				"if (msg.getAfter_1() == min_1 && msg.getAfter_2() == min_1) {\r\n" + 
+				"min_2 = min_1;\r\n" + 
+				"break;\r\n" + 
+				"}\r\n" + 
+				"}" +
 				"System.out.println(\"min_1: \" + min_1);\r\n" + 
 				"System.out.println(\"min_2: \" + min_2);\r\n" + 
+				"t_1 = min_1;\r\n" +
+				"t_2 = min_2;\r\n" +
 				"s = cloner.deepClone(s_1);\r\n" + 
 				"ArrayList<Message> m_1 = new ArrayList<Message>();\r\n" + 
 				"ArrayList<Message> m_2 = new ArrayList<Message>();\r\n" + 
@@ -126,14 +131,8 @@ public class MainFileCreator {
 				"m_2.add(cloner.deepClone(msg));\r\n" + 
 				"}\r\n" + 
 				"}\r\n" + 
-				"for (int i = 0; i < m_1.toArray().length; i++) {\r\n" + 
-				"System.out.println(\"m_1: \" + m_1.get(i).getAfter_1());\r\n" + 
-				"}\r\n" + 
-				"for (int i = 0; i < m_2.toArray().length; i++) {\r\n" + 
-				"System.out.println(\"m_2: \" + m_2.get(i).getAfter_2());\r\n" + 
-				"}\r\n" + 
-				"System.out.println(m_1.toArray().length);\r\n" + 
 				"s = cloner.deepClone(s_1);\r\n" + 
+				"State s_prime = cloner.deepClone(s_1);\r\n" +
 				"if (!m_1.isEmpty()) {\r\n" + 
 				"for (int i = 0; i < m_1.toArray().length; i++) {\r\n" + 
 				"s = cloner.deepClone(s_1);\r\n" + 
@@ -148,7 +147,7 @@ public class MainFileCreator {
 				"a = new_m;\r\n" + 
 				"}\r\n" + 
 				"}\r\n" + 
-				"System.out.println(a.getMsgName());\r\n" + 
+				"System.out.println(printMessage(a));\r\n" + 
 				"new_s.setMessageQueue(mq_3);\r\n" + 
 				"new_s.setState_time_1(min_1);\r\n" + 
 				"new_s.setState_time_2(min_2);\r\n" +
@@ -172,7 +171,7 @@ public class MainFileCreator {
 									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")" + " && actors[id].getClass().getSimpleName().equals(\"" + metaData.getName() +"\")" + ") {\r\n"
 									+ "s_2 = " + "(("+ metaData.getName() +") new_s.getActors()[id])" + "." + msgsrv.getName() + "(t_1, t_2, new_s, mode);\r\n" + "if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {\r\n" + 
 											"queue.add(s_2);\r\n" + "states_num += 1;\r\n" + "System.out.println(printState(s_2, states_num));\r\n" +
-											"}" + "else System.out.println(\"equal\");\r\n" + "}\r\n";
+											"}" + "else System.out.println(\"equal:\\r\\n\" + printState(s_2, 0));\r\n" + "}\r\n";
 
 						}
 
@@ -184,9 +183,80 @@ public class MainFileCreator {
 				}
 			}
 		}
-				retValue += "\r\n" + "}\r\n" + "if (!m_2.isEmpty()) {\r\n" + 
+				retValue += "\r\n" + "}\r\n" + "}\r\n" + "if (m_2.isEmpty()) {\r\n" + 
 						"\r\n" + 
-						"}" + "}\r\n" + "}\r\n" + "}\r\n" + "}\r\n";
+						"System.out.println(\"time passing\");\r\n" + 
+						"s = cloner.deepClone(s_prime);\r\n" + 
+						"State new_s = cloner.deepClone(s_1);\r\n" + 
+						"MessageQueue<Message> mq_3 = new MessageQueue<Message>();\r\n" + 
+						"while (!s.getMessageQueue().isEmpty()) {\r\n" + 
+						"Message msg = s.getMessageQueue().remove();\r\n" + 
+						"if (msg.getAfter_1() < min_2) {\r\n" + 
+						"msg.setAfter_1(min_2);\r\n" + 
+						"}\r\n" + 
+						"mq_3.add(msg);\r\n" + 
+						"}\r\n" + 
+						"new_s.setMessageQueue(mq_3);\r\n" + 
+						"s = cloner.deepClone(new_s);\r\n" + 
+						"m = new Message();\r\n" + 
+						"timePoints = new ArrayList<TimePoint>();\r\n" + 
+						"timePoints_2 = new ArrayList<TimePoint>();\r\n" + 
+						"while (!s.getMessageQueue().isEmpty()) {\r\n" + 
+						"TimePoint tp_1 = new TimePoint();\r\n" + 
+						"TimePoint tp_2 = new TimePoint();\r\n" + 
+						"m = s.getMessageQueue().remove();\r\n" + 
+						"tp_1.setTime(m.getAfter_1());\r\n" + 
+						"tp_1.setType(\"b\");\r\n" + 
+						"timePoints.add(tp_1);\r\n" + 
+						"tp_2.setTime(m.getAfter_2());\r\n" + 
+						"tp_2.setType(\"e\");\r\n" + 
+						"timePoints.add(tp_2);\r\n" + 
+						"}\r\n" + 
+						"timePoints_2 = cloner.deepClone(timePoints);\r\n" + 
+						"if (!timePoints_2.isEmpty()) {\r\n" + 
+						"min_1 = timePoints_2.remove(0).getTime();\r\n" + 
+						"min_2 = timePoints_2.remove(0).getTime();\r\n" + 
+						"while (min_2 == min_1 && !timePoints_2.isEmpty()) {\r\n" + 
+						"min_2 = timePoints_2.remove(0).getTime();\r\n" + 
+						"}\r\n" + 
+						"r = 0;\r\n" + 
+						"if (min_2 < min_1) {\r\n" + 
+						"r = min_1;\r\n" + 
+						"min_1 = min_2;\r\n" + 
+						"min_2 = r;\r\n" + 
+						"}\r\n" + 
+						"l = timePoints_2.toArray().length;\r\n" + 
+						"for (int i = 0; i < l; i++) {\r\n" + 
+						"float new_t = timePoints_2.remove(0).getTime();\r\n" + 
+						"if (new_t < min_1) {\r\n" + 
+						"min_2 = min_1;\r\n" + 
+						"min_1 = new_t;\r\n" + 
+						"} else if (new_t < min_2 && new_t != min_1) {\r\n" + 
+						"min_2 = new_t;\r\n" + 
+						"}\r\n" + 
+						"}\r\n" + 
+						"s = cloner.deepClone(s_1);\r\n" + 
+						"while (!s.getMessageQueue().isEmpty()) {\r\n" + 
+						"Message msg = s.getMessageQueue().remove();\r\n" + 
+						"if (msg.getAfter_1() == min_1 && msg.getAfter_2() == min_1) {\r\n" + 
+						"min_2 = min_1;\r\n" + 
+						"break;\r\n" + 
+						"}\r\n" + 
+						"}\r\n" + 
+						"System.out.println(\"min_1: \" + min_1);\r\n" + 
+						"System.out.println(\"min_2: \" + min_2);" +
+						"new_s.setState_time_1(min_1);\r\n" + 
+						"new_s.setState_time_2(min_2);\r\n" + 
+						"t_1 = min_1;\r\n" + 
+						"t_2 = min_2;\r\n" + 
+						"if (!contains(queue, new_s, mode) && !contains(queue_2, new_s, mode)) {\r\n" + 
+						"queue.add(new_s);\r\n" + 
+						"states_num += 1;\r\n" + 
+						"System.out.println(printState(new_s, states_num));\r\n" + 
+						"} else\r\n" + 
+						"System.out.println(\"equal:\\r\\n\" + printState(new_s, 0));\r\n" + 
+						"}\r\n" +  
+						"}\r\n" + "}\r\n" + "}\r\n" + "}\r\n";
 		return retValue;
 	}
 
@@ -232,7 +302,8 @@ public class MainFileCreator {
 		retValue += "private static String printState(State s, int state_number) {\r\n" + 
 				"String retValue = \"\";\r\n" + 
 				"retValue += \"-------------------------------------------------------------------------\\r\\n\";\r\n" + 
-				"retValue += \"State number: \" + state_number + \"\\r\\n\";\r\n" + 
+				"retValue += \"State number: \" + state_number + \"\\r\\n\";\r\n" +
+				"retValue += \"State begin time: \" + s.getState_time_1() + \", State end time: \" + s.getState_time_2() + \"\\r\\n\";\r\n"+
 				"MessageQueue<Message> mq = s.getMessageQueue();\r\n" + 
 				"Actors[] actors = s.getActors();\r\n" + 
 				"Iterator<Message> itr = mq.iterator();\r\n" + 
@@ -345,7 +416,7 @@ public class MainFileCreator {
 									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")" + " && actors[id].getClass().getSimpleName().equals(\"" + metaData.getName() +"\")" + ") {\r\n"
 									+ "s_2 = " + "(("+ metaData.getName() +") new_s.getActors()[id])" + "." + msgsrv.getName() + "(t_1, t_2, new_s, mode);\r\n" + "if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {\r\n" + 
 											"queue.add(s_2);\r\n" + "states_num += 1;\r\n" + "System.out.println(printState(s_2, states_num));\r\n" +
-											"}" + "else System.out.println(\"equal\");\r\n" + "}\r\n";
+											"}" + "else System.out.println(\"equal:\\r\\n\" + printState(s_2, 0));\r\n" + "}\r\n";
 
 						}
 

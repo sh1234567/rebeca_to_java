@@ -55,6 +55,10 @@ public class TimedRebecaModelTransformer extends AbstractModelTransformer {
 		String msgQueueFileContent = msgQueueFileCreator.getMsgQueueFileContent();
 		srcDirCreator.addFile("MessageQueue.java", msgQueueFileContent);
 		
+		TimePointFileCreator timePointFileCreator = new TimePointFileCreator(modelName);
+		String timePointFileContent = timePointFileCreator.getTimePointFileContent();
+		srcDirCreator.addFile("TimePoint.java", timePointFileContent);
+		
 		MsgComparatorFileCreator msgComparatorFileCreator = new MsgComparatorFileCreator(modelName);
 		String msgComparatorFileContent = msgComparatorFileCreator.getMsgComparatorFileContent();
 		srcDirCreator.addFile("MessageComparator.java", msgComparatorFileContent);

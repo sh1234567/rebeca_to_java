@@ -4,7 +4,7 @@ import java.util.*;
 import com.rits.cloning.Cloner;
 public class Main {
 public static void main(String[] args) throws CloneNotSupportedException {
-String mode = "d";
+String mode = "i";
 Queue<State> queue = new LinkedList<State>();
 Queue<State> queue_2 = new LinkedList<State>();
 MessageQueue<Message> mq = new MessageQueue<Message>();
@@ -77,7 +77,7 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal");
+}else System.out.println("equal:\r\n" + printState(s_2, 0));
 }
 id = 0;
 for (int j = 0; j < actorsNames.length; j++) {
@@ -92,7 +92,7 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal");
+}else System.out.println("equal:\r\n" + printState(s_2, 0));
 }
 }
 }
@@ -137,12 +137,9 @@ r = min_1;
 min_1 = min_2;
 min_2 = r;
 }
-System.out.println(min_1);
-System.out.println(min_2);
 int l = timePoints_2.toArray().length;
 for (int i = 0; i < l; i++) {
 float new_t = timePoints_2.remove(0).getTime();
-System.out.println("aaa" + new_t);
 if (new_t < min_1) {
 min_2 = min_1;
 min_1 = new_t;
@@ -150,8 +147,17 @@ min_1 = new_t;
 min_2 = new_t;
 }
 }
-System.out.println("min_1: " + min_1);
+s = cloner.deepClone(s_1);
+while (!s.getMessageQueue().isEmpty()) {
+Message msg = s.getMessageQueue().remove();
+if (msg.getAfter_1() == min_1 && msg.getAfter_2() == min_1) {
+min_2 = min_1;
+break;
+}
+}System.out.println("min_1: " + min_1);
 System.out.println("min_2: " + min_2);
+t_1 = min_1;
+t_2 = min_2;
 s = cloner.deepClone(s_1);
 ArrayList<Message> m_1 = new ArrayList<Message>();
 ArrayList<Message> m_2 = new ArrayList<Message>();
@@ -164,14 +170,8 @@ if (msg.getAfter_2() == min_2) {
 m_2.add(cloner.deepClone(msg));
 }
 }
-for (int i = 0; i < m_1.toArray().length; i++) {
-System.out.println("m_1: " + m_1.get(i).getAfter_1());
-}
-for (int i = 0; i < m_2.toArray().length; i++) {
-System.out.println("m_2: " + m_2.get(i).getAfter_2());
-}
-System.out.println(m_1.toArray().length);
 s = cloner.deepClone(s_1);
+State s_prime = cloner.deepClone(s_1);
 if (!m_1.isEmpty()) {
 for (int i = 0; i < m_1.toArray().length; i++) {
 s = cloner.deepClone(s_1);
@@ -186,7 +186,7 @@ mq_3.add(new_m);
 a = new_m;
 }
 }
-System.out.println(a.getMsgName());
+System.out.println(printMessage(a));
 new_s.setMessageQueue(mq_3);
 new_s.setState_time_1(min_1);
 new_s.setState_time_2(min_2);
@@ -204,7 +204,7 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal");
+}else System.out.println("equal:\r\n" + printState(s_2, 0));
 }
 id = 0;
 for (int j = 0; j < actorsNames.length; j++) {
@@ -219,13 +219,84 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal");
+}else System.out.println("equal:\r\n" + printState(s_2, 0));
 }
 
 }
-if (!m_2.isEmpty()) {
+}
+if (m_2.isEmpty()) {
 
-}}
+System.out.println("time passing");
+s = cloner.deepClone(s_prime);
+State new_s = cloner.deepClone(s_1);
+MessageQueue<Message> mq_3 = new MessageQueue<Message>();
+while (!s.getMessageQueue().isEmpty()) {
+Message msg = s.getMessageQueue().remove();
+if (msg.getAfter_1() < min_2) {
+msg.setAfter_1(min_2);
+}
+mq_3.add(msg);
+}
+new_s.setMessageQueue(mq_3);
+s = cloner.deepClone(new_s);
+m = new Message();
+timePoints = new ArrayList<TimePoint>();
+timePoints_2 = new ArrayList<TimePoint>();
+while (!s.getMessageQueue().isEmpty()) {
+TimePoint tp_1 = new TimePoint();
+TimePoint tp_2 = new TimePoint();
+m = s.getMessageQueue().remove();
+tp_1.setTime(m.getAfter_1());
+tp_1.setType("b");
+timePoints.add(tp_1);
+tp_2.setTime(m.getAfter_2());
+tp_2.setType("e");
+timePoints.add(tp_2);
+}
+timePoints_2 = cloner.deepClone(timePoints);
+if (!timePoints_2.isEmpty()) {
+min_1 = timePoints_2.remove(0).getTime();
+min_2 = timePoints_2.remove(0).getTime();
+while (min_2 == min_1 && !timePoints_2.isEmpty()) {
+min_2 = timePoints_2.remove(0).getTime();
+}
+r = 0;
+if (min_2 < min_1) {
+r = min_1;
+min_1 = min_2;
+min_2 = r;
+}
+l = timePoints_2.toArray().length;
+for (int i = 0; i < l; i++) {
+float new_t = timePoints_2.remove(0).getTime();
+if (new_t < min_1) {
+min_2 = min_1;
+min_1 = new_t;
+} else if (new_t < min_2 && new_t != min_1) {
+min_2 = new_t;
+}
+}
+s = cloner.deepClone(s_1);
+while (!s.getMessageQueue().isEmpty()) {
+Message msg = s.getMessageQueue().remove();
+if (msg.getAfter_1() == min_1 && msg.getAfter_2() == min_1) {
+min_2 = min_1;
+break;
+}
+}
+System.out.println("min_1: " + min_1);
+System.out.println("min_2: " + min_2);new_s.setState_time_1(min_1);
+new_s.setState_time_2(min_2);
+t_1 = min_1;
+t_2 = min_2;
+if (!contains(queue, new_s, mode) && !contains(queue_2, new_s, mode)) {
+queue.add(new_s);
+states_num += 1;
+System.out.println(printState(new_s, states_num));
+} else
+System.out.println("equal:\r\n" + printState(new_s, 0));
+}
+}
 }
 }
 }
@@ -252,6 +323,7 @@ private static String printState(State s, int state_number) {
 String retValue = "";
 retValue += "-------------------------------------------------------------------------\r\n";
 retValue += "State number: " + state_number + "\r\n";
+retValue += "State begin time: " + s.getState_time_1() + ", State end time: " + s.getState_time_2() + "\r\n";
 MessageQueue<Message> mq = s.getMessageQueue();
 Actors[] actors = s.getActors();
 Iterator<Message> itr = mq.iterator();
