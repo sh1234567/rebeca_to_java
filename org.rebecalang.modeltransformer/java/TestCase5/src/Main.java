@@ -5,6 +5,7 @@ import com.rits.cloning.Cloner;
 public class Main {
 public static void main(String[] args) throws CloneNotSupportedException {
 String mode = "i";
+String programRetValue = "";
 Queue<State> queue = new LinkedList<State>();
 Queue<State> queue_2 = new LinkedList<State>();
 MessageQueue<Message> mq = new MessageQueue<Message>();
@@ -31,6 +32,7 @@ s_0.setMessageQueue(mq);
 queue.add(s_0);
 states_num += 1;
 System.out.println(printState(s_0, states_num));
+programRetValue += printState(s_0, states_num);
 int n = 0;
 if (mode.equals("d")) {
 while (!queue.isEmpty()) {
@@ -77,7 +79,11 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += printState(s_2, states_num);
+}else {
+System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += "equal:\r\n" + printState(s_2, 0);
+}
 }
 id = 0;
 for (int j = 0; j < actorsNames.length; j++) {
@@ -92,7 +98,11 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += printState(s_2, states_num);
+}else {
+System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += "equal:\r\n" + printState(s_2, 0);
+}
 }
 }
 }
@@ -155,7 +165,9 @@ min_2 = min_1;
 break;
 }
 }System.out.println("min_1: " + min_1);
+programRetValue += "min_1: " + min_1 + "\r\n";
 System.out.println("min_2: " + min_2);
+programRetValue += "min_2: " + min_2  + "\r\n";
 t_1 = min_1;
 t_2 = min_2;
 s = cloner.deepClone(s_1);
@@ -187,10 +199,12 @@ a = new_m;
 }
 }
 System.out.println(printMessage(a));
+programRetValue += printMessage(a) + "\r\n";
 new_s.setMessageQueue(mq_3);
 new_s.setState_time_1(min_1);
 new_s.setState_time_2(min_2);
 System.out.println(printState(new_s, 0));
+programRetValue += printState(new_s, 0);
 id = 0;
 for (int j = 0; j < actorsNames.length; j++) {
 if (actorsNames[j] != null && actorsNames[j].equals("pi")) {
@@ -204,7 +218,11 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += printState(s_2, states_num);
+}else {
+System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += "equal:\r\n" + printState(s_2, 0);
+}
 }
 id = 0;
 for (int j = 0; j < actorsNames.length; j++) {
@@ -219,7 +237,11 @@ if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {
 queue.add(s_2);
 states_num += 1;
 System.out.println(printState(s_2, states_num));
-}else System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += printState(s_2, states_num);
+}else {
+System.out.println("equal:\r\n" + printState(s_2, 0));
+programRetValue += "equal:\r\n" + printState(s_2, 0);
+}
 }
 
 }
@@ -227,6 +249,7 @@ System.out.println(printState(s_2, states_num));
 if (m_2.isEmpty()) {
 
 System.out.println("time passing");
+programRetValue += "time passing" + "\r\n";
 s = cloner.deepClone(s_prime);
 State new_s = cloner.deepClone(s_1);
 MessageQueue<Message> mq_3 = new MessageQueue<Message>();
@@ -285,7 +308,9 @@ break;
 }
 }
 System.out.println("min_1: " + min_1);
-System.out.println("min_2: " + min_2);new_s.setState_time_1(min_1);
+programRetValue += "min_1: " + min_1 + "\r\n";
+System.out.println("min_2: " + min_2);programRetValue += "min_2: " + min_2 + "\r\n";
+new_s.setState_time_1(min_1);
 new_s.setState_time_2(min_2);
 t_1 = min_1;
 t_2 = min_2;
@@ -293,28 +318,41 @@ if (!contains(queue, new_s, mode) && !contains(queue_2, new_s, mode)) {
 queue.add(new_s);
 states_num += 1;
 System.out.println(printState(new_s, states_num));
-} else
+programRetValue += printState(new_s, states_num);
+} else {
 System.out.println("equal:\r\n" + printState(new_s, 0));
+programRetValue += "equal:\r\n" + printState(new_s, 0);
+}
 }
 }
 }
 }
 }
 
+DirectoryCreator directoryCreator = new DirectoryCreator();
+try {
+directoryCreator.addFile("prog_notes.txt", programRetValue);
+} catch (IOException e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
 }
 private static boolean contains(Queue<State> queue, State s_1, String mode) {
 // TODO Auto-generated method stub
 Iterator i = queue.iterator();
 while (i.hasNext()) {
 State s = (State) i.next();
-if (s_1.equals(s, mode))
+if (s_1.equals(s, mode)) {
+System.out.println("equal_2: " + printState(s_1, 0));
+System.out.println("equal_1: " + printState(s, 0));
 return true;
+}
 }
 return false;
 }
 private static String printMessage(Message msg) {
 String retValue = "";
-retValue += retValue += "MsgName:" + msg.getMsgName() + ", " + "MsgSender:" + msg.getSender() + ", "
+retValue += "MsgName:" + msg.getMsgName() + ", " + "MsgSender:" + msg.getSender() + ", "
 + "MsgReceiver:" + msg.getReceiver() + ", " + "MsgAfterIntervalBegin:" + msg.getAfter_1() + ", "
 + "MsgAfterIntervalEnd:" + msg.getAfter_2() + "\r\n";
 return retValue;
@@ -352,7 +390,7 @@ retValue += "\r\n";
 }
 }
 }
-retValue += "-------------------------------------------------------------------------";
+retValue += "-------------------------------------------------------------------------" + "\r\n";
 DirectoryCreator directoryCreator = new DirectoryCreator();
 try {
 directoryCreator.addFile("a.txt", retValue);

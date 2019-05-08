@@ -82,8 +82,8 @@ public class State implements Cloneable {
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
 					float a_2 = (messages_2[j].getAfter_2() - messages_2[j].getAfter_1())
-							/ (messages_1[j].getAfter_2() - messages_1[j].getAfter_1());
-					float b_2 = messages_2[j].getAfter_2() - (a_2 * messages_1[j].getAfter_2());
+							/ (messages_1[i].getAfter_2() - messages_1[i].getAfter_1());
+					float b_2 = messages_2[j].getAfter_2() - (a_2 * messages_1[i].getAfter_2());
 					if (messages_1[i].equals_2(messages_2[j]) && (a_1 == a_2) && (b_1 == b_2) && a[i] != 1
 							&& b[j] != 1) {
 						a[i] = 1;

@@ -12,7 +12,7 @@ public class StateFileCreator {
 		// TODO Auto-generated method stub
 		String retValue = "";
 		retValue += "package " + modelName + ";\r\n\r\n";
-		retValue +=   "public class State implements Cloneable {\r\n" + 
+		retValue += "public class State implements Cloneable {\r\n" + 
 				"	private MessageQueue<Message> messageQueue = new MessageQueue<Message>();\r\n" + 
 				"	private Actors[] actors;\r\n" + 
 				"	private float state_time_1;\r\n" + 
@@ -94,8 +94,8 @@ public class StateFileCreator {
 				"			for (int i = 0; i < n; i++) {\r\n" + 
 				"				for (int j = 0; j < n; j++) {\r\n" + 
 				"					float a_2 = (messages_2[j].getAfter_2() - messages_2[j].getAfter_1())\r\n" + 
-				"							/ (messages_1[j].getAfter_2() - messages_1[j].getAfter_1());\r\n" + 
-				"					float b_2 = messages_2[j].getAfter_2() - (a_2 * messages_1[j].getAfter_2());\r\n" + 
+				"							/ (messages_1[i].getAfter_2() - messages_1[i].getAfter_1());\r\n" + 
+				"					float b_2 = messages_2[j].getAfter_2() - (a_2 * messages_1[i].getAfter_2());\r\n" + 
 				"					if (messages_1[i].equals_2(messages_2[j]) && (a_1 == a_2) && (b_1 == b_2) && a[i] != 1\r\n" + 
 				"							&& b[j] != 1) {\r\n" + 
 				"						a[i] = 1;\r\n" + 

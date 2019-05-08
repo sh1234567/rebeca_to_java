@@ -41,6 +41,7 @@ public class MainFileCreator {
 				"import com.rits.cloning.Cloner;\r\n";
 		retValue += "public class Main {\r\n" + "public static void main(String[] args) throws CloneNotSupportedException {\r\n"
 				+ "String mode = \"i\";\r\n"
+				+ "String programRetValue = \"\";\r\n"
 				+ "Queue<State> queue = new LinkedList<State>();\r\n"
 				+ "Queue<State> queue_2 = new LinkedList<State>();\r\n"
 				+ "MessageQueue<Message> mq = new MessageQueue<Message>();\r\n"
@@ -54,8 +55,15 @@ public class MainFileCreator {
 								"s_0.setActors(actors);\r\n" + 
 								"s_0.setMessageQueue(mq);\r\n" + 
 								"queue.add(s_0);\r\n" + "states_num += 1;\r\n" +
-								"System.out.println(printState(s_0, states_num));\r\n" + "int n = 0;\r\n"
-				+ discreteTimeQueueManagement() + continuousTimeQueueManagement() + "\r\n" + "}\r\n" + containsFunction() + printMessageFunction() + printStateFunction() + printStatesQueueFunction() + "}";
+								"System.out.println(printState(s_0, states_num));\r\n" +
+								"programRetValue += printState(s_0, states_num);\r\n" + "int n = 0;\r\n"
+				+ discreteTimeQueueManagement() + continuousTimeQueueManagement() + "\r\n" + "DirectoryCreator directoryCreator = new DirectoryCreator();\r\n" + 
+						"try {\r\n" + 
+						"directoryCreator.addFile(\"prog_notes.txt\", programRetValue);\r\n" + 
+						"} catch (IOException e) {\r\n" + 
+						"// TODO Auto-generated catch block\r\n" + 
+						"e.printStackTrace();\r\n" + 
+						"}\r\n" + "}\r\n" + containsFunction() + printMessageFunction() + printStateFunction() + printStatesQueueFunction() + "}";
 		return retValue;
 	}
 
@@ -116,7 +124,9 @@ public class MainFileCreator {
 				"}\r\n" + 
 				"}" +
 				"System.out.println(\"min_1: \" + min_1);\r\n" + 
+				"programRetValue += \"min_1: \" + min_1 + \"\\r\\n\";\r\n" +
 				"System.out.println(\"min_2: \" + min_2);\r\n" + 
+				"programRetValue += \"min_2: \" + min_2  + \"\\r\\n\";\r\n" +
 				"t_1 = min_1;\r\n" +
 				"t_2 = min_2;\r\n" +
 				"s = cloner.deepClone(s_1);\r\n" + 
@@ -148,10 +158,12 @@ public class MainFileCreator {
 				"}\r\n" + 
 				"}\r\n" + 
 				"System.out.println(printMessage(a));\r\n" + 
+				"programRetValue += printMessage(a) + \"\\r\\n\";\r\n" +
 				"new_s.setMessageQueue(mq_3);\r\n" + 
 				"new_s.setState_time_1(min_1);\r\n" + 
 				"new_s.setState_time_2(min_2);\r\n" +
-				"System.out.println(printState(new_s, 0));\r\n"; 
+				"System.out.println(printState(new_s, 0));\r\n" +
+				"programRetValue += printState(new_s, 0);\r\n"; 
 		for (ReactiveClassDeclaration rc : rebecaModel.getRebecaCode().getReactiveClassDeclaration()) {
 			for (MsgsrvDeclaration msgsrv : rc.getMsgsrvs()) {
 				for (MainRebecDefinition md : rebecaModel.getRebecaCode().getMainDeclaration()
@@ -170,8 +182,8 @@ public class MainFileCreator {
 							retValue += "if (a.getReceiver().equals(\"" + md.getName()
 									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")" + " && actors[id].getClass().getSimpleName().equals(\"" + metaData.getName() +"\")" + ") {\r\n"
 									+ "s_2 = " + "(("+ metaData.getName() +") new_s.getActors()[id])" + "." + msgsrv.getName() + "(t_1, t_2, new_s, mode);\r\n" + "if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {\r\n" + 
-											"queue.add(s_2);\r\n" + "states_num += 1;\r\n" + "System.out.println(printState(s_2, states_num));\r\n" +
-											"}" + "else System.out.println(\"equal:\\r\\n\" + printState(s_2, 0));\r\n" + "}\r\n";
+											"queue.add(s_2);\r\n" + "states_num += 1;\r\n" + "System.out.println(printState(s_2, states_num));\r\n" + "programRetValue += printState(s_2, states_num);\r\n" +
+											"}" + "else {\r\nSystem.out.println(\"equal:\\r\\n\" + printState(s_2, 0));\r\n" + "programRetValue += \"equal:\\r\\n\" + printState(s_2, 0);\r\n" + "}\r\n}\r\n";
 
 						}
 
@@ -186,6 +198,7 @@ public class MainFileCreator {
 				retValue += "\r\n" + "}\r\n" + "}\r\n" + "if (m_2.isEmpty()) {\r\n" + 
 						"\r\n" + 
 						"System.out.println(\"time passing\");\r\n" + 
+						"programRetValue += \"time passing\" + \"\\r\\n\";\r\n" +
 						"s = cloner.deepClone(s_prime);\r\n" + 
 						"State new_s = cloner.deepClone(s_1);\r\n" + 
 						"MessageQueue<Message> mq_3 = new MessageQueue<Message>();\r\n" + 
@@ -244,7 +257,9 @@ public class MainFileCreator {
 						"}\r\n" + 
 						"}\r\n" + 
 						"System.out.println(\"min_1: \" + min_1);\r\n" + 
+						"programRetValue += \"min_1: \" + min_1 + \"\\r\\n\";\r\n" +
 						"System.out.println(\"min_2: \" + min_2);" +
+						"programRetValue += \"min_2: \" + min_2 + \"\\r\\n\";\r\n" +
 						"new_s.setState_time_1(min_1);\r\n" + 
 						"new_s.setState_time_2(min_2);\r\n" + 
 						"t_1 = min_1;\r\n" + 
@@ -253,9 +268,11 @@ public class MainFileCreator {
 						"queue.add(new_s);\r\n" + 
 						"states_num += 1;\r\n" + 
 						"System.out.println(printState(new_s, states_num));\r\n" + 
-						"} else\r\n" + 
+						"programRetValue += printState(new_s, states_num);\r\n" +
+						"} else {\r\n" + 
 						"System.out.println(\"equal:\\r\\n\" + printState(new_s, 0));\r\n" + 
-						"}\r\n" +  
+						"programRetValue += \"equal:\\r\\n\" + printState(new_s, 0);\r\n" +
+						"}\r\n}\r\n" +  
 						"}\r\n" + "}\r\n" + "}\r\n" + "}\r\n";
 		return retValue;
 	}
@@ -265,7 +282,7 @@ public class MainFileCreator {
 		String retValue = "";
 		retValue += "private static String printMessage(Message msg) {\r\n" + 
 				"String retValue = \"\";\r\n" + 
-				"retValue += retValue += \"MsgName:\" + msg.getMsgName() + \", \" + \"MsgSender:\" + msg.getSender() + \", \"\r\n" + 
+				"retValue += \"MsgName:\" + msg.getMsgName() + \", \" + \"MsgSender:\" + msg.getSender() + \", \"\r\n" + 
 				"+ \"MsgReceiver:\" + msg.getReceiver() + \", \" + \"MsgAfterIntervalBegin:\" + msg.getAfter_1() + \", \"\r\n" + 
 				"+ \"MsgAfterIntervalEnd:\" + msg.getAfter_2() + \"\\r\\n\";\r\n" + 
 				"return retValue;\r\n" + 
@@ -334,7 +351,7 @@ public class MainFileCreator {
 		}
 				 retValue += "}\r\n" + 
 				 		"}\r\n" + 
-				 		"retValue += \"-------------------------------------------------------------------------\";\r\n" + 
+				 		"retValue += \"-------------------------------------------------------------------------\" + \"\\r\\n\";\r\n" + 
 				 		"DirectoryCreator directoryCreator = new DirectoryCreator();\r\n" + 
 				 		"try {\r\n" + 
 				 		"directoryCreator.addFile(\"a.txt\", retValue);\r\n" + 
@@ -355,8 +372,11 @@ public class MainFileCreator {
 				"Iterator i = queue.iterator();\r\n" + 
 				"while (i.hasNext()) {\r\n" + 
 				"State s = (State) i.next();\r\n" + 
-				"if (s_1.equals(s, mode))\r\n" + 
+				"if (s_1.equals(s, mode)) {\r\n" + 
+				"System.out.println(\"equal_2: \" + printState(s_1, 0));\r\n" + 
+				"System.out.println(\"equal_1: \" + printState(s, 0));\r\n" + 
 				"return true;\r\n" + 
+				"}\r\n" + 
 				"}\r\n" + 
 				"return false;\r\n" + 
 				"}\r\n";
@@ -415,8 +435,8 @@ public class MainFileCreator {
 							retValue += "if (a.getReceiver().equals(\"" + md.getName()
 									+ "\") && a.getMsgName().equals(\"" + msgsrv.getName() + "\")" + " && actors[id].getClass().getSimpleName().equals(\"" + metaData.getName() +"\")" + ") {\r\n"
 									+ "s_2 = " + "(("+ metaData.getName() +") new_s.getActors()[id])" + "." + msgsrv.getName() + "(t_1, t_2, new_s, mode);\r\n" + "if (!contains(queue, s_2, mode) && !contains(queue_2, s_2, mode)) {\r\n" + 
-											"queue.add(s_2);\r\n" + "states_num += 1;\r\n" + "System.out.println(printState(s_2, states_num));\r\n" +
-											"}" + "else System.out.println(\"equal:\\r\\n\" + printState(s_2, 0));\r\n" + "}\r\n";
+											"queue.add(s_2);\r\n" + "states_num += 1;\r\n" + "System.out.println(printState(s_2, states_num));\r\n" + "programRetValue += printState(s_2, states_num);\r\n" +
+											"}" + "else {\r\nSystem.out.println(\"equal:\\r\\n\" + printState(s_2, 0));\r\n" + "programRetValue += \"equal:\\r\\n\" + printState(s_2, 0);\r\n" + "}\r\n}\r\n";
 
 						}
 
