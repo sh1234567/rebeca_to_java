@@ -11,10 +11,8 @@ public class StateFileCreator {
 	public String getStateFileContent() {
 		// TODO Auto-generated method stub
 		String retValue = "";
-		retValue += "package " + modelName + ";\r\n";
-		retValue += "import java.util.*;\r\n" + 
-				"\r\n" + 
-				"public class State implements Cloneable {\r\n" + 
+		retValue += "package " + modelName + ";\r\n\r\n";
+		retValue +=   "public class State implements Cloneable {\r\n" + 
 				"	private MessageQueue<Message> messageQueue = new MessageQueue<Message>();\r\n" + 
 				"	private Actors[] actors;\r\n" + 
 				"	private float state_time_1;\r\n" + 
@@ -44,7 +42,7 @@ public class StateFileCreator {
 				"\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 
-				"	public boolean equalMessageQueue(MessageQueue m2, String mode) {\r\n" + 
+				"	public boolean equalMessageQueue(MessageQueue m2, String mode, float a_1, float b_1) {\r\n" + 
 				"		Message[] messages_1 = new Message[50];\r\n" + 
 				"		Message[] messages_2 = new Message[50];\r\n" + 
 				"		Object[] array = messageQueue.toArray();\r\n" + 
@@ -70,24 +68,49 @@ public class StateFileCreator {
 				"		if (n != m) {\r\n" + 
 				"			return false;\r\n" + 
 				"		}\r\n" + 
-				"		float d = messages_1[0].getAfter_1() - messages_2[0].getAfter_1();\r\n" + 
-				"		int a[] = new int[n];\r\n" + 
-				"		int b[] = new int[n];\r\n" + 
-				"		for (int i = 0; i < n; i++) {\r\n" + 
-				"			for (int j = 0; j < n; j++) {\r\n" + 
-				"				if (messages_1[i].equals_2(messages_2[j]) && (messages_1[i].getAfter_1() - messages_2[j].getAfter_1() == d)\r\n" + 
-				"						&& a[i] != 1 && b[j] != 1) {\r\n" + 
-				"					a[i] = 1;\r\n" + 
-				"					b[j] = 1;\r\n" + 
+				"		if (mode.equals(\"d\")) {\r\n" + 
+				"			float d = messages_1[0].getAfter_1() - messages_2[0].getAfter_1();\r\n" + 
+				"			int a[] = new int[n];\r\n" + 
+				"			int b[] = new int[n];\r\n" + 
+				"			for (int i = 0; i < n; i++) {\r\n" + 
+				"				for (int j = 0; j < n; j++) {\r\n" + 
+				"					if (messages_1[i].equals_2(messages_2[j])\r\n" + 
+				"							&& (messages_1[i].getAfter_1() - messages_2[j].getAfter_1() == d) && a[i] != 1\r\n" + 
+				"							&& b[j] != 1) {\r\n" + 
+				"						a[i] = 1;\r\n" + 
+				"						b[j] = 1;\r\n" + 
+				"					}\r\n" + 
 				"				}\r\n" + 
 				"			}\r\n" + 
-				"		}\r\n" + 
-				"		for (int i = 0; i < n; i++) {\r\n" + 
-				"			if (a[i] == 0) {\r\n" + 
-				"				return false;\r\n" + 
+				"			for (int i = 0; i < n; i++) {\r\n" + 
+				"				if (a[i] == 0) {\r\n" + 
+				"					return false;\r\n" + 
+				"				}\r\n" + 
 				"			}\r\n" + 
+				"			return true;\r\n" + 
+				"		} else {\r\n" + 
+				"			int a[] = new int[n];\r\n" + 
+				"			int b[] = new int[n];\r\n" + 
+				"			for (int i = 0; i < n; i++) {\r\n" + 
+				"				for (int j = 0; j < n; j++) {\r\n" + 
+				"					float a_2 = (messages_2[j].getAfter_2() - messages_2[j].getAfter_1())\r\n" + 
+				"							/ (messages_1[j].getAfter_2() - messages_1[j].getAfter_1());\r\n" + 
+				"					float b_2 = messages_2[j].getAfter_2() - (a_2 * messages_1[j].getAfter_2());\r\n" + 
+				"					if (messages_1[i].equals_2(messages_2[j]) && (a_1 == a_2) && (b_1 == b_2) && a[i] != 1\r\n" + 
+				"							&& b[j] != 1) {\r\n" + 
+				"						a[i] = 1;\r\n" + 
+				"						b[j] = 1;\r\n" + 
+				"					}\r\n" + 
+				"				}\r\n" + 
+				"			}\r\n" + 
+				"			for (int i = 0; i < n; i++) {\r\n" + 
+				"				if (a[i] == 0) {\r\n" + 
+				"					return false;\r\n" + 
+				"				}\r\n" + 
+				"			}\r\n" + 
+				"			return true;\r\n" + 
 				"		}\r\n" + 
-				"		return true;\r\n" + 
+				"\r\n" + 
 				"	}\r\n" + 
 				"\r\n" + 
 				"	public boolean equalActorsArray(Actors[] a2, String mode) {\r\n" + 
@@ -101,7 +124,9 @@ public class StateFileCreator {
 				"	}\r\n" + 
 				"\r\n" + 
 				"	public boolean equals(State a, String mode) {\r\n" + 
-				"		if (!(this.equalMessageQueue(a.getMessageQueue(), mode)))\r\n" + 
+				"		float a_1 = (a.getState_time_2() - a.getState_time_1()) / (this.getState_time_2() - this.getState_time_1());\r\n" + 
+				"		float b_1 = a.getState_time_2() - (a_1 * this.getState_time_2());\r\n" + 
+				"		if (!(this.equalMessageQueue(a.getMessageQueue(), mode, a_1, b_1)))\r\n" + 
 				"			return false;\r\n" + 
 				"		if (!(this.equalActorsArray(a.getActors(), mode)))\r\n" + 
 				"			return false;\r\n" + 

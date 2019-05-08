@@ -1,5 +1,4 @@
 package TestCase5;
-import java.util.*;
 
 public class State implements Cloneable {
 	private MessageQueue<Message> messageQueue = new MessageQueue<Message>();
@@ -31,7 +30,7 @@ public class State implements Cloneable {
 
 	}
 
-	public boolean equalMessageQueue(MessageQueue m2, String mode) {
+	public boolean equalMessageQueue(MessageQueue m2, String mode, float a_1, float b_1) {
 		Message[] messages_1 = new Message[50];
 		Message[] messages_2 = new Message[50];
 		Object[] array = messageQueue.toArray();
@@ -57,24 +56,49 @@ public class State implements Cloneable {
 		if (n != m) {
 			return false;
 		}
-		float d = messages_1[0].getAfter_1() - messages_2[0].getAfter_1();
-		int a[] = new int[n];
-		int b[] = new int[n];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (messages_1[i].equals_2(messages_2[j]) && (messages_1[i].getAfter_1() - messages_2[j].getAfter_1() == d)
-						&& a[i] != 1 && b[j] != 1) {
-					a[i] = 1;
-					b[j] = 1;
+		if (mode.equals("d")) {
+			float d = messages_1[0].getAfter_1() - messages_2[0].getAfter_1();
+			int a[] = new int[n];
+			int b[] = new int[n];
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					if (messages_1[i].equals_2(messages_2[j])
+							&& (messages_1[i].getAfter_1() - messages_2[j].getAfter_1() == d) && a[i] != 1
+							&& b[j] != 1) {
+						a[i] = 1;
+						b[j] = 1;
+					}
 				}
 			}
-		}
-		for (int i = 0; i < n; i++) {
-			if (a[i] == 0) {
-				return false;
+			for (int i = 0; i < n; i++) {
+				if (a[i] == 0) {
+					return false;
+				}
 			}
+			return true;
+		} else {
+			int a[] = new int[n];
+			int b[] = new int[n];
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					float a_2 = (messages_2[j].getAfter_2() - messages_2[j].getAfter_1())
+							/ (messages_1[j].getAfter_2() - messages_1[j].getAfter_1());
+					float b_2 = messages_2[j].getAfter_2() - (a_2 * messages_1[j].getAfter_2());
+					if (messages_1[i].equals_2(messages_2[j]) && (a_1 == a_2) && (b_1 == b_2) && a[i] != 1
+							&& b[j] != 1) {
+						a[i] = 1;
+						b[j] = 1;
+					}
+				}
+			}
+			for (int i = 0; i < n; i++) {
+				if (a[i] == 0) {
+					return false;
+				}
+			}
+			return true;
 		}
-		return true;
+
 	}
 
 	public boolean equalActorsArray(Actors[] a2, String mode) {
@@ -88,7 +112,9 @@ public class State implements Cloneable {
 	}
 
 	public boolean equals(State a, String mode) {
-		if (!(this.equalMessageQueue(a.getMessageQueue(), mode)))
+		float a_1 = (a.getState_time_2() - a.getState_time_1()) / (this.getState_time_2() - this.getState_time_1());
+		float b_1 = a.getState_time_2() - (a_1 * this.getState_time_2());
+		if (!(this.equalMessageQueue(a.getMessageQueue(), mode, a_1, b_1)))
 			return false;
 		if (!(this.equalActorsArray(a.getActors(), mode)))
 			return false;
